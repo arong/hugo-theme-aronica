@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="prose">
+  <h1 class="text-4xl font-bold mb-6">All Categories</h1>
+  <ul class="space-y-4">
+    {{ range .Data.Terms.Alphabetical }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}" class="text-lg text-green-500 hover:underline">
+        {{ .Term }} ({{ .Count }})
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

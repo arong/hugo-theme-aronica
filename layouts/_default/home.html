@@ -1,25 +1,4 @@
 {{ define "main" }}
-<div class="max-w-prose">
-  {{ range site.RegularPages }}
-    <a href="{{ .RelPermalink }}">
-      <div class="card dark:bg-neutral dark:text-neutral-content mt-4 mx-4">
-        <div class="card-body">
-          <h2 class="card-title">{{ .LinkTitle }}</h2>
-          <p>
-            {{ if .Summary }} 
-              {{ .Summary }} 
-            {{ else if .Description }}
-              {{ .Description }} 
-            {{ else }} 
-              {{ .Plain | truncate 50 }} 
-            {{ end }}
-          </p>
-          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }} 
-          {{ $dateHuman := .Date | time.Format "2006-01-02" }}
-          <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-        </div>
-      </div>
-    </a>
-  {{ end }}
-</div>
+  {{ $pages := where site.RegularPages "RelPermalink" "ne" "/about/" }}
+  {{ partial "post-list.html" (dict "Pages" $pages) }}
 {{ end }}

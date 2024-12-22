@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="prose">
+  <h1>All Tags</h1>
+  <ul class="grid grid-cols-2 gap-4 list-none">
+    {{ range .Data.Terms.Alphabetical }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}" class="btn no-underline">
+        {{ .Term }}
+        <div class="badge">{{ .Count }}</div>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}
