@@ -1,9 +1,8 @@
 {{ define "main" }}
-<!-- {{ .Content }} -->
-<div class="m-4">
+<div class="max-w-prose">
   {{ range site.RegularPages }}
     <a href="{{ .RelPermalink }}">
-      <div class="card dark:bg-neutral dark:text-neutral-content mt-4">
+      <div class="card dark:bg-neutral dark:text-neutral-content mt-4 mx-4">
         <div class="card-body">
           <h2 class="card-title">{{ .LinkTitle }}</h2>
           <p>
