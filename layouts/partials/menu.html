@@ -12,7 +12,7 @@ Renders a menu for the given menu ID.
 
 {{- with index site.Menus $menuID }}
   <nav>
-    <ul class="menu menu-horizontal lg:text-lg">
+    <ul class="menu menu-vertical lg:menu-horizontal lg:text-lg">
       {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
     </ul>
   </nav>

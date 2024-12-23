@@ -7,10 +7,12 @@
     {{ partial "head.html" . }}
   </head>
   <body class="flex flex-col items-center min-h-screen">
-    <header class="navbar flex-none">{{ partial "header.html" . }}</header>
-    <div class="flex-grow">
+    {{ if not .IsPage }}
+      <header class="navbar flex-none items-center">{{ partial "header.html" . }}</header>
+    {{ end }}
+    <div class="flex-grow {{ if not .IsPage }}mt-4{{ else }}mt-8{{ end }}">
       <main class="prose">{{ block "main" . }}{{ end }}</main>
     </div>
-    <footer class="flex-none">{{ partial "footer.html" . }}</footer>
+    <footer class="flex-none mt-8">{{ partial "footer.html" . }}</footer>
   </body>
 </html>
