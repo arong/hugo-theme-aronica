@@ -1,32 +1,50 @@
-<div class="not-prose max-w-prose flex flex-col gap-6">
+<div class="max-w-prose flex flex-col divide-y">
   {{ range .Pages }}
-  <a href="{{ .RelPermalink }}" class="no-underline">
-    <div class="card dark:bg-neutral dark:text-neutral-content mt-4 mx-4">
-      <div class="card-body">
-        <h2 class="card-title">{{ .LinkTitle }}</h2>
-        {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }} {{
-        $dateHuman := .Date | time.Format "2006-01-02" }}
-        <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-
-        <p>{{ .Summary }}</p>
-
-        {{ with .Params.tags }}
-          <p>标签:
-            {{ range . }}
-              <a href="/tags/{{ . | urlize }}" class="badge">#{{ . }}</a>
-            {{ end }}
-          </p>
+    <div class="pt-4 pb-4">
+      <a class="no-underline" href="{{ .RelPermalink }}">
+        {{ if .Description }}
+          <hgroup>
+            <h1 class="m-0">{{ .LinkTitle }}</h1>
+            <p class="mt-0 text-gray-600 text-xl">{{ .Description }}</p>
+          </hgroup>
+        {{ else }}
+          <h1>{{ .LinkTitle }}</h1>
         {{ end }}
+      </a>
 
+      <div class="inline-flex justify-items-center space-x-2 divide-x divide-gray-300 text-gray-600">
+        <!-- 发布日期 -->
+        <span >
+          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+          {{ $dateHuman := .Date | time.Format "2006-01-02" }}
+          <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+        </span>
+
+        <!-- 阅读时间 -->
+        <span class="pl-2">{{ .ReadingTime }} 分钟</span>
+
+        <!-- 字数 -->
+        <span class="pl-2">{{ .WordCount }} 字</span>
+      </div>
+
+      <p>{{ .Summary }}</p>
+
+      {{ with .Params.tags }}
+          {{ range . }}
+            <a href="/tags/{{ . | urlize }}" class="badge bg-neutral-content no-underline">#{{ . }}</a>
+          {{ end }}
+      {{ end }}
+
+      <div class="flex flex-row justify-between items-center">
         {{ with .Params.categories }}
-          <p>分类:
-            {{ range . }}
-              <a href="/categories/{{ . | urlize }}" class="badge">{{ . }}</a>
-            {{ end }}
-          </p>
+        <p class="badge"> &#x1F4C1;
+          {{ range . }}
+              <a href="/categories/{{ . | urlize }}" class="no-underline">{{ . }}</a>
+          {{ end }}
+        </p>
         {{ end }}
+        <a class="link link-hover" href="{{ .RelPermalink }}">阅读原文 &rarr;</a>
       </div>
     </div>
-  </a>
   {{ end }}
 </div>
