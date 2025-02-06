@@ -4,6 +4,12 @@
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
 
-{{- if site.Config.Services.GoogleAnalytics.ID }}
-{{ partial "google-analytics.html" }}
-{{- end }}
+{{ if hugo.IsProduction }}
+  {{ if site.Config.Services.GoogleAnalytics.ID }}
+    {{ partial "google-analytics.html" }}
+  {{ end }}
+{{ end }}
+
+{{ if .Param "math" }}
+  {{ partialCached "math.html" . }}
+{{ end }}
