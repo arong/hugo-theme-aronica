@@ -1,0 +1,25 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $src = .RelPermalink -}}
+    {{- with $u.RawQuery -}}
+      {{- $src = printf "%s?%s" $src . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $src = printf "%s#%s" $src . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<figure class="flex flex-col items-center justify-center">
+    <img src="{{ $src }}" alt="{{ .PlainText }}"
+    {{- with .Title }} title="{{ . }}" {{- end -}}
+    {{- with index .Attributes "width" -}} width="{{ . }}" {{- end -}}
+    {{- with index .Attributes "height" -}} height="{{ . }}" {{- end -}}
+    >
+    {{- with index .Attributes "caption" -}}
+        <figcaption>{{ . }}</figcaption>
+    {{- end -}}
+</figure>
+{{- /**/ -}}
