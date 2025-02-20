@@ -1,4 +1,6 @@
 {{ define "main" }}
-  {{ $pages := where site.RegularPages "RelPermalink" "ne" "/about/" }}
-  {{ partial "post-list.html" (dict "Pages" $pages) }}
+  {{ $PageList := where site.RegularPages "RelPermalink" "ne" "/about/" }}
+  {{ $paginator := .Paginate $PageList 15 }}
+  {{ partial "post-list.html" (dict "Pages" $paginator.Pages) }}
+  {{ partial "pagination.html" . }}
 {{ end }}
