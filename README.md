@@ -19,7 +19,10 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
 ## TODO
 
 - [ ] 增加边栏导航
-- [ ] 增加分页
+- [x] 增加分页
+    - [x] 首页
+    - [x] Category
+    - [x] Tags
 - [ ] 适配手机端
 - [ ] 增加暗黑模式
 - [ ] 为代码块增加复制按钮

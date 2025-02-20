@@ -18,7 +18,7 @@
         {{ $currentPage := . }}
         {{ $currentTags := .Params.tags }}
         {{ $relatedPosts := slice }}
-        {{ range .Site.Pages }}
+        {{ range .Site.RegularPages }}
           {{ if and (ne .Permalink $currentPage.Permalink) (intersect .Params.tags $currentTags) }}
             {{ $relatedPosts = $relatedPosts | append . }}
           {{ end }}
@@ -49,30 +49,45 @@
           </table>
         {{ end }}
 
-        <div class="latest-posts">
-          <h2>最新帖子</h2>
-          <ul>
-              {{ range first 5 (where .Site.RegularPages "Type" "post").ByDate.Reverse }}
-              <li>
-                  <a href="{{ .Permalink }}">{{ .Title }}</a>
-              </li>
+        <div id="latest-posts">
+          <table class="table w-full">
+            <thead>
+              <tr>
+                <th>最新帖子</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{ range first 5 .Site.RegularPages.ByDate.Reverse }}
+              <tr
+                class="hover:bg-base-200 cursor-pointer"
+                data-href="{{ .Permalink }}"
+                onclick="window.location.href=this.dataset.href"
+              >
+                <td>
+                  <span class="text-primary">{{ .Title }}</span>
+                </td>
+              </tr>
               {{ end }}
-          </ul>
+            </tbody>
+          </table>
         </div>
 
         <div id="post-categories">
-          <h3>文章分类</h3>
-          <table class="table">
+          <table class="table w-full">
             <thead>
               <tr>
-                <th>分类</th>
+                <th>文章分类</th>
                 <th>数量</th>
               </tr>
             </thead>
             <tbody>
-              {{ range .Site.Taxonomies.categories }}
-              <tr>
-                <td><a class="link link-hover" href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></td>
+              {{ range .Site.Taxonomies.categories.ByCount }}
+              <tr
+                class="hover:bg-base-200 cursor-pointer"
+                data-href="{{ .Page.Permalink }}"
+                onclick="window.location.href=this.dataset.href"
+              >
+                <td><span class="text-primary">{{ .Page.Title }}</span></td>
                 <td>{{ len .Pages }}</td>
               </tr>
               {{ end }}
@@ -80,30 +95,35 @@
           </table>
         </div>
 
-        <div class="w-full">
-          <h3>标签</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- 第一栏 -->
-            <ul class="space-y-2">
-              {{ range $index, $element := first 10 (sort .Site.Taxonomies.tags.ByCount.Reverse "Count" "desc") }}
-                <li class="bg-gray-100 rounded-lg p-2 flex justify-between items-center">
-                  <span>{{ $element.Name }}</span>
-                  <span class="text-gray-500">{{ $element.Count }}</span>
-                </li>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>标签</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ $tagList := first 20 .Site.Taxonomies.tags.ByCount }}
+            {{ range $index, $tag := $tagList }}
+              {{ if mod $index 2 | eq 0 }}
+                <tr>
+                  <td class="hover:bg-base-200">
+                    <a href="{{ $tag.Page.Permalink }}" class="flex justify-between w-full text-primary">
+                      <span>{{ $tag.Name }}</span>
+                      <span class="text-gray-500">{{ $tag.Count }}</span>
+                    </a>
+                  </td>
+                  {{ $next := index $tagList (add $index 1) }}
+                  <td class="hover:bg-base-200">
+                    <a href="{{ $next.Page.Permalink }}" class="flex justify-between w-full text-primary">
+                      <span>{{ $next.Name }}</span>
+                      <span class="text-gray-500">{{ $next.Count }}</span>
+                    </a>
+                  </td>
+                </tr>
               {{ end }}
-            </ul>
-
-            <!-- 第二栏 -->
-            <ul class="space-y-2">
-              {{ range $index, $element := first 10 (after 10 (sort .Site.Taxonomies.tags.ByCount.Reverse "Count" "desc")) }}
-                <li class="bg-gray-100 rounded-lg p-2 flex justify-between items-center">
-                  <span>{{ $element.Name }}</span>
-                  <span class="text-gray-500">{{ $element.Count }}</span>
-                </li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
+            {{ end }}
+          </tbody>
+        </table>
       </aside>
     </div>
     <footer class="flex-none mt-8">{{ partial "footer.html" . }}</footer>
