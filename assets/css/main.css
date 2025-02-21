@@ -1797,6 +1797,29 @@ html {
   justify-self: end;
 }
 
+.mockup-code {
+  position: relative;
+  overflow: hidden;
+  overflow-x: auto;
+  min-width: 18rem;
+  border-radius: var(--rounded-box, 1rem);
+  --tw-bg-opacity: 1;
+  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity)));
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  --tw-text-opacity: 1;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+  direction: ltr;
+}
+
+.mockup-code pre[data-prefix]:before {
+  content: attr(data-prefix);
+  display: inline-block;
+  text-align: right;
+  width: 2rem;
+  opacity: 0.5;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -2143,6 +2166,28 @@ html {
 .menu :where(li > .menu-dropdown-toggle.menu-dropdown-show):after {
   transform: rotate(225deg);
   margin-top: 0;
+}
+
+.mockup-code:before {
+  content: "";
+  margin-bottom: 1rem;
+  display: block;
+  height: 0.75rem;
+  width: 0.75rem;
+  border-radius: 9999px;
+  opacity: 0.3;
+  box-shadow: 1.4em 0,
+        2.8em 0,
+        4.2em 0;
+}
+
+.mockup-code pre {
+  padding-right: 1.25rem;
+}
+
+.mockup-code pre:before {
+  content: "";
+  margin-right: 2ch;
 }
 
 @keyframes modal-pop {
@@ -2595,6 +2640,10 @@ html {
 
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .cursor-pointer {
