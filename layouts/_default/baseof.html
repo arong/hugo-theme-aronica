@@ -44,6 +44,7 @@
       <article class="flex-1 max-w-none p-4">
         {{ block "main" . }}{{ end }}
       </article>
+      <div class="divider pt-16 pb-0 lg:hidden"></div>
       <aside class="w-full lg:w-1/3 flex flex-col">
         {{ $currentPage := . }}
         {{ $currentTags := .Params.tags }}
@@ -57,7 +58,7 @@
         {{ $top10Posts := first 10 $sortedPosts }}
 
         {{ if gt (len $top10Posts) 0 }}
-          <table class="table">
+          <table id="related-post" class="table">
             <thead>
               <tr>
                 <th class="prose-lg">相关帖子</th>
@@ -82,53 +83,48 @@
 
         {{ $latestPost := first 5 .Site.RegularPages.ByDate.Reverse }}
         {{ if gt (len $latestPost) 0 }}
-          <div id="latest-posts" class="w-full">
-            <table class="table w-full">
-              <thead>
-                <tr>
-                  <th class="prose-lg">最新帖子</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{ range $latestPost }}
-                <tr
-                  class="hover:bg-base-200 cursor-pointer"
-                  data-href="{{ .RelPermalink }}"
-                  onclick="window.location.href=this.dataset.href"
-                >
-                  <td>
-                    <span class="text-primary">{{ .Title }}</span>
-                  </td>
-                </tr>
-                {{ end }}
-              </tbody>
-            </table>
-          </div>
-        {{ end }}
-
-
-        <div id="post-categories">
-          <table class="table w-full">
+          <table id="latest-posts" class="table w-full">
             <thead>
-              <tr class="prose-lg">
-                <th>文章分类</th>
-                <th>数量</th>
+              <tr>
+                <th class="prose-lg">最新帖子</th>
               </tr>
             </thead>
             <tbody>
-              {{ range .Site.Taxonomies.categories.ByCount }}
+              {{ range $latestPost }}
               <tr
                 class="hover:bg-base-200 cursor-pointer"
-                data-href="{{ .Page.RelPermalink }}"
+                data-href="{{ .RelPermalink }}"
                 onclick="window.location.href=this.dataset.href"
               >
-                <td><span class="text-primary">{{ .Page.Title }}</span></td>
-                <td>{{ len .Pages }}</td>
+                <td>
+                  <span class="text-primary">{{ .Title }}</span>
+                </td>
               </tr>
               {{ end }}
             </tbody>
           </table>
-        </div>
+        {{ end }}
+
+        <table id="post-categories" class="table w-full">
+          <thead>
+            <tr class="prose-lg">
+              <th>文章分类</th>
+              <th>数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Site.Taxonomies.categories.ByCount }}
+            <tr
+              class="hover:bg-base-200 cursor-pointer"
+              data-href="{{ .Page.RelPermalink }}"
+              onclick="window.location.href=this.dataset.href"
+            >
+              <td><span class="text-primary">{{ .Page.Title }}</span></td>
+              <td>{{ len .Pages }}</td>
+            </tr>
+            {{ end }}
+          </tbody>
+        </table>
 
         <table class="table">
           <thead>
