@@ -8,6 +8,9 @@
   {{ if site.Config.Services.GoogleAnalytics.ID }}
     {{ partial "google-analytics.html" }}
   {{ end }}
+  {{ if site.Config.Services.GoogleAdSense.ID }}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.Config.Services.GoogleAdSense.ID }}" crossorigin="anonymous"></script>
+  {{ end }}
 {{ end }}
 
 {{ if .Param "math" }}
