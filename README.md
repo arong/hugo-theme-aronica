@@ -18,7 +18,7 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
 
 ## TODO
 
-- [ ] 增加边栏导航
+- [x] 增加边栏导航
 - [x] 增加分页
     - [x] 首页
     - [x] Category

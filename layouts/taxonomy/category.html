@@ -1,5 +1,5 @@
 {{ define "main" }}
-<article class="prose">
+<article class="p-4 max-w-none">
   <h1 class="text-center">{{ .Title }}</h1>
   {{ $paginator := .Paginate .Pages 15 }}
   {{ partial "post-list.html" (dict "Pages" $paginator.Pages) }}
