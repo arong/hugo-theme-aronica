@@ -1,0 +1,42 @@
+<div class="overflow-x-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-300">
+<table
+  {{- range $k, $v := .Attributes }}
+    {{- if $v }}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr }}
+    {{- end }}
+  {{- end }}
+  class="table md:min-w-full"
+>
+  <thead>
+    {{- range .THead }}
+      <tr>
+        {{- range . }}
+          <th
+            class="text-lg"
+            {{- with .Alignment }}
+              {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+            {{- end -}}
+          >
+            {{- .Text -}}
+          </th>
+        {{- end }}
+      </tr>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range .TBody }}
+      <tr>
+        {{- range . }}
+          <td
+            {{- with .Alignment }}
+              {{- printf " style=%q" (printf "text-align: %s" .) | safeHTMLAttr }}
+            {{- end -}}
+          >
+            {{- .Text -}}
+          </td>
+        {{- end }}
+      </tr>
+    {{- end }}
+  </tbody>
+</table>
+</div>
