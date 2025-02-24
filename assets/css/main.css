@@ -2860,10 +2860,6 @@ details.collapse summary::-webkit-details-marker {
   max-width: 65ch;
 }
 
-.max-w-screen-sm {
-  max-width: 640px;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -3058,6 +3054,11 @@ details.collapse summary::-webkit-details-marker {
   text-align: right;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -3065,11 +3066,6 @@ details.collapse summary::-webkit-details-marker {
 
 .text-xl {
   font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
   line-height: 1.75rem;
 }
 
