@@ -2,14 +2,7 @@
   {{ range .Pages }}
     <div class="pt-4 pb-4">
       <a class="no-underline" href="{{ .RelPermalink }}">
-        {{ if .Description }}
-          <hgroup>
-            <h2 class="m-0">{{ .LinkTitle }}</h2>
-            <p class="mt-0 text-gray-600 text-xl">{{ .Description }}</p>
-          </hgroup>
-        {{ else }}
           <h2>{{ .LinkTitle }}</h2>
-        {{ end }}
       </a>
 
       <div class="inline-flex justify-items-center space-x-2 divide-x divide-gray-300 text-gray-600">
