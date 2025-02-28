@@ -1,0 +1,11 @@
+<table id="post-categories" class="table w-full">
+  <thead><tr class="prose-lg"><th>文章分类</th><th>数量</th></tr></thead>
+  <tbody>
+    {{ range .Site.Taxonomies.categories.ByCount }}
+    <tr class="hover:bg-base-200 cursor-pointer" data-href="{{ .Page.RelPermalink }}" onclick="window.location.href=this.dataset.href">
+      <td><span class="text-primary">{{ .Page.Title }}</span></td>
+      <td>{{ len .Pages }}</td>
+    </tr>
+    {{ end }}
+  </tbody>
+</table>

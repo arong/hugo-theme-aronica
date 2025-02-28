@@ -3643,10 +3643,6 @@ details.collapse summary::-webkit-details-marker {
   position: relative;
 }
 
-.m-0 {
-  margin: 0px;
-}
-
 .m-1 {
   margin: 0.25rem;
 }
@@ -3661,10 +3657,6 @@ details.collapse summary::-webkit-details-marker {
 
 .mr-4 {
   margin-right: 1rem;
-}
-
-.mt-0 {
-  margin-top: 0px;
 }
 
 .mt-12 {
