@@ -1,5 +1,5 @@
-{{ $latestPost := first 5 .Site.RegularPages.ByDate.Reverse }}
-{{ if gt (len $latestPost) 0 }}
+{{- $latestPost := first 5 .Site.RegularPages.ByDate.Reverse -}}
+{{- if gt (len $latestPost) 0 -}}
   <table id="latest-posts" class="table w-full">
     <thead>
       <tr>
@@ -7,17 +7,17 @@
       </tr>
     </thead>
     <tbody>
-      {{ range $latestPost }}
+      {{- range $latestPost -}}
       <tr
         class="hover:bg-base-200 cursor-pointer"
-        data-href="{{ .RelPermalink }}"
+        data-href="{{- .RelPermalink -}}"
         onclick="window.location.href=this.dataset.href"
       >
         <td>
-          <span class="text-primary">{{ .Title }}</span>
+          <span class="text-primary">{{- .Title -}}</span>
         </td>
       </tr>
-      {{ end }}
+      {{- end -}}
     </tbody>
   </table>
-{{ end }}
+{{- end -}}
