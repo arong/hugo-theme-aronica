@@ -18,29 +18,28 @@
         <span>{{- .WordCount -}} 字</span>
       </div>
 
-      <p>{{- .Summary -}}</p>
-
       {{- /* 标签 */ -}}
-      <div class="mt-4 flex flex-wrap gap-2">
+      <div class="mt-2 flex flex-wrap gap-2">
         {{- range .Params.tags -}}
-        <a href="/tags/{{- . | urlize -}}" class="badge badge-outline badge-primary link link-hover">#{{- . -}}</a>
+        <a href="/tags/{{- . | urlize -}}" class="badge link link-hover">#{{- . -}}</a>
         {{- end -}}
       </div>
 
+      <p>{{- .Summary -}}</p>
+
+      {{- /* category */ -}}
       <div class="flex flex-row justify-between items-center mt-4">
         <div class="flex flex-row">
         {{- range .Params.categories -}}
           <a href="/categories/{{- . | urlize -}}" class="flex items-center link link-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-primary">
-              <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
-            </svg>
-            <span class="text-primary">{{- . -}}</span>
+            {{- partialCached "icons/folder.html" (dict "Class" "fill-current") -}}
+            <span>{{- . -}}</span>
           </a>
         {{- end -}}
         </div>
-        <a class="link link-hover text-primary flex flex-row items-center" href="{{- .RelPermalink -}}">
+        <a class="link link-hover flex flex-row items-center" href="{{- .RelPermalink -}}">
           <span>阅读原文</span>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-primary"><path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z"/></svg>
+          {{- partialCached "icons/right-arrow.html" (dict "Class" "fill-current") -}}
         </a>
       </div>
     </div>

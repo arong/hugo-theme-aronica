@@ -1,8 +1,12 @@
-# aronica
+# hugo 主题 Aronica
 
 **DO NOT USE THIS THEME. It's under development.**
 
 **不要使用此主题, 正在开发中.**
+
+## 样例网站
+
+[https://www.arong-xu.com](https://www.arong-xu.com/)
 
 ## Features
 
@@ -23,8 +27,8 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
     - [x] 首页
     - [x] Category
     - [x] Tags
-- [ ] 适配手机端
-- [ ] 增加暗黑模式
+- [x] 适配手机端
+- [x] 增加暗黑模式
 - [ ] 为代码块增加复制按钮
 - [ ] 为导航栏增加悬停效果, 激活效果
 - [ ] 设计首页
