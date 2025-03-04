@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['content/**/*.md', 'layouts/**/*.html', "assets/js/*.js"],
+  content: ['layouts/**/*.html', "assets/js/*.js"],
   theme: {
     extend: {
       typography: (theme) => ({
@@ -18,6 +18,6 @@ module.exports = {
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
   daisyui: {
-    themes: ["corporate"],
+    themes: ["corporate", "dark", "light", "dracula"],
   },
 }

@@ -30,17 +30,13 @@
       </div>
 
       <!-- 移动端列表 -->
-      <div class="md:hidden space-y-2">
+      <div class="md:hidden flex flex-col divide-y divide-base-300">
         {{ range .Pages }}
-          <div class="p-2 even:bg-base-200 rounded-lg">
-            <div class="">
+            <div class="py-1">
               <a href="{{ .RelPermalink }}" class="link link-hover">
-                {{ .Title }}
-                <time class="text-sm text-gray-500">
-                  ({{ .Date.Format "2006-01-02" }})
-                </time>
+                <span>{{ .Title }}</span>
+                <time>({{ .Date.Format "2006-01-02" }})</time>
               </a>
-            </div>
           </div>
         {{ end }}
       </div>

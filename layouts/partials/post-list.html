@@ -1,43 +1,48 @@
-<div class="flex flex-col divide-y">
-  {{ range .Pages }}
+<div class="flex flex-col divide-y divide-base-300">
+  {{- range .Pages -}}
     <div class="pt-4 pb-4">
-      <a class="no-underline" href="{{ .RelPermalink }}">
-          <h2>{{ .LinkTitle }}</h2>
+      <a class="no-underline" href="{{- .RelPermalink -}}">
+          <h2>{{- .LinkTitle -}}</h2>
       </a>
 
-      <div class="inline-flex justify-items-center space-x-2 divide-x divide-gray-300 text-gray-600">
-        <!-- 发布日期 -->
-        <span >
-          {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-          {{ $dateHuman := .Date | time.Format "2006-01-02" }}
-          <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-        </span>
-
-        <!-- 阅读时间 -->
-        <span class="pl-2">{{ .ReadingTime }} 分钟</span>
-
-        <!-- 字数 -->
-        <span class="pl-2">{{ .WordCount }} 字</span>
+      <div class="inline-flex justify-between text-gray-600">
+        {{- /* 发布日期 */ -}}
+        {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+        {{- $dateHuman := .Date | time.Format "2006-01-02" -}}
+        <span><time datetime="{{- $dateMachine -}}">{{- $dateHuman -}}</time></span>
+        <div class="divider divider-horizontal mx-1"></div>
+        {{- /* 阅读时间 */ -}}
+        <span>{{- .ReadingTime -}} 分钟</span>
+        <div class="divider divider-horizontal mx-1"></div>
+        {{- /* 字数 */ -}}
+        <span>{{- .WordCount -}} 字</span>
       </div>
 
-      <p>{{ .Summary }}</p>
+      <p>{{- .Summary -}}</p>
 
-      {{ with .Params.tags }}
-          {{ range . }}
-            <a href="/tags/{{ . | urlize }}" class="badge bg-neutral-content no-underline">#{{ . }}</a>
-          {{ end }}
-      {{ end }}
+      {{- /* 标签 */ -}}
+      <div class="mt-4 flex flex-wrap gap-2">
+        {{- range .Params.tags -}}
+        <a href="/tags/{{- . | urlize -}}" class="badge badge-outline badge-primary link link-hover">#{{- . -}}</a>
+        {{- end -}}
+      </div>
 
-      <div class="flex flex-row justify-between items-center">
-        {{ with .Params.categories }}
-        <p class="badge"> &#x1F4C1;
-          {{ range . }}
-              <a href="/categories/{{ . | urlize }}" class="no-underline">{{ . }}</a>
-          {{ end }}
-        </p>
-        {{ end }}
-        <a class="link link-hover" href="{{ .RelPermalink }}">阅读原文 &rarr;</a>
+      <div class="flex flex-row justify-between items-center mt-4">
+        <div class="flex flex-row">
+        {{- range .Params.categories -}}
+          <a href="/categories/{{- . | urlize -}}" class="flex items-center link link-hover">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-primary">
+              <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/>
+            </svg>
+            <span class="text-primary">{{- . -}}</span>
+          </a>
+        {{- end -}}
+        </div>
+        <a class="link link-hover text-primary flex flex-row items-center" href="{{- .RelPermalink -}}">
+          <span>阅读原文</span>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-primary"><path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z"/></svg>
+        </a>
       </div>
     </div>
-  {{ end }}
+  {{- end -}}
 </div>
