@@ -1,5 +1,6 @@
 {{ define "main" }}
-<h2>所有分类</h2>
+<div class="prose">
+<h1>所有分类</h1>
 {{ range .Data.Terms.Alphabetical }}
   <div tabindex="0" class="collapse collapse-arrow border-base-300 border">
     <input type="checkbox" />
@@ -44,4 +45,5 @@
 
   </div>
 {{ end }}
+</div>
 {{ end }}
