@@ -1,0 +1,10 @@
+<div>
+    {{- $inner := .Inner -}}
+    {{- $isOrdered := false -}}
+    {{- $cols := .Get "cols" | default "2" -}}
+
+    <div class="grid grid-cols-{{ $cols }}">
+        {{- $inner | markdownify | safeHTML -}}
+    </div>
+    {{- end -}}
+</div>
