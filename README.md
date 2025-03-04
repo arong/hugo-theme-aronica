@@ -22,13 +22,15 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
 
 ## TODO
 
+- [ ] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
 - [x] 增加边栏导航
 - [x] 增加分页
     - [x] 首页
     - [x] Category
     - [x] Tags
 - [x] 适配手机端
-- [x] 增加暗黑模式
+- [x] 增加暗黑模式, 目前仅仅支持黑白切换
+    - [ ] 增加一个follow system的选项
 - [ ] 为代码块增加复制按钮
 - [ ] 为导航栏增加悬停效果, 激活效果
 - [ ] 设计首页
