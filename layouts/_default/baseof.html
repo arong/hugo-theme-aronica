@@ -7,7 +7,7 @@
     {{- if .Description -}}<meta name="description" content="{{- if .IsHome -}}{{- site.Params.description -}}{{- else -}}{{- .Description -}}{{- end -}}">{{- end -}}
     {{- if len .Keywords -}}<meta name="keywords" content="{{- delimit .Keywords "," -}}">{{- end -}}
     {{- partialCached "head/css.html" . -}}
-    <script defer src="theme.js"></script>
+    <script defer src="/theme.js"></script>
     {{- if hugo.IsProduction -}}
       {{- if site.Config.Services.GoogleAnalytics.ID -}}
         {{- partial "google-analytics.html" -}}
