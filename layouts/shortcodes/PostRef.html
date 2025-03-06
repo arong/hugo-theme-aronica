@@ -1,0 +1,32 @@
+{{- /*
+     * PostRef support reference post with path or uuid, it will
+     * generate a link to the post with the given path or uuid.
+     * and auto insert the post title as link text.
+*/ -}}
+
+{{- $path := .Get "path" | default "" -}}
+{{- $uuid := .Get "uuid" | default "" -}}
+
+{{- if and (not $path) (not $uuid) -}}
+    {{- errorf "PostRef: path or uuid is required" -}}
+{{- end -}}
+
+{{- if $path -}}
+    {{- $post := site.GetPage $path -}}
+    {{- if not $post -}}
+        {{- errorf "PostRef: path %q not found" $path -}}
+    {{- end -}}
+    <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+{{- else -}}
+    {{- $post := "" -}}
+    {{- range site.RegularPages -}}
+        {{- if eq .Params.uuid $uuid -}}
+            {{- $post = . -}}
+            {{- break -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if not $post -}}
+        {{- errorf "PostRef: uuid %q not found" $}}
+    {{- end -}}
+    <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
+{{- end -}}
