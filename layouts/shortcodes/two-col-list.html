@@ -1,0 +1,39 @@
+<div class="two-col-list">
+    {{- $inner := .Inner -}}
+    {{- $isOrdered := false -}}
+    {{- $cols := .Get "cols" | default "2" -}}
+
+    {{- /* Check if the first line starts with a number followed by a dot for ordered list */ -}}
+    {{- range (split $inner "\n") -}}
+        {{- if findRE `^\d+\.` . -}}
+            {{- $isOrdered = true -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- $items := split $inner "\n" -}}
+    {{- if gt (len $items) 1 -}}
+        {{- if $isOrdered -}}
+            <ol class="grid grid-cols-{{ $cols }} list-decimal">
+        {{- else -}}
+            <ul class="grid grid-cols-{{ $cols }} list-none">
+        {{- end -}}
+        {{- range $items -}}
+            {{- /* skip empty line */ -}}
+            {{- if not (eq . "") -}}
+                {{- $item := . -}}
+                {{- /* Remove leading '-' or '1.' */ -}}
+                {{- if $isOrdered -}}
+                    {{- $item = replaceRE `^\d+\.\s*` "" $item -}}
+                {{- else -}}
+                    {{- $item = replaceRE `^\-\s*` "" $item -}}
+                {{- end -}}
+                <li>{{- $item | markdownify | safeHTML -}}</li>
+            {{- end -}}
+        {{- end -}}
+        {{- if $isOrdered -}}
+            </ol>
+        {{- else -}}
+            </ul>
+        {{- end -}}
+    {{- end -}}
+</div>
