@@ -24,10 +24,7 @@ function setThemeBasedOnSystemPreference() {
     lightModeMediaQuery.addEventListener('change', applyTheme);
 }
 
-console.log("script loaded")
 function changeTheme() {
-    console.log("change theme loaded")
-
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
@@ -44,15 +41,15 @@ function updateIcons() {
     const currentTheme = document.documentElement.getAttribute('data-theme');
 
     if (currentTheme === 'dark') {
-        sunIcon.classList.remove('hidden');
-        sunIconMobile.classList.remove('hidden');
-        moonIcon.classList.add('hidden');
-        moonIconMobile.classList.add('hidden');
+        if (sunIcon) sunIcon.classList.remove('hidden');
+        if (sunIconMobile) sunIconMobile.classList.remove('hidden');
+        if (moonIcon) moonIcon.classList.add('hidden');
+        if (moonIconMobile) moonIconMobile.classList.add('hidden');
     } else {
-        sunIcon.classList.add('hidden');
-        sunIconMobile.classList.add('hidden');
-        moonIcon.classList.remove('hidden');
-        moonIconMobile.classList.remove('hidden');
+        if (sunIcon) sunIcon.classList.add('hidden');
+        if (sunIconMobile) sunIconMobile.classList.add('hidden');
+        if (moonIcon) moonIcon.classList.remove('hidden');
+        if (moonIconMobile) moonIconMobile.classList.remove('hidden');
     }
 }
 
