@@ -89,8 +89,11 @@
 
     {{- /* check if content has code blocks */ -}}
     {{- if .Page.Store.Get "PageHasCode" -}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js">
-    document.addEventListener('DOMContentLoaded', function() { new ClipboardJS('.btn-copy-code');});
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new ClipboardJS('.btn-copy-code');
+    });
     </script>
     {{- end -}}
     <footer class="prose flex-none mt-12">
