@@ -3918,6 +3918,22 @@ details.collapse summary::-webkit-details-marker {
   position: relative;
 }
 
+.right-0 {
+  right: 0px;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.top-1 {
+  top: 0.25rem;
+}
+
+.right-1 {
+  right: 0.25rem;
+}
+
 .m-1 {
   margin: 0.25rem;
 }
@@ -4169,6 +4185,14 @@ details.collapse summary::-webkit-details-marker {
   fill: var(--fallback-p,oklch(var(--p)/1));
 }
 
+.fill-primary-content {
+  fill: var(--fallback-pc,oklch(var(--pc)/1));
+}
+
+.fill-gray-300 {
+  fill: #d1d5db;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -4295,6 +4319,10 @@ details.collapse summary::-webkit-details-marker {
   text-decoration-line: none;
 }
 
+.opacity-0 {
+  opacity: 0;
+}
+
 .outline {
   outline-style: solid;
 }
@@ -4312,6 +4340,16 @@ details.collapse summary::-webkit-details-marker {
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
 }
 
 @media (min-width: 1024px) {
@@ -4356,6 +4394,10 @@ details.collapse summary::-webkit-details-marker {
 .hover\:text-primary-content:hover {
   --tw-text-opacity: 1;
   color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity, 1)));
+}
+
+.group:hover .group-hover\:block {
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -4406,5 +4448,15 @@ details.collapse summary::-webkit-details-marker {
   .lg\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark\:fill-gray-300 {
+    fill: #d1d5db;
+  }
+
+  .dark\:fill-gray-400 {
+    fill: #9ca3af;
   }
 }

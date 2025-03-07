@@ -22,6 +22,12 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
 
 ## TODO
 
+- [ ] 集成Google Search
+    ```html
+    <script async src="https://cse.google.com/cse.js?cx=2557c2a3f2f1c4c98">
+    </script>
+    <div class="gcse-search"></div>
+    ```
 - [ ] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
 - [x] 增加边栏导航
 - [x] 增加分页

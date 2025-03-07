@@ -4,10 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>{{- if .IsHome -}}{{- site.Title -}}{{- else -}}{{- printf "%s" .Title -}}{{- end -}}</title>
-    {{- if .Description -}}<meta name="description" content="{{- if .IsHome -}}{{- site.Params.description -}}{{- else -}}{{- .Description -}}{{- end -}}">{{- end -}}
-    {{- if len .Keywords -}}<meta name="keywords" content="{{- delimit .Keywords "," -}}">{{- end -}}
+    <meta name="description" content="{{- if .IsHome -}}{{- site.Params.description -}}{{- else -}}{{- .Description -}}{{- end -}}">
+    {{- $keywords := "" -}}
+    {{- if len .Keywords -}}
+      {{- $keywords = delimit .Keywords ", " -}}
+    {{- else -}}
+      {{- $keywords = delimit site.Params.Keywords ", " -}}
+    {{- end -}}
+    <meta name="keywords" content="{{- $keywords -}}">
     {{- partialCached "head/css.html" . -}}
-    {{- partial "head/js.html" . -}}
+    {{- partialCached "head/js.html" . -}}
     {{- if hugo.IsProduction -}}
       {{- if site.Config.Services.GoogleAnalytics.ID -}}
         {{- partial "google-analytics.html" -}}
@@ -81,6 +87,12 @@
       </aside>
     </main>
 
+    {{- /* check if content has code blocks */ -}}
+    {{- if .Page.Store.Get "PageHasCode" -}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js">
+    document.addEventListener('DOMContentLoaded', function() { new ClipboardJS('.btn-copy-code');});
+    </script>
+    {{- end -}}
     <footer class="prose flex-none mt-12">
       <p class="prose-xs text-neutral-content mt-4 mb-4">
         <span>Copyright</span>
