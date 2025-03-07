@@ -1,0 +1,28 @@
+<div class="max-w-prose relative group">
+    {{- $class := .Attributes.class | default ""    -}}
+    {{- $lang  := .Attributes.lang  | default .Type -}}
+    {{- /* generate auto incr id for code block */ -}}
+    {{- $codeBlockID := .Page.Store.Get "NextCodeBlockID" | default 1 -}}
+    {{- $nextCodeBlockID := add $codeBlockID 1 -}}
+    {{- .Page.Store.Set "NextCodeBlockID" $nextCodeBlockID -}}
+    {{- .Page.Store.Set "PageHasCode" true -}}
+    {{- $codeStrID := printf "code-block-%d" $codeBlockID -}}
+    <button class="btn-copy-code absolute top-1 right-1 hidden group-hover:block" data-clipboard-target="#{{ $codeStrID }}">
+        {{ partial "icons/clipboard.html" }}
+    </button>
+    {{- if transform.CanHighlight $lang -}}
+        <div id="{{$codeStrID}}"
+        {{- if $class -}}
+            class="{{- $class -}}"
+        {{- end -}}
+        >{{- highlight .Inner $lang -}}</div>
+    {{- else -}}
+        <pre>
+            <code id="{{$codeStrID}}"
+            {{- if $class -}}
+            class="{{- $class -}}"
+            {{- end -}}
+            >{{- .Inner -}}</code>
+        </pre>
+    {{- end -}}
+</div>

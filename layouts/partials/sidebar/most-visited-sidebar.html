@@ -1,0 +1,29 @@
+{{- $jsonFile := resources.Get "data/most-visited.json" -}}
+{{- if $jsonFile -}}
+  {{- $popularPages := transform.Unmarshal $jsonFile.Content -}}
+  {{- if $popularPages -}}
+    {{- if $popularPages.mostVisitedPost -}}
+      <table id="popular-posts" class="table w-full">
+        <thead>
+          <tr class="prose-lg">
+            <th>热门帖子</th>
+          </tr>
+        </thead>
+        <tbody>
+        {{- range $path := $popularPages.mostVisitedPost -}}
+          {{- $page := $.Site.GetPage $path -}}
+          {{- if $page -}}
+            <tr class="hover:bg-base-200 cursor-pointer"
+              data-href="{{- $page.RelPermalink -}}"
+              onclick="window.location.href=this.dataset.href">
+              <td>
+                <span class="text-primary">{{- $page.Title -}}</span>
+              </td>
+            </tr>
+          {{- end -}}
+        {{- end -}}
+        </tbody>
+      </table>
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

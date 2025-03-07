@@ -1,0 +1,13 @@
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}
+{{ if hugo.IsProduction }}
+  {{ if site.Config.Services.GoogleAnalytics.ID }}
+    {{ partial "google-analytics.html" }}
+  {{ end }}
+  {{ if site.Params.GoogleAdSense.ID }}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.Params.GoogleAdSense.ID }}" crossorigin="anonymous"></script>
+  {{ end }}
+{{ end }}
+{{ if .Param "math" }}
+  {{ partialCached "math.html" . }}
+{{ end }}

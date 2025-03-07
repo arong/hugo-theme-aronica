@@ -1,0 +1,4 @@
+{{ $path := .Get "path" }}
+{{ with readFile (printf "content/%s" $path) }}
+    {{ .| markdownify  | safeHTML }}
+{{ end }}

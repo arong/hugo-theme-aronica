@@ -1,0 +1,48 @@
+{{ define "main" }}
+<div class="prose">
+<h1>所有分类</h1>
+{{ range .Data.Terms.Alphabetical }}
+  <div tabindex="0" class="collapse collapse-arrow border-base-300 border">
+    <input type="checkbox" />
+    <div class="collapse-title text-xl flex flex-row bg-base-200 justify-between">
+      <span>{{ .Term }}</span>
+      <span class="badge badge-secondary">{{ .Count }}</span>
+    </div>
+
+    <div class="collapse-content">
+      <!-- 桌面端表格 -->
+      <div class="hidden md:block overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <tbody>
+            {{ range .Pages }}
+              <tr>
+                <td class="p-2">
+                  <a href="{{ .RelPermalink }}" class="link link-hover">
+                    {{ .Title }}
+                  </a>
+                </td>
+                <td class="text-right p-2">
+                  {{ .Date.Format "2006-01-02" }}
+                </td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 移动端列表 -->
+      <div class="md:hidden flex flex-col divide-y divide-base-300">
+        {{ range .Pages }}
+            <div class="py-1">
+              <a href="{{ .RelPermalink }}" class="link link-hover">
+                <span>{{ .Title }}</span>
+              </a>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+{{ end }}
+</div>
+{{ end }}

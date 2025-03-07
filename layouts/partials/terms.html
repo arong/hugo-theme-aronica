@@ -1,0 +1,23 @@
+{{- /*
+For a given taxonomy, renders a list of terms assigned to the page.
+
+@context {page} page The current page.
+@context {string} taxonomy The taxonomy.
+
+@example: {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+*/ -}}
+
+{{- $page := .page }}
+{{- $taxonomy := .taxonomy }}
+
+{{- with $page.GetTerms $taxonomy }}
+  {{- $label := (index . 0).Parent.LinkTitle }}
+  <div class="flex flex-row gap-2">
+    <p class="">{{ $label }}:</p>
+    <div class="flex flex-row flex-wrap items-center gap-3">
+      {{- range . }}
+        <a class="badge badge-outline link link-hover" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+      {{- end }}
+    </div>
+  </div>
+{{- end }}
