@@ -1,0 +1,52 @@
+{{- /* 提取 cpp 代码, 代码分为如下几种类型:
+     * 1. fullCode: 发送给Compiler Explorer的代码, 是完整版本的, 包含 include 头
+     * 2. showCode: 显示给用户的代码, 是精简版本的
+     * 需要注意代码块整体有缩进的情况
+    */ -}}
+
+{{- $rawCode   :=  trim .Inner "\n"  -}}
+{{- $lines     :=  split $rawCode "\n"  -}}
+{{- $firstLine := "" -}}
+{{- if $lines -}}
+    {{- $firstLine = index $lines 0 -}}
+{{- end -}}
+
+{{- $containsSpaceAndBrace := (strings.Contains $firstLine "{") -}}
+{{- $cppCode := "" -}}
+
+{{- if $containsSpaceAndBrace -}}
+{{- $cppCode = $rawCode | replaceRE "(?ms:^\\s*```cpp\\s+\\{.*?\\}?\n(.*)```$)" "$1" -}}
+{{- else -}}
+{{- $cppCode = $rawCode | replaceRE "(?ms:^\\s*```cpp\n(.*)```$)" "$1" -}}
+{{- end -}}
+
+{{- $fullCode := trim ($cppCode | replaceRE "//({|})\\n" "") "\n" -}}
+{{- $showCode := trim ($cppCode | replaceRE "(?s:.*//{(.*)//}.*)" "$1") "\n" -}}
+
+{{- /* trim indent */ -}}
+{{- if .Get "trimIndent" | default false -}}
+  {{- $result := slice -}}
+  {{- $lines = split $showCode "\n" -}}
+  {{- range $line := $lines -}}
+    {{- if ne $line "" -}}
+      {{- $result =  $result | append (strings.TrimPrefix "  " $line) -}}
+    {{- end -}}
+  {{- end -}}
+  {{$showCode = delimit $result "\n" "\n"}}
+{{- end -}}
+
+{{- /* generate client state*/ -}}
+{{- $flags       := .Get "flags" | default "-std=c++20" -}}
+{{- $fmt_version := .Get "fmt_version" | default "trunk" -}}
+{{- $fmt         := dict "id" "fmt" "version" $fmt_version -}}
+{{- $compiler    := dict "id" "clang_trunk" "libs" (slice $fmt) "options" $flags -}}
+{{- $executor    := dict "compiler" $compiler -}}
+{{- $session     := dict "id" 1 "language" "c++" "source" $fullCode "compilers" (slice) "executors" (slice $executor) -}}
+{{- $clientState := dict "sessions" (slice $session) -}}
+
+{{- $clientstate_b64 := replace ($clientState | jsonify | base64Encode) "/" "%2F" -}}
+
+{{- .Page.Store.Set "CompilerExploreClientState" $clientstate_b64 -}}
+{{- $showCode = add $firstLine "\n" $showCode  "\n```" -}}
+{{- $showCode | .Page.RenderString -}}
+{{- .Page.Store.Delete "CompilerExploreClientState" -}}

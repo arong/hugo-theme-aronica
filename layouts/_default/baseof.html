@@ -16,10 +16,6 @@
         <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
         <meta name="description" content="{{- .Description -}}">
       {{- end -}}
-    {{- else -}}
-      {{- if (not site.Params.EnableTaxonomyCrawl) -}}
-        <meta name="robots" content="noindex">
-      {{- end -}}
     {{- end -}}
 
     {{- partialCached "head/css.html" . -}}
@@ -83,12 +79,12 @@
       </div>
     </header>
 
-    <main id="content-zone" class="px-4 mt-8 w-full md:max-w-5xl prose flex flex-col md:flex-row md:space-x-8 justify-center">
-      <article class="flex-1 max-w-none">
+    <main id="content-zone" class="px-4 mt-8 w-full lg:w-5xl lg:max-w-5xl flex flex-col md:flex-row md:space-x-8 justify-center">
+      <article class="flex flex-col flex-grow prose">
         {{- block "main" . -}}{{- end -}}
       </article>
       <div class="divider pt-16 pb-0 lg:hidden"></div>
-      <aside class="w-full lg:w-1/3 flex flex-col">
+      <aside class="prose md:w-80 flex flex-col">
         {{- partial "sidebar/related-post.html" . -}}
         {{- partialCached "sidebar/latest-post.html" . -}}
         {{- partialCached "sidebar/most-visited-sidebar.html" . -}}

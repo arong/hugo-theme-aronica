@@ -1,28 +1,37 @@
-<div class="max-w-prose relative group">
+{{- /* handle border for code block */ -}}
+{{- $hasBorder:= .Page.Store.Get "HasBorder" | default true -}}
+<div class="not-prose relative group {{- if $hasBorder }} border border-base-300 {{- end -}}">
     {{- $class := .Attributes.class | default ""    -}}
     {{- $lang  := .Attributes.lang  | default .Type -}}
-    {{- /* generate auto incr id for code block */ -}}
-    {{- $codeBlockID := .Page.Store.Get "NextCodeBlockID" | default 1 -}}
-    {{- $nextCodeBlockID := add $codeBlockID 1 -}}
-    {{- .Page.Store.Set "NextCodeBlockID" $nextCodeBlockID -}}
-    {{- .Page.Store.Set "PageHasCode" true -}}
-    {{- $codeStrID := printf "code-block-%d" $codeBlockID -}}
-    <button class="btn-copy-code absolute top-1 right-1 hidden group-hover:block" data-clipboard-target="#{{ $codeStrID }}">
-        {{ partial "icons/clipboard.html" }}
-    </button>
-    {{- if transform.CanHighlight $lang -}}
-        <div id="{{$codeStrID}}"
-        {{- if $class -}}
-            class="{{- $class -}}"
+
+    {{- /* utility zone */ -}}
+    <div class="absolute top-1 right-1 flex flex-rot justify-end items-center gap-2">
+        {{- /* generate auto incr id for code block, for the clipboard.js */ -}}
+        {{- $codeBlockID := .Page.Store.Get "NextCodeBlockID" | default 1 -}}
+        {{- $nextCodeBlockID := add $codeBlockID 1 -}}
+        {{- .Page.Store.Set "NextCodeBlockID" $nextCodeBlockID -}}
+        {{- .Page.Store.Set "PageHasCode" true -}}
+        {{- $codeStrID := printf "code-block-%d" $codeBlockID -}}
+        <button title="复制到剪贴板"
+            class="btn-copy-code opacity-0 group-hover:opacity-100 transition-opacity duration-500 "
+            data-clipboard-target="#{{ $codeStrID }}">
+            {{ partial "icons/clipboard.html" }}
+        </button>
+
+        {{- /*check language and playground setting, to enable compiler explore feature*/ -}}
+        {{- $clientstate_b64 := .Page.Store.Get "CompilerExploreClientState" | default "" -}}
+        {{- if $clientstate_b64 -}}
+        <a title="在Compiler Explore中打开"
+            href="https://godbolt.org/clientstate/{{ $clientstate_b64 }}" target="_blank"
+            class="hover:brightness-125 group-hover:scale-110 transition-transform duration-300">
+            {{- partial "icons/run-icon.html" -}}
+        </a>
         {{- end -}}
-        >{{- highlight .Inner $lang -}}</div>
-    {{- else -}}
-        <pre>
-            <code id="{{$codeStrID}}"
-            {{- if $class -}}
-            class="{{- $class -}}"
-            {{- end -}}
-            >{{- .Inner -}}</code>
-        </pre>
-    {{- end -}}
+    </div>
+
+    <div id="{{$codeStrID}}" class="code-tab overflow-x-auto scrollbar-thin">
+        {{- $opts := (dict "noClasses" false "codeFences" true ) -}}
+        {{- $opts = merge $opts .Options }}
+        {{- highlight .Inner $lang $opts -}}
+    </div>
 </div>

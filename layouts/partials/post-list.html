@@ -20,9 +20,11 @@
 
       {{- /* 标签 */ -}}
       <div class="mt-2 flex flex-wrap gap-2">
-        {{- range .Params.tags -}}
-        <a href="/tags/{{- . | urlize -}}" class="badge link link-hover">#{{- . -}}</a>
-        {{- end -}}
+        {{ with .GetTerms "tags" }}
+          {{ range . }}
+            <a href="{{ .RelPermalink }}" class="badge link link-hover">#{{ .LinkTitle }}</a>
+          {{ end }}
+        {{ end }}
       </div>
 
       <p>{{- .Summary -}}</p>
@@ -30,12 +32,14 @@
       {{- /* category */ -}}
       <div class="flex flex-row justify-between items-center mt-4">
         <div class="flex flex-row">
-        {{- range .Params.categories -}}
-          <a href="/categories/{{- . | urlize -}}" class="flex items-center link link-hover">
-            {{- partialCached "icons/folder.html" (dict "Class" "fill-current") -}}
-            <span>{{- . -}}</span>
-          </a>
-        {{- end -}}
+        {{ with .GetTerms "categories" }}
+          {{ range . }}
+            <a href="{{ .RelPermalink }}" class="flex items-center link link-hover">
+              {{- partialCached "icons/folder.html" (dict "Class" "fill-current") -}}
+              <span>{{- .LinkTitle -}}</span>
+            </a>
+          {{ end }}
+        {{ end }}
         </div>
         <a class="link link-hover flex flex-row items-center" href="{{- .RelPermalink -}}">
           <span>阅读原文</span>

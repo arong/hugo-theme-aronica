@@ -1,0 +1,10 @@
+{{- $title := .Get "title" | default "" -}}
+{{- $codeTabsSeq := .Page.Store.Get "CodeTabsSeq" | default 0 -}}
+{{- $codeBlockID := .Page.Store.Get "CodeTabsIndex" | default 0 -}}
+{{- .Page.Store.Add "CodeTabsIndex" 1 -}}
+{{- $isFirst := eq $codeBlockID 0 -}}
+<input type="radio" name="code_tabs_{{ $codeTabsSeq }}" class="tab" aria-label="{{ $title }}" {{ if $isFirst }} checked {{ end }}>
+
+{{- .Page.Store.Set "HasBorder" false -}}
+<div role="tabpanel" class="tab-content bg-base-100 border-base-300 overflow-x-auto scrollbar-thin">{{- .Inner | .Page.RenderString -}}</div>
+{{- .Page.Store.Set "HasBorder" true -}}

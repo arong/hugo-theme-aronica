@@ -1,0 +1,9 @@
+<div class="overflow-x-auto">
+  <div role="tablist" class="tabs tabs-lifted">
+    {{- .Page.Store.Add "CodeTabsSeq" 1 -}}
+
+    {{/* reset the index on every new CodeTabs */}}
+    {{- .Page.Store.Set "CodeTabsIndex" 0 -}}
+    {{ .Inner }}
+  </div>
+</div>
