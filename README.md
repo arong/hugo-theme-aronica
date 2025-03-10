@@ -20,15 +20,24 @@
 git submodule add https://github.com/arong/hugo-theme-aronica.git
 ```
 
+## ShortCodes
+
+1. 多标签代码
+2. 引入公共文件, 比如专栏目录, 在专栏中的每一个文件中都引入相同的目录
+3. `PostRef`自动引用帖子的title和链接
+
 ## TODO
 
+- [ ] 增加Include Code的功能
+- [ ] 代码高亮, 增加代码选取以及在Compiler Explorer中运行代码
+    - https://www.foonathan.net/2021/05/hugo-godbolt/
 - [ ] 集成Google Search
     ```html
     <script async src="https://cse.google.com/cse.js?cx=2557c2a3f2f1c4c98">
     </script>
     <div class="gcse-search"></div>
     ```
-- [ ] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
+- [x] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
 - [x] 增加边栏导航
 - [x] 增加分页
     - [x] 首页

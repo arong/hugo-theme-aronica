@@ -1,0 +1,57 @@
+baseURL: 'https://example.org/'
+languageCode: 'zh-CN'
+title: 'My Hugo Site'
+
+menus:
+  main:
+    - name: 'Home'
+      pageRef: '/'
+      weight: 10
+    - name: 'Posts'
+      pageRef: '/posts'
+      weight: 20
+    - name: 'Tags'
+      pageRef: '/tags'
+      weight: 30
+
+module:
+  hugoVersion:
+    extended: false
+    min: "0.116.0"
+
+markup:
+  defaultMarkdownHandler: goldmark
+  markup.highlight:
+    codeFences: true
+    guessSyntax: true
+    lineNos: true # 显示行号
+    lineNumbersInTable: true # 行号独立于代码显示
+    tabWidth: 2
+    noClasses: false # 使用 CSS 类而不是内联样式
+    style: "dracula" # 设置高亮样式，可选值见下文
+    pygmentsUseClasses: true
+    pygmentsCodefences: true
+
+  goldmark:
+    parser:
+      attribute:
+        block: true
+        title: true
+      wrapStandAloneImageWithinParagraph: false
+    renderHooks:
+      image:
+        enableDefault: true
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)
+            - - $
+              - $
+        enable: true
