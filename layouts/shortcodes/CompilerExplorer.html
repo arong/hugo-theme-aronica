@@ -21,7 +21,15 @@
 {{- end -}}
 
 {{- $fullCode := trim ($cppCode | replaceRE "//({|})\\n" "") "\n" -}}
-{{- $showCode := trim ($cppCode | replaceRE "(?s:.*//{(.*)//}.*)" "$1") "\n" -}}
+{{- $matches  := $cppCode | findRESubmatch "(?s)//{(.*?)//}" -}}
+{{- $showCode := slice -}}
+{{- range $match := $matches -}}
+  {{- $showCode = $showCode | append (trim (index $match 1) "\n") -}}
+{{- end -}}
+{{- $showCode := delimit $showCode "\n" -}}
+{{- if not $showCode -}}
+  {{ $showCode = $cppCode }}
+{{- end -}}
 
 {{- /* trim indent */ -}}
 {{- if .Get "trimIndent" | default false -}}

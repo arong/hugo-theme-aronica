@@ -4,14 +4,16 @@
     {{- $class := .Attributes.class | default ""    -}}
     {{- $lang  := .Attributes.lang  | default .Type -}}
 
+    {{- /* generate auto incr id for code block, for the clipboard.js */ -}}
+    {{- $codeBlockID := .Page.Store.Get "NextCodeBlockID" | default 1 -}}
+    {{- $nextCodeBlockID := add $codeBlockID 1 -}}
+    {{- .Page.Store.Set "NextCodeBlockID" $nextCodeBlockID -}}
+    {{- .Page.Store.Set "PageHasCode" true -}}
+    {{- $codeStrID := printf "code-block-%d" $codeBlockID -}}
+
     {{- /* utility zone */ -}}
+    {{- if ne $lang "txt" -}}
     <div class="absolute top-1 right-1 flex flex-rot justify-end items-center gap-2">
-        {{- /* generate auto incr id for code block, for the clipboard.js */ -}}
-        {{- $codeBlockID := .Page.Store.Get "NextCodeBlockID" | default 1 -}}
-        {{- $nextCodeBlockID := add $codeBlockID 1 -}}
-        {{- .Page.Store.Set "NextCodeBlockID" $nextCodeBlockID -}}
-        {{- .Page.Store.Set "PageHasCode" true -}}
-        {{- $codeStrID := printf "code-block-%d" $codeBlockID -}}
         <button title="复制到剪贴板"
             class="btn-copy-code opacity-0 group-hover:opacity-100 transition-opacity duration-500 "
             data-clipboard-target="#{{ $codeStrID }}">
@@ -28,6 +30,7 @@
         </a>
         {{- end -}}
     </div>
+    {{- end -}}
 
     <div id="{{$codeStrID}}" class="code-tab overflow-x-auto scrollbar-thin">
         {{- $opts := (dict "noClasses" false "codeFences" true ) -}}
