@@ -1,0 +1,11 @@
+{{- $collapseIndex := .Page.Store.Get "CollapseIndex" | default 0 -}}
+{{- .Page.Store.Set "CollapseIndex" (add $collapseIndex 1) -}}
+{{- $title := .Get "title" | default "" -}}
+
+<div tabindex="{{ $collapseIndex }}" class="mt-4 collapse collapse-arrow border border-base-300">
+  <input type="checkbox" />
+  <div class="collapse-title text-primary">{{- $title -}}</div>
+  <div class="collapse-content overflow-x-auto p-0">
+    {{ .Inner | .Page.RenderString }}
+  </div>
+</div>
