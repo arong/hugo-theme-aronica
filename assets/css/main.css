@@ -2340,11 +2340,27 @@ input.tab:checked + .tab-content,
   --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
 }
 
+.alert-success {
+  border-color: var(--fallback-su,oklch(var(--su)/0.2));
+  --tw-text-opacity: 1;
+  color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
+  --alert-bg: var(--fallback-su,oklch(var(--su)/1));
+  --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
+}
+
 .alert-warning {
   border-color: var(--fallback-wa,oklch(var(--wa)/0.2));
   --tw-text-opacity: 1;
   color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
   --alert-bg: var(--fallback-wa,oklch(var(--wa)/1));
+  --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
+}
+
+.alert-error {
+  border-color: var(--fallback-er,oklch(var(--er)/0.2));
+  --tw-text-opacity: 1;
+  color: var(--fallback-erc,oklch(var(--erc)/var(--tw-text-opacity)));
+  --alert-bg: var(--fallback-er,oklch(var(--er)/1));
   --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
 }
 
@@ -4102,6 +4118,22 @@ details.collapse summary::-webkit-details-marker {
 
 .stroke-current {
   stroke: currentColor;
+}
+
+.stroke-error-content {
+  stroke: var(--fallback-erc,oklch(var(--erc)/1));
+}
+
+.stroke-success-content {
+  stroke: var(--fallback-suc,oklch(var(--suc)/1));
+}
+
+.stroke-warning-content {
+  stroke: var(--fallback-wac,oklch(var(--wac)/1));
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .p-1 {

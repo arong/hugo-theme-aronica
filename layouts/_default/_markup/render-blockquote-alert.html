@@ -1,0 +1,22 @@
+{{- $classTable := dict
+    "caution" "alert alert-error"
+    "important" "alert alert-success"
+    "note" "alert alert-info"
+    "tip" "alert alert-success"
+    "warning" "alert alert-warning"
+-}}
+
+{{- $iconTable := dict
+    "caution" "icons/error.html"
+    "important" "icons/important.html"
+    "note" "icons/note.html"
+    "tip" "icons/tip.html"
+    "warning" "icons/warning.html"
+-}}
+
+{{- $class := index $classTable .AlertType | default "alert alert-info" -}}
+
+<div role="alert" class="{{ $class }} mt-4">
+    {{- partial (index $iconTable .AlertType) . -}}
+    <span>{{- .Text -}}</span>
+</div>
