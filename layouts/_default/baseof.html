@@ -9,12 +9,18 @@
     {{- if .IsHome -}}
       <meta name="keywords" content="{{- delimit site.Params.Keywords ", " -}}">
       <meta name="description" content="{{- site.Params.description -}}">
+      {{- if site.Params.GoogleAdSense.ID -}}
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
+      {{- end -}}
     {{- else if .IsPage -}}
       {{- if .Page.Params.DisableCrawl -}}
         <meta name="robots" content="noindex">
       {{- else -}}
         <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
         <meta name="description" content="{{- .Description -}}">
+        {{- if site.Params.GoogleAdSense.ID -}}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
+        {{- end -}}
       {{- end -}}
     {{- end -}}
 
@@ -23,9 +29,6 @@
     {{- if hugo.IsProduction -}}
       {{- if site.Config.Services.GoogleAnalytics.ID -}}
         {{- partial "google-analytics.html" -}}
-      {{- end -}}
-      {{- if site.Params.GoogleAdSense.ID -}}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
       {{- end -}}
     {{- end -}}
     {{- if .Param "math" -}}
@@ -49,6 +52,11 @@
           {{- range site.Menus.main -}}
             <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
           {{- end -}}
+          {{ if eq .Site.Language.Lang "en" }}
+          <li><a href="/">中文</a></li>
+          {{ else }}
+          <li><a href="/en/">English</a></li>
+          {{ end }}
         </ul>
       </div>
 
@@ -72,6 +80,13 @@
                 {{- range site.Menus.main -}}
                   <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
                 {{- end -}}
+
+                {{ if eq .Site.Language.Lang "en" }}
+                <li><a class="bg-base-100 rounded-t-none p-1" href="/">中文</a></li>
+                {{ else }}
+                <li><a class="bg-base-100 rounded-t-none p-1" href="/">English</a></li>
+                {{ end }}
+
               </ul>
             </details>
           </li>
