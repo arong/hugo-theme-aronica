@@ -16,7 +16,7 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  plugins: {"@tailwindcss/postcss": {}},
   daisyui: {
     themes: ["dark", "light"],
   },
