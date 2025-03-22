@@ -3849,8 +3849,16 @@ details.collapse summary::-webkit-details-marker {
   position: relative;
 }
 
+.left-0 {
+  left: 0px;
+}
+
 .right-1 {
   right: 0.25rem;
+}
+
+.top-0 {
+  top: 0px;
 }
 
 .top-1 {
@@ -3942,12 +3950,20 @@ details.collapse summary::-webkit-details-marker {
   height: 1.5rem;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
 
 .w-6 {
   width: 1.5rem;
+}
+
+.w-64 {
+  width: 16rem;
 }
 
 .w-fit {
@@ -3957,6 +3973,10 @@ details.collapse summary::-webkit-details-marker {
 
 .w-full {
   width: 100%;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .max-w-none {
@@ -3977,6 +3997,10 @@ details.collapse summary::-webkit-details-marker {
 
 .shrink-0 {
   flex-shrink: 0;
+}
+
+.grow {
+  flex-grow: 1;
 }
 
 .border-collapse {
@@ -4072,6 +4096,10 @@ details.collapse summary::-webkit-details-marker {
 
 .rounded {
   border-radius: 0.25rem;
+}
+
+.rounded-box {
+  border-radius: var(--rounded-box, 1rem);
 }
 
 .rounded-t-none {
@@ -5065,10 +5093,6 @@ details.collapse summary::-webkit-details-marker {
 @media (min-width: 1024px) {
   .lg\:hidden {
     display: none;
-  }
-
-  .lg\:max-w-5xl {
-    max-width: 64rem;
   }
 
   .lg\:grid-cols-3 {

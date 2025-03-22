@@ -1,0 +1,36 @@
+{{- /*
+    * Generate a sidebar for a column of articles.
+    * It will start form top level section and iterate through all sections
+    * and pages.
+    * Current selected page will be marked as active.
+    */ -}}
+{{- $Current := .Page -}}
+{{- $Root := .Page.FirstSection -}}
+
+<div class="sidebar relative fixed left-0 top-0 h-full w-80 not-prose">
+  <section>
+    <details open class="menu bg-base-200 rounded-box">
+        <summary><a href="{{ $Root.RelPermalink }}" class="link link-hover {{ if eq $Current.RelPermalink $Root.RelPermalink -}} active text-primary{{- end -}}">{{ $Root.Title }}</a></summary>
+        {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
+    </details>
+  </section>
+</div>
+
+{{- define "visit-section" -}}
+{{ $selected := .selected }}
+{{ $current := .current }}
+<ul >
+    {{- range $current.Pages.ByTitle -}}
+    {{- if .IsPage -}}
+        <li><a href="{{ .RelPermalink }}" class="link link-hover {{ if eq $selected.RelPermalink .RelPermalink -}}active text-primary{{- end -}}">{{ .Title }}</a></li>
+    {{- else -}}
+        <li>
+            <details open>
+                <summary><a href="{{ .RelPermalink }}" class="link link-hover {{ if eq $selected.RelPermalink .RelPermalink -}}active text-primary{{- end -}}">{{ .Title }}</a></summary>
+                {{- template "visit-section" (dict "selected" $selected "current" .) -}}
+            </details>
+        </li>
+        {{- end -}}
+    {{- end -}}
+</ul>
+{{- end -}}

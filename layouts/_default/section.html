@@ -1,0 +1,10 @@
+{{ define "main" }}
+  <div class="flex flex-row">
+    {{ partial "sidebar/column-toc.html" . }}
+    <div class="grow"></div>
+    <div class="prose grow">
+        {{ .Content }}
+    </div>
+    <div class="grow"></div>
+  </div>
+{{ end }}
