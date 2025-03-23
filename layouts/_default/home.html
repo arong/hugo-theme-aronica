@@ -1,7 +1,11 @@
-{{ define "main" }}
-  {{ $PageList := where site.RegularPages "RelPermalink" "ne" "/about/" }}
-  {{ $paginator := .Paginate $PageList 15 }}
+{{- define "main" -}}
+<main class="px-4 md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid">
+  <div class="md:col-span-2 prose">
+  {{- $PageList := where site.RegularPages.ByDate.Reverse "RelPermalink" "ne" "/about/" -}}
+  {{- $paginator := .Paginate $PageList 15 -}}
   <h1>最新帖子</h1>
-  {{ partial "post-list.html" (dict "Pages" $paginator.Pages) }}
-  {{ partial "pagination.html" . }}
-{{ end }}
+  {{- partial "post-list.html" (dict "Pages" $paginator.Pages) -}}
+  {{- partial "pagination.html" . -}}
+  </div>
+</main>
+{{- end -}}

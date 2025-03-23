@@ -1,8 +1,10 @@
 {{ define "main" }}
-<article class="max-w-none">
-  <h1 class="text-center">{{ .Title }}</h1>
-  {{ $paginator := .Paginate .Pages 15 }}
-  {{ partial "post-list.html" (dict "Pages" $paginator.Pages) }}
-  {{ partial "pagination.html" . }}
-</article>
+<main class="px-4 md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid">
+  <div class="md:col-span-2 prose">
+    <h1 class="text-center">{{ .Title }}</h1>
+    {{ $paginator := .Paginate .Pages 15 }}
+    {{ partial "post-list.html" (dict "Pages" $paginator.Pages) }}
+    {{ partial "pagination.html" . }}
+  </div>
+</main>
 {{ end }}
