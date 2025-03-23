@@ -6,16 +6,16 @@
       {{- if mod $index 2 | eq 0 -}}
           <tr>
           <td class="hover:bg-base-200">
-              <a href="{{- $tag.Page.RelPermalink -}}" class="flex justify-between w-full text-primary link link-hover">
+              <a href="{{- $tag.Page.RelPermalink -}}" class="flex justify-between w-full link link-hover">
               <span>#{{- $tag.Name -}}</span>
-              <span class="text-gray-500">{{- $tag.Count -}}</span>
+              <span>{{- $tag.Count -}}</span>
               </a>
           </td>
           {{- $next := index $tagList (add $index 1) -}}
           <td class="hover:bg-base-200">
-              <a href="{{- $next.Page.RelPermalink -}}" class="flex justify-between w-full text-primary link link-hover">
+              <a href="{{- $next.Page.RelPermalink -}}" class="flex justify-between w-full link link-hover">
               <span>#{{- $next.Name -}}</span>
-              <span class="text-gray-500">{{- $next.Count -}}</span>
+              <span>{{- $next.Count -}}</span>
               </a>
           </td>
           </tr>

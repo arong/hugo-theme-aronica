@@ -7,12 +7,11 @@
 {{- $Current := .Page -}}
 {{- $Root := .Page.FirstSection -}}
 
-<section>
-    <details open class="menu bg-base-200 rounded-box">
-        <summary><a href="{{ $Root.RelPermalink }}" class="{{ if eq $Current.RelPermalink $Root.RelPermalink -}} menu-active{{- end -}}">{{ $Root.Title }}</a></summary>
-        {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
-    </details>
-</section>
+
+<details open class="w-full p-0 menu bg-base-200 md:rounded-box">
+    <summary><a href="{{ $Root.RelPermalink }}" class="{{ if eq $Current.RelPermalink $Root.RelPermalink -}} menu-active{{- end -}}">{{ $Root.Title }}</a></summary>
+    {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
+</details>
 
 {{- define "visit-section" -}}
 {{ $selected := .selected }}

@@ -1,9 +1,18 @@
 {{- define "main" -}}
-<nav class="px-4 fixed overflow-y-auto w-1/4 max-h-screen top-20 bg-base-200 rounded-box prose bg-primary">
-  {{- partial "sidebar/site-link.html" . -}}
-</nav>
-<main class="mt-20 md:col-start-2 md:col-span-3 grid grid-cols-subgrid bg-secondary">
-  <article class="md:col-span-2 bg-accent prose">
+{{- /* note: the main start from 2, leave space for navbar */ -}}
+<main class="md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid">
+  {{- /* table of contents for article, at fixed position */ -}}
+  <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
+    <div class="menu">
+      <details open>
+        <summary>Content</summary>
+        {{- .TableOfContents -}}
+      </details>
+    </div>
+  </nav>
+
+  {{- /* article */ -}}
+  <article class="px-4 md:col-span-2 prose">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row items-center mb-6">
       {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -27,13 +36,10 @@
     {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .)
     -}}
   </article>
-  {{- /* table of contents for article, at fixed position */ -}}
-  <nav class="fixed top-20 right-0 w-1/4 max-h-screen overflow-y-auto bg-base-200 z-50 rounded-box bg-warning">
-    <div class="menu menu-vertical">
-      {{- .TableOfContents -}}
-    </div>
-  </nav>
-
 </main>
+
+<nav class="px-4 sticky md:fixed md:overflow-y-auto w-full md:w-1/4 md:max-h-screen md:top-20 bg-base-200 rounded-box">
+  {{- partial "sidebar/site-link.html" . -}}
+</nav>
 
 {{- end -}}

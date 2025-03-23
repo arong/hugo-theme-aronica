@@ -33,7 +33,7 @@
     {{- end -}}
   </head>
   <body class="grid grid-cols-1 md:grid-cols-4 min-h-screen">
-    <header class="navbar bg-base-200 fixed top-0 w-full z-10">
+    <header class="navbar w-full bg-base-200 sticky md:fixed top-0 z-3">
       <div class="flex-1">
         <a class="btn btn-ghost text-xl" href="/">{{- site.Title -}}</a>
       </div>
@@ -91,8 +91,8 @@
     </script>
     {{- end -}}
 
-    <footer class="md:col-span-4 prose flex-none mt-12">
-      <p class="prose-xs text-neutral-content mt-4 mb-4">
+    <footer class="md:col-start-2 md:col-span-4 flex-none mt-12">
+      <p class="text-neutral-content mt-4 mb-4">
         <span>Copyright</span>
         <span>{{- now.Year -}}</span>
         <span>{{- site.Title -}}</span>
