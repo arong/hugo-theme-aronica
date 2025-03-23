@@ -1,0 +1,8 @@
+
+<nav class="px-4 prose bg-base-200 rounded-box">
+  {{- partial "sidebar/related-post.html" . -}}
+  {{- partialCached "sidebar/latest-post.html" . -}}
+  {{- partialCached "sidebar/most-visited-sidebar.html" . -}}
+  {{- partialCached "sidebar/category.html" . -}}
+  {{- partialCached "sidebar/tags.html" . -}}
+</nav>

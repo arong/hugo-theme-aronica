@@ -1,9 +1,7 @@
 {{- define "main" -}}
-<div class="flex flex-row">
-  {{ partial "sidebar/column-toc.html" . }}
-
-  <div class="grow"></div>
-  <div class="prose max-w-prose">
+{{ partial "sidebar/column-toc.html" . }}
+<main class="md:col-span-3 grid grid-cols-subgrid">
+  <article class="md:col-span-2 prose">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row items-center mb-6">
       {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -26,10 +24,11 @@
     </div>
     {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .)
     -}}
-  </div>
-  <div class="w-[36ch] menu">
-    {{- .TableOfContents -}}
-  </div>
-</div>
-{{- .Page.Store.Set "DisableRightSidebar" true -}}
+  </article>
+  <nav class="bg-base-200 rounded-box">
+    <div class="menu menu-vertical">
+      {{- .TableOfContents -}}
+    </div>
+  </nav>
+</main>
 {{- end -}}

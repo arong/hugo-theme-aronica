@@ -7,7 +7,7 @@
 {{- $Current := .Page -}}
 {{- $Root := .Page.FirstSection -}}
 
-<div class="sidebar relative fixed left-0 top-0 h-full w-[36ch] not-prose">
+<div class="px-4 bg-base-200 rounded-box">
   <section>
     <details open class="menu bg-base-200 rounded-box">
         <summary><a href="{{ $Root.RelPermalink }}" class="{{ if eq $Current.RelPermalink $Root.RelPermalink -}} menu-active{{- end -}}">{{ $Root.Title }}</a></summary>
