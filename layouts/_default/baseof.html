@@ -33,16 +33,14 @@
     {{- end -}}
   </head>
   <body class="flex flex-col items-center min-h-screen">
-    <header class="navbar bg-base-200">
+    <header class="navbar bg-base-200 fixed top-0 w-full z-10">
       <div class="flex-1">
         <a class="btn btn-ghost text-xl" href="/">{{- site.Title -}}</a>
       </div>
 
       <div class="hidden md:flex flex-row items-center">
         <button onclick="changeTheme()" class="btn btn-ghost">
-          {{- /* sun icon */ -}}
           {{- partial "icons/sun.html" (dict "Class" "fill-current" "ID" "sun-icon") -}}
-          {{- /* moon icon */ -}}
           {{- partial "icons/moon.html" (dict "Class" "fill-current" "ID" "moon-icon") -}}
         </button>
         <ul class="menu menu-horizontal px-1">
@@ -55,7 +53,7 @@
       <div class="flex-none md:hidden">
         <button onclick="changeTheme()">
           {{- /* sun icon */ -}}
-          {{- partial "icons/sun.html" (dict  "Class" "fill-primary" "ID" "sun-icon-mobile") -}}
+          {{- partial "icons/sun.html" (dict "Class" "fill-primary" "ID" "sun-icon-mobile") -}}
 
           {{- /* moon icon */ -}}
           {{- partial "icons/moon.html" (dict "Class" "fill-primary" "ID" "moon-icon-mobile") -}}
@@ -79,18 +77,20 @@
       </div>
     </header>
 
-    <main id="content-zone" class="px-4 mt-8 w-full flex flex-col md:flex-row md:flex-grow md:space-x-8 justify-center">
-      <article class="grow">
+    <main id="content-zone" class="px-4 mt-8 w-full flex flex-col md:flex-row md:flex-grow md:space-x-8 justify-center pt-16">
+      <div class="grow">
         {{- block "main" . -}}{{- end -}}
-      </article>
+      </div>
+      {{- if not (.Page.Store.Get "DisableRightSidebar" | default false) -}}
       <div class="divider pt-16 pb-0 lg:hidden"></div>
-      <aside class="prose md:w-80 flex flex-col">
+      <aside class="sticky top-20 prose md:w-[36ch] flex flex-col">
         {{- partial "sidebar/related-post.html" . -}}
         {{- partialCached "sidebar/latest-post.html" . -}}
         {{- partialCached "sidebar/most-visited-sidebar.html" . -}}
         {{- partialCached "sidebar/category.html" . -}}
         {{- partialCached "sidebar/tags.html" . -}}
       </aside>
+      {{- end -}}
     </main>
 
     {{- /* check if content has code blocks */ -}}

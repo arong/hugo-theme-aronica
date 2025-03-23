@@ -27,7 +27,9 @@
     {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .)
     -}}
   </div>
-  <div class="grow"></div>
+  <div class="w-[36ch] menu">
+    {{- .TableOfContents -}}
+  </div>
 </div>
-
+{{- .Page.Store.Set "DisableRightSidebar" true -}}
 {{- end -}}

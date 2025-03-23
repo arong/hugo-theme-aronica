@@ -5,14 +5,29 @@
 */ -}}
 
 {{- $path := cond (.IsNamedParams) (.Get "path") (.Get 0)  -}}
+{{- $uuid := .Get "uuid" | default "" -}}
 
-{{- if not $path -}}
-   {{- errorf "PostRef: path is required" -}}
+{{- if and (not $path) (not $uuid) -}}
+   {{- errorf "PostRef: path/uuid is required" -}}
 {{- end -}}
 
-{{- $post := site.GetPage $path -}}
-{{- if not $post -}}
-   {{- errorf "PostRef: path %q not found" $path -}}
+{{- $post := "" -}}
+{{- if $path -}}
+   {{- $post = site.GetPage $path -}}
+   {{- if not $post -}}
+      {{- errorf "PostRef: path %q not found" $path -}}
+   {{- end -}}
+{{- else if $uuid -}}
+   {{- if not (site.Store.Get "PageUUIDMapExist") -}}
+      {{- range site.RegularPages -}}
+         {{- site.Store.Set .Params.UUID . -}}
+      {{- end -}}
+      {{- site.Store.Set "PageUUIDMapExist" true -}}
+   {{- end -}}
+   {{- $post = site.Store.Get $uuid -}}
+   {{- if not $post -}}
+      {{- errorf "PostRef: uuid %q not found" $uuid -}}
+   {{- end -}}
 {{- end -}}
 
 <a href="{{ $post.RelPermalink }}">{{ $post.Title }}</a>
