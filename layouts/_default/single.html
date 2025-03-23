@@ -1,7 +1,9 @@
 {{- define "main" -}}
-{{- partial "sidebar/site-link.html" . -}}
-<main class="md:col-span-3 grid grid-cols-subgrid">
-  <article class="md:col-span-2 prose">
+<nav class="px-4 fixed overflow-y-auto w-1/4 max-h-screen top-20 bg-base-200 rounded-box prose bg-primary">
+  {{- partial "sidebar/site-link.html" . -}}
+</nav>
+<main class="mt-20 md:col-start-2 md:col-span-3 grid grid-cols-subgrid bg-secondary">
+  <article class="md:col-span-2 bg-accent prose">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row items-center mb-6">
       {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -25,10 +27,13 @@
     {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .)
     -}}
   </article>
-  <nav class="bg-base-200 rounded-box">
+  {{- /* table of contents for article, at fixed position */ -}}
+  <nav class="fixed top-20 right-0 w-1/4 max-h-screen overflow-y-auto bg-base-200 z-50 rounded-box bg-warning">
     <div class="menu menu-vertical">
       {{- .TableOfContents -}}
     </div>
   </nav>
+
 </main>
+
 {{- end -}}

@@ -1,8 +1,11 @@
-
-<nav class="px-4 prose bg-base-200 rounded-box">
+{{- /* This page generate a sidebar for a normal page.
+     * It include several partials to generate a sidebar.
+     * the name shows it's purpose.
+  */ -}}
+<div>
   {{- partial "sidebar/related-post.html" . -}}
   {{- partialCached "sidebar/latest-post.html" . -}}
   {{- partialCached "sidebar/most-visited-sidebar.html" . -}}
   {{- partialCached "sidebar/category.html" . -}}
   {{- partialCached "sidebar/tags.html" . -}}
-</nav>
+</div>
