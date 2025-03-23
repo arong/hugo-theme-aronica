@@ -1,25 +1,15 @@
-<table class="table">
-  <thead><tr><th class="prose-lg">标签</th><th></th></tr></thead>
-  <tbody>
-      {{- $tagList := first 20 .Site.Taxonomies.tags.ByCount -}}
-      {{- range $index, $tag := $tagList -}}
-      {{- if mod $index 2 | eq 0 -}}
-          <tr>
-          <td class="hover:bg-base-200">
-              <a href="{{- $tag.Page.RelPermalink -}}" class="flex justify-between w-full link link-hover">
-              <span>#{{- $tag.Name -}}</span>
-              <span>{{- $tag.Count -}}</span>
-              </a>
-          </td>
-          {{- $next := index $tagList (add $index 1) -}}
-          <td class="hover:bg-base-200">
-              <a href="{{- $next.Page.RelPermalink -}}" class="flex justify-between w-full link link-hover">
-              <span>#{{- $next.Name -}}</span>
-              <span>{{- $next.Count -}}</span>
-              </a>
-          </td>
-          </tr>
-      {{- end -}}
-      {{- end -}}
-  </tbody>
-</table>
+<ul id="tags" class="menu w-full grid grid-cols-2 gap-2">
+  <li class="menu-title text-lg col-span-2">标签</li>
+  {{- $tagList := first 20 .Site.Taxonomies.tags.ByCount -}}
+  {{- range $tag := $tagList -}}
+  <li class="hover:bg-base-200">
+    <a
+      href="{{- $tag.Page.RelPermalink -}}"
+      class="flex justify-between"
+    >
+      <span>#{{- $tag.Name -}}</span>
+      <span>{{- $tag.Count -}}</span>
+    </a>
+  </li>
+  {{- end -}}
+</ul>

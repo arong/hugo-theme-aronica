@@ -3,27 +3,15 @@
   {{- $popularPages := transform.Unmarshal $jsonFile.Content -}}
   {{- if $popularPages -}}
     {{- if $popularPages.mostVisitedPost -}}
-      <table id="popular-posts" class="table w-full">
-        <thead>
-          <tr class="prose-lg">
-            <th>热门帖子</th>
-          </tr>
-        </thead>
-        <tbody>
+      <ul id="popular-posts" class="menu w-full">
+        <li class="menu-title text-lg">热门帖子</li>
         {{- range $path := $popularPages.mostVisitedPost -}}
           {{- $page := $.Site.GetPage $path -}}
           {{- if $page -}}
-            <tr class="hover:bg-base-200 cursor-pointer"
-              data-href="{{- $page.RelPermalink -}}"
-              onclick="window.location.href=this.dataset.href">
-              <td>
-                <span>{{- $page.Title -}}</span>
-              </td>
-            </tr>
+            <li><a href="{{- $page.RelPermalink -}}">{{- $page.Title -}}</a></li>
           {{- end -}}
         {{- end -}}
-        </tbody>
-      </table>
+      </ul>
     {{- end -}}
   {{- end -}}
 {{- end -}}

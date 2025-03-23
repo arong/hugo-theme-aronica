@@ -1,11 +1,11 @@
-<table id="post-categories" class="table w-full">
-  <thead><tr class="text-lg"><th>文章分类</th><th>数量</th></tr></thead>
-  <tbody>
-    {{- range .Site.Taxonomies.categories.ByCount -}}
-    <tr class="hover:bg-base-200 cursor-pointer" data-href="{{- .Page.RelPermalink -}}" onclick="window.location.href=this.dataset.href">
-      <td><span>{{- .Page.Title -}}</span></td>
-      <td>{{- len .Pages -}}</td>
-    </tr>
-    {{- end -}}
-  </tbody>
-</table>
+<ul id="post-categories" class="menu w-full">
+  <li class="menu-title text-lg">文章分类</li>
+  {{- range .Site.Taxonomies.categories.ByCount -}}
+  <li>
+    <a href="{{- .Page.RelPermalink -}}" class="flex flex-row justify-between">
+      <span>{{- .Page.Title -}}</span>
+      <code>{{- len .Pages -}}</code>
+    </a>
+  </li>
+  {{- end -}}
+</ul>
