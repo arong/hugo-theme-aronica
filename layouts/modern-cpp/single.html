@@ -1,8 +1,8 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
-<main class="md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid bg-secondary">
+<main class="md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid">
   {{- /* table of contents for article, at fixed position */ -}}
-  <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box bg-warning">
+  <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
     <div class="menu menu-vertical">
       <details>
         <summary>Content</summary>
@@ -10,7 +10,7 @@
       </details>
     </div>
   </nav>
-  <article class="px-4 md:col-span-2 bg-accent prose">
+  <article class="px-4 md:px-8 md:col-span-2 prose">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row items-center mb-6">
       {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -36,7 +36,7 @@
   </article>
 </main>
 
-<nav class="px-4 sticky md:fixed md:overflow-y-auto w-full md:w-1/4 md:max-h-screen md:top-20 bg-base-200 bg-primary">
+<nav class="px-4 md:px-0 sticky md:fixed md:overflow-y-auto w-full md:w-1/4 md:max-h-screen md:top-20 bg-base-200">
   {{ partial "sidebar/column-toc.html" . }}
 </nav>
 {{- end -}}

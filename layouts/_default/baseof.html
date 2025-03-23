@@ -77,9 +77,8 @@
       </div>
     </header>
 
-    <!-- <div class="mt-20 md:col-span-3 grid grid-cols-subgrid"> -->
-      {{- block "main" . -}}{{- end -}}
-    <!-- </div> -->
+    {{- block "main" . -}}{{- end -}}
+
 
     {{- /* check if content has code blocks */ -}}
     {{- if .Page.Store.Get "PageHasCode" -}}
@@ -91,12 +90,8 @@
     </script>
     {{- end -}}
 
-    <footer class="md:col-start-2 md:col-span-4 flex-none mt-12">
-      <p class="text-neutral-content mt-4 mb-4">
-        <span>Copyright</span>
-        <span>{{- now.Year -}}</span>
-        <span>{{- site.Title -}}</span>
-      </p>
+    <footer class="md:col-span-4 mt-12 footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+        <p>Copyright {{ now.Year }} - {{ site.Title }}</p>
     </footer>
   </body>
 </html>

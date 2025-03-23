@@ -4,8 +4,9 @@
   {{- /* table of contents for article, at fixed position */ -}}
   <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
     <div class="menu">
-      <details open>
-        <summary>Content</summary>
+      {{- /*need js to control the summary open/close status*/ -}}
+      <details>
+        <summary>本文目录</summary>
         {{- .TableOfContents -}}
       </details>
     </div>
