@@ -1,4 +1,25 @@
-{{ $path := .Get "path" }}
-{{ with readFile (printf "content/%s" $path) }}
-    {{ .| markdownify  | safeHTML }}
-{{ end }}
+{{- /* IncludeFile
+    * IncludeFile support include file with path, it will
+    * read the file and render it as markdown.
+    */ -}}
+{{- $path := cond (.IsNamedParams) (.Get "path") (.Get 0)  -}}
+
+{{- /* 判断路径类型 */ -}}
+{{- $fullPath := "" -}}
+{{- if hasPrefix $path "/" -}}
+   {{- /* 绝对路径 */ -}}
+   {{- $fullPath = printf "content/%s" $path -}}
+{{- else -}}
+   {{- /* 相对路径：基于当前页面的路径 */ -}}
+   {{- $fullPath = printf "content/%s%s" .Page.File.Dir $path -}}
+{{- end -}}
+
+{{- /* 检查文件是否存在 */ -}}
+{{- if fileExists $fullPath -}}
+   {{ with readFile $fullPath }}
+      {{ .| markdownify  | safeHTML }}
+   {{ end }}
+{{- else -}}
+   {{- /* 文件不存在时的处理 */ -}}
+   {{- errorf "PostRef: uuid %q not found, used in file: %q\n" $path .Page.File.Filename -}}
+{{- end -}}
