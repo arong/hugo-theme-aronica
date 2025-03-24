@@ -2,14 +2,16 @@
 {{- /* note: the main start from 2, leave space for navbar */ -}}
 <main class="md:mt-20 md:col-start-2 md:grid md:grid-cols-3">
   {{- /* table of contents for article, at fixed position */ -}}
-  <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
+  {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
+  <nav class="hidden sticky top-16 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
     <div class="menu menu-vertical">
-      <details>
-        <summary>Content</summary>
+      <details open>
+        <summary>本文目录</summary>
         {{- .TableOfContents -}}
       </details>
     </div>
   </nav>
+  {{- end -}}
   <article class="px-4 md:px-8 md:col-span-2 prose">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row items-center mb-6">

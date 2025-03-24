@@ -1,3 +1,10 @@
+{{- /* check if current page is a column page */ -}}
+{{- if or (hasPrefix .Page.RelPermalink "/tags/") (hasPrefix .Page.RelPermalink "/categories/") (hasPrefix .Page.RelPermalink "/about/") (hasPrefix .Page.RelPermalink "/posts/") -}}
+  {{- .Page.Store.Set "ColumnMode" false -}}
+{{- else -}}
+  {{- .Page.Store.Set "ColumnMode" true -}}
+{{- end -}}
+
 <!DOCTYPE html>
 <html lang="{{- site.Language.LanguageCode -}}" dir="{{- or site.Language.LanguageDirection `ltr` -}}">
   <head>
@@ -37,7 +44,7 @@
     <input id="drawer" type="checkbox" class="drawer-toggle">
 
     {{- /* navbar, at left side, it's a drawer on mobile */ -}}
-    <nav class="drawer-side w-full md:w-1/4 md:min-h-screen md:max-h-screen overflow-y-auto z-50 bg-base-200">
+    <nav class="drawer-side pt-4 w-full md:w-1/4 md:min-h-screen md:max-h-screen overflow-y-auto z-50 bg-base-200">
       <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
       {{- /* logo zone */ -}}
@@ -46,10 +53,10 @@
       </div>
 
       {{- /* TODO: 或许有更好的解法 */ -}}
-      {{- if or (hasPrefix .Page.RelPermalink "/tags/") (hasPrefix .Page.RelPermalink "/category/") (hasPrefix .Page.RelPermalink "/about/") (hasPrefix .Page.RelPermalink "/posts/") -}}
-        {{- partialCached "sidebar/site-link.html" . -}}
-      {{- else -}}
+      {{- if .Page.Store.Get "ColumnMode"  -}}
         {{- partial "sidebar/column-toc.html" . -}}
+      {{- else -}}
+        {{- partialCached "sidebar/site-link.html" . -}}
       {{- end -}}
     </nav>
 

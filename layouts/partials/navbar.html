@@ -1,6 +1,13 @@
-<div class="sticky top-0 z-30 navbar bg-base-100 shadow-sm">
+<nav class="sticky top-0 z-30 navbar bg-base-100 shadow-sm">
   <div class="navbar-start">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    <label
+      aria-label="Open menu"
+      for="drawer"
+      class="btn btn-square btn-ghost drawer-button lg:hidden"
+    >
+      {{- partial "icons/toc.html" -}}
+    </label>
+    <a class="btn btn-ghost text-xl lg:hidden">{{ .Site.Title }}</a>
   </div>
   <div class="navbar-center hidden lg:flex">
   </div>
@@ -55,4 +62,4 @@
         </ul>
       </details>
   </div>
-</div>
+</nav>
