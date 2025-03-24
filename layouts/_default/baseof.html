@@ -35,8 +35,24 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
       {{- end -}}
     {{- end -}}
-    {{- if .Param "math" -}}
-      {{- partialCached "math.html" . -}}
+
+    {{- /* note the use of a noop statement to
+         * force content rendering before
+         * we check the value of `hasMath` with the `Store.Get` method.
+         */ -}}
+    {{ $noop := .WordCount }}
+    {{ if .Page.Store.Get "hasMath" }}
+      <link href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" rel="stylesheet">
+    {{ end }}
+
+    {{- /* check if content has code blocks */ -}}
+    {{- if .Page.Store.Get "PageHasCode" -}}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        new ClipboardJS('.btn-copy-code');
+      });
+      </script>
     {{- end -}}
   </head>
 
@@ -69,15 +85,5 @@
       {{- /* article */ -}}
       {{- block "main" . -}}{{- end -}}
     </main>
-
-    {{- /* check if content has code blocks */ -}}
-    {{- if .Page.Store.Get "PageHasCode" -}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      new ClipboardJS('.btn-copy-code');
-    });
-    </script>
-    {{- end -}}
   </body>
 </html>
