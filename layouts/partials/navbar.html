@@ -6,6 +6,16 @@
   </div>
 
   <div class="navbar-end">
+    {{- /* theme controller */ -}}
+    <button onclick="changeTheme()">
+        <!-- sun icon -->
+        {{- partialCached "icons/sun.html" (dict "ID" "sun-icon") -}}
+
+        <!-- moon icon -->
+        {{- partialCached "icons/moon.html"  (dict "ID" "moon-icon") -}}
+    </button>
+
+    {{- /* menu for PC */ -}}
     <ul class="hidden lg:menu lg:menu-horizontal">
         {{- range .Site.Menus.main -}}
             {{- if not .HasChildren  -}}
@@ -23,7 +33,7 @@
         {{- end -}}
     </ul>
 
-    {{- /* use details to enable collapse on iphone */ -}}
+    {{- /* menu for mobile */ -}}
     <details class="dropdown dropdown-end">
         <summary class="btn btn-ghost lg:hidden">{{- partial "icons/menu.html" -}}</summary>
         {{- /* TODO: 需要微调间距 */ -}}
