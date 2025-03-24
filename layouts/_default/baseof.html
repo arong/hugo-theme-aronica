@@ -45,21 +45,23 @@
     <input id="drawer" type="checkbox" class="drawer-toggle">
 
     {{- /* navbar, at left side, it's a drawer on mobile */ -}}
-    <nav class="drawer-side h-screen overflow-hidden z-50 bg-base-200 flex flex-col">
+    <aside class="drawer-side h-screen scrollbar-hidden z-50 bg-base-200">
       <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
       {{- /* logo zone */ -}}
-      <div class="hidden md:flex bg-base-100 w-full h-16 items-center justify-start">
+      <div class="bg-base-100/90 navbar sticky top-0 z-20 hidden items-center gap-2 px-4 py-2 backdrop-blur lg:flex  bg-base-100 w-full h-16">
         <a class="btn btn-ghost text-xl" href="/">{{- site.Title -}}</a>
       </div>
 
       {{- /* TODO: 或许有更好的解法 */ -}}
-      {{- if .Page.Store.Get "ColumnMode"  -}}
-        {{- partial "sidebar/column-toc.html" . -}}
-      {{- else -}}
-        {{- partialCached "sidebar/site-link.html" . -}}
-      {{- end -}}
-    </nav>
+      <nav class="p-2 w-full overflow-y-auto">
+        {{- if .Page.Store.Get "ColumnMode"  -}}
+          {{- partial "sidebar/column-toc.html" . -}}
+        {{- else -}}
+          {{- partialCached "sidebar/site-link.html" . -}}
+        {{- end -}}
+      </nav>
+    </aside>
 
     <main class="drawer-content">
       {{- /* header bar */ -}}
