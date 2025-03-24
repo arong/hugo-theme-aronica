@@ -8,12 +8,12 @@
 {{- $Root := .Page.FirstSection -}}
 
 
-<details open class="w-full menu min-h-full px-4 pt-4 py-0 bg-base-200 text-base-content">
+<details open class="menu pt-4 bg-base-200 text-base-content">
     {{- if eq $Current.RelPermalink $Root.RelPermalink -}}
         {{- /* FIXME: need some hack to make it work, current now, the active not work */ -}}
-        <summary><a href="{{ $Root.RelPermalink }}" class="menu-active">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) (.Title) }}</a></summary>
+        <summary><a href="{{ $Root.RelPermalink }}" class="menu-active">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) ($Root.Title) }}</a></summary>
     {{- else -}}
-        <summary><a href="{{ $Root.RelPermalink }}">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) (.Title) }}</a></summary>
+        <summary><a href="{{ $Root.RelPermalink }}">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) ($Root.Title) }}</a></summary>
     {{- end -}}
     {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
 </details>

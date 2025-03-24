@@ -16,7 +16,7 @@ module.exports = {
       }),
     },
   },
-  plugins: {"@tailwindcss/postcss": {}, "@tailwindcss/typography":{},"daisyui":{}},
+  plugins: {"@tailwindcss/postcss": {}, "@tailwindcss/typography":{}},
   daisyui: {
     themes: ["dark", "light"],
   },
