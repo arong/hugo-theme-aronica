@@ -1,5 +1,5 @@
 {{- /* check if current page is a column page */ -}}
-{{- if or (hasPrefix .Page.RelPermalink "/tags/") (hasPrefix .Page.RelPermalink "/categories/") (hasPrefix .Page.RelPermalink "/about/") (hasPrefix .Page.RelPermalink "/posts/") -}}
+{{- if or (eq .Page.RelPermalink "/") (hasPrefix .Page.RelPermalink "/tags/") (hasPrefix .Page.RelPermalink "/categories/") (hasPrefix .Page.RelPermalink "/about/") (hasPrefix .Page.RelPermalink "/posts/") -}}
   {{- .Page.Store.Set "ColumnMode" false -}}
 {{- else -}}
   {{- .Page.Store.Set "ColumnMode" true -}}
@@ -44,11 +44,11 @@
     <input id="drawer" type="checkbox" class="drawer-toggle">
 
     {{- /* navbar, at left side, it's a drawer on mobile */ -}}
-    <nav class="drawer-side pt-4 w-full md:w-1/4 md:min-h-screen md:max-h-screen overflow-y-auto z-50 bg-base-200">
+    <nav class="drawer-side w-full md:w-1/4 h-screen overflow-hidden z-50 bg-base-200 flex flex-col">
       <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
       {{- /* logo zone */ -}}
-      <div class="bg-base-100 w-full h-16 flex items-center justify-start">
+      <div class="hidden md:flex bg-base-100 w-full h-16 items-center justify-start">
         <a class="btn btn-ghost text-xl" href="/">{{- site.Title -}}</a>
       </div>
 
