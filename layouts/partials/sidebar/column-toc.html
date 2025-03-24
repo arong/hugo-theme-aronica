@@ -8,7 +8,7 @@
 {{- $Root := .Page.FirstSection -}}
 
 
-<details open class="w-full menu bg-base-200">
+<details open class="w-full menu px-4 py-0 bg-base-200">
     <summary><a href="{{ $Root.RelPermalink }}" class="{{ if eq $Current.RelPermalink $Root.RelPermalink -}} menu-active{{- end -}}">{{ $Root.Title }}</a></summary>
     {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
 </details>
@@ -19,11 +19,22 @@
 <ul >
     {{- range $current.Pages.ByWeight -}}
     {{- if .IsPage -}}
-        <li><a href="{{ .RelPermalink }}" class="{{ if eq $selected.RelPermalink .RelPermalink -}} menu-active{{- end -}}">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a></li>
+        <li>
+            {{- if eq $selected.RelPermalink .RelPermalink -}}
+                <a class="menu-active">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a>
+            {{- else -}}
+                <a href="{{ .RelPermalink }}">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a>
+            {{- end -}}
+        </li>
     {{- else -}}
         <li>
             <details open>
-                <summary><a href="{{ .RelPermalink }}" class="{{ if eq $selected.RelPermalink .RelPermalink -}} menu-active{{- end -}}">{{ .Title }}</a></summary>
+                {{- if eq $selected.RelPermalink .RelPermalink -}}
+                    {{- /* FIXME: need some hack to make it work, current now, the active not work */ -}}
+                    <summary><a class="menu-active">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a></summary>
+                {{- else -}}
+                    <summary><a href="{{ .RelPermalink }}">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a></summary>
+                {{- end -}}
                 {{- template "visit-section" (dict "selected" $selected "current" .) -}}
             </details>
         </li>

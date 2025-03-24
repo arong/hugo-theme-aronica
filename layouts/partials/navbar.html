@@ -1,0 +1,48 @@
+<div class="sticky top-0 z-30 navbar bg-base-100 shadow-sm">
+  <div class="navbar-start">
+    <a class="btn btn-ghost text-xl">daisyUI</a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+  </div>
+
+  <div class="navbar-end">
+    <ul class="hidden lg:menu lg:menu-horizontal">
+        {{- range .Site.Menus.main -}}
+            {{- if not .HasChildren  -}}
+                <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+            {{- else -}}
+            <li><details>
+                <summary>{{- .Name -}}</summary>
+                <ul>
+                {{- range .Children -}}
+                    <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- end -}}
+                </ul>
+            </details></li>
+            {{- end -}}
+        {{- end -}}
+    </ul>
+
+    {{- /* use details to enable collapse on iphone */ -}}
+    <details class="dropdown dropdown-end">
+        <summary class="btn btn-ghost lg:hidden">{{- partial "icons/menu.html" -}}</summary>
+        {{- /* TODO: 需要微调间距 */ -}}
+        <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
+            {{- range .Site.Menus.main -}}
+                {{- if not .HasChildren  -}}
+                    <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- else -}}
+                <li><details open>
+                    <summary>{{- .Name -}}</summary>
+                    <ul>
+                    {{- range .Children -}}
+                        <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                    {{- end -}}
+                    </ul>
+                </details></li>
+                {{- end -}}
+            {{- end -}}
+        </ul>
+      </details>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
-<main class="md:mt-20 md:col-start-2 md:col-span-3 md:grid md:grid-cols-subgrid">
+<main class="md:mt-20 md:col-start-2 md:grid md:grid-cols-3">
   {{- /* table of contents for article, at fixed position */ -}}
   <nav class="sticky top-15 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
     <div class="menu menu-vertical">
@@ -31,12 +31,7 @@
         {{- $dateHuman -}}
       </time>
     </div>
-    {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .)
-    -}}
+    {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
   </article>
 </main>
-
-<nav class="px-4 md:px-0 sticky md:fixed md:overflow-y-auto w-full md:w-1/4 md:max-h-screen md:top-20 bg-base-200">
-  {{ partial "sidebar/column-toc.html" . }}
-</nav>
 {{- end -}}
