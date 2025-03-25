@@ -9,5 +9,28 @@
 9. ~~section.html 在小屏幕上的显示问题~~
 10. ~~消除了左侧边栏的滑动条~~
 11. ~~修复了数学公式的问题,~~
-12. 修复文章目录: ~~PC端目录,~~ 手机端目录
+12. 修复文章目录: ~~PC 端目录,~~ 手机端目录
 13. 还需要对比一下 katex 和 mathjax 的区别
+14. 优化手机端的分页, 还有上一篇和下一篇的按钮设置的更现代化, 更好看
+15. ~~为导航栏增加悬停效果, 激活效果~~
+
+## wishlist
+
+- [ ] 增加 Include Code 的功能
+- [x] 代码高亮, 增加代码选取以及在 Compiler Explorer 中运行代码
+  - https://www.foonathan.net/2021/05/hugo-godbolt/
+- [ ] 集成 Google Search
+  ```html
+  <script
+    async
+    src="https://cse.google.com/cse.js?cx=2557c2a3f2f1c4c98"
+  ></script>
+  <div class="gcse-search"></div>
+  ```
+- [x] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
+- [x] 增加边栏导航
+- [x] 增加暗黑模式, 目前仅仅支持黑白切换
+  - [ ] 增加一个 follow system 的选项
+- [x] 为代码块增加复制按钮
+- [ ] 设计首页
+- [ ] 设计 404 页面

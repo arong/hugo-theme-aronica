@@ -26,7 +26,11 @@
     <ul class="hidden lg:menu lg:menu-horizontal">
         {{- range .Site.Menus.main -}}
             {{- if not .HasChildren  -}}
+                {{- if hasPrefix $.Page.RelPermalink .URL -}}
+                <li><a href="{{- .URL -}}" class="menu-focus">{{- .Name -}}</a></li>
+                {{- else -}}
                 <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- end -}}
             {{- else -}}
             <li><details>
                 <summary>{{- .Name -}}</summary>
