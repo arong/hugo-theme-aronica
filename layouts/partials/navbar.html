@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-30 navbar bg-base-100 shadow-sm">
+<nav class="sticky top-0 z-30 navbar bg-base-100 shadow">
   <div class="navbar-start">
     <label
       aria-label="Open menu"
@@ -7,7 +7,7 @@
     >
       {{- partial "icons/toc.html" -}}
     </label>
-    <a class="btn btn-ghost text-xl lg:hidden">{{ .Site.Title }}</a>
+    <a class="btn btn-ghost text-xl lg:hidden" href="/">{{ .Site.Title }}</a>
   </div>
   <div class="navbar-center hidden lg:flex">
   </div>
