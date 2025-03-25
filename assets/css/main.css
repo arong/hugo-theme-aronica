@@ -212,37 +212,6 @@
       }
     }
   }
-  .drawer-open {
-    > .drawer-side {
-      overflow-y: auto;
-    }
-    > .drawer-toggle {
-      display: none;
-      & ~ .drawer-side {
-        pointer-events: auto;
-        visibility: visible;
-        position: sticky;
-        display: block;
-        width: auto;
-        overscroll-behavior: auto;
-        opacity: 100%;
-        & > .drawer-overlay {
-          cursor: default;
-          background-color: transparent;
-        }
-        & > *:not(.drawer-overlay) {
-          translate: 0%;
-          [dir="rtl"] & {
-            translate: 0%;
-          }
-        }
-      }
-      &:checked ~ .drawer-side {
-        pointer-events: auto;
-        visibility: visible;
-      }
-    }
-  }
   .drawer-toggle {
     position: fixed;
     height: calc(0.25rem * 0);
@@ -1681,6 +1650,9 @@
   .top-px {
     top: 1px;
   }
+  .right-0 {
+    right: calc(var(--spacing) * 0);
+  }
   .right-1 {
     right: calc(var(--spacing) * 1);
   }
@@ -1816,6 +1788,9 @@
   }
   .z-3 {
     z-index: 3;
+  }
+  .z-5 {
+    z-index: 5;
   }
   .z-10 {
     z-index: 10;
@@ -2710,6 +2685,9 @@
   }
   .h-\[30\.5rem\] {
     height: 30.5rem;
+  }
+  .h-\[calc\(100vh-4rem\)\] {
+    height: calc(100vh - 4rem);
   }
   .h-screen {
     height: 100vh;
@@ -3667,6 +3645,11 @@
 .scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+#TableOfContents a {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 :root {
   --color-scheme: "light";

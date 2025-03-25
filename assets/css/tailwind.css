@@ -12,6 +12,11 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* 手动设置目录的item属性 */
+#TableOfContents a {
+  @apply flex flex-row flex-wrap;
+}
+
 :root {
   --color-scheme: "light";
   --code-bg: #fff;

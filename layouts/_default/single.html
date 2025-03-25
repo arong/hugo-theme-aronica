@@ -1,14 +1,11 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
 <main class="md:mt-20 md:col-start-2 md:grid md:grid-cols-3">
-  {{- /* table of contents for article, at fixed position */ -}}
+  {{- /* FIXME: table of contents for article, at fixed position */ -}}
   {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
-  <nav class="hidden sticky top-16 z-2 md:fixed md:right-0 md:w-1/4 md:max-h-screen md:overflow-y-auto bg-base-200 md:rounded-box">
-    <div class="menu menu-vertical">
-      <details open>
-        <summary>本文目录</summary>
-        {{- .TableOfContents -}}
-      </details>
+  <nav class="z-5 w-full md:w-[45ch] fixed right-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto bg-base-200 rounded-box ">
+    <div class="menu">
+      {{- .TableOfContents -}}
     </div>
   </nav>
   {{- end -}}
@@ -18,17 +15,7 @@
       {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
       {{- $dateFormat := .Site.Params.DateFormat | default "2006-01-02" -}} {{-
       $dateHuman := .Date | time.Format $dateFormat -}}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        class="fill-current"
-      >
-        <path
-          d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"
-        />
-      </svg>
+      {{- partialCached "icons/calendar.html" . -}}
       <time class="text-sm text-gray-400" datetime="{{- $dateMachine -}}">
         {{- $dateHuman -}}
       </time>
