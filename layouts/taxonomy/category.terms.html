@@ -1,28 +1,26 @@
 {{ define "main" }}
-<main class="px-4 md:mt-20 md:col-start-2 md:grid md:grid-cols-3">
-  <div class="md:col-span-2">
+<main class="pt-10 px-4 md:px-8">
+  <article class="prose prose-sm md:prose-base">
     <h1>所有分类</h1>
     {{ range .Data.Terms.Alphabetical }}
-    <div tabindex="0" class="collapse collapse-arrow border-base-300 border">
+    <div tabindex="0" class="not-prose collapse collapse-arrow border-base-300 border">
       <input type="checkbox" />
-      <div class="collapse-title text-xl flex flex-row bg-base-200 justify-between">
+      <div
+        class="collapse-title text-xl flex flex-row bg-base-200 justify-between"
+      >
         <span>{{ .Term }}</span>
         <span class="badge badge-secondary">{{ .Count }}</span>
       </div>
 
       <div class="collapse-content">
         <ul class="menu w-full">
-        {{ range .Pages }}
-            <li>
-              <a href="{{ .RelPermalink }}">
-                <span>{{ .Title }}</span>
-              </a>
-          </li>
-        {{ end }}
-      </ul>
+          {{ range .Pages }}
+          <li><a href="{{ .RelPermalink }}"><span>{{ .Title }}</span></a></li>
+          {{ end }}
+        </ul>
       </div>
     </div>
     {{ end }}
-</div>
+  </article>
 </main>
 {{ end }}

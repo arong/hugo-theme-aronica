@@ -132,7 +132,7 @@
       </div>
 
       {{- /* column TOC */ -}}
-      <nav class="p-2 w-full overflow-y-auto">
+      <nav class="p-2 w-full overflow-y-auto bg-base-200">
         {{- if .Page.Store.Get "ColumnMode"  -}}
           {{- partial "sidebar/column-toc.html" . -}}
         {{- else -}}
