@@ -1,12 +1,17 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
 <main class="md:mt-20 md:col-start-2 md:grid md:grid-cols-3">
-  {{- /* FIXME: table of contents for article, at fixed position */ -}}
+  {{- /* FIXME: need to work on mobile */ -}}
   {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
-  <nav class="hidden md:block z-5 w-full md:w-[45ch] fixed right-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto bg-base-200 rounded-box">
-    <div class="menu">
-      {{- .TableOfContents -}}
-    </div>
+  <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
+    <details id="page-toc" class="menu w-full" close>
+      <summary class="flex flex-row"><span class="hidden md:block">本文目录</span>
+        <span id="current-h2" class="md:hidden">本文目录</span>
+      </summary>
+      <div>
+        {{- .TableOfContents -}}
+      </div>
+    </details>
   </nav>
   {{- end -}}
   <article class="px-4 md:px-8 md:col-span-2 prose">

@@ -2,14 +2,20 @@
 {{- if $jsonFile -}}
   {{- $popularPages := transform.Unmarshal $jsonFile.Content -}}
   {{- if $popularPages -}}
-    {{- if $popularPages.mostVisitedPost -}}
+    {{- /* try to build UUID map */ -}}
+    {{- partial "function/build-uuid-map.html" -}}
+    {{- if $popularPages.mostVisited -}}
       <ul id="popular-posts" class="menu w-full">
         <li class="menu-title text-lg">热门帖子</li>
-        {{- range $path := $popularPages.mostVisitedPost -}}
-          {{- $page := $.Site.GetPage $path -}}
-          {{- if $page -}}
-            <li><a href="{{- $page.RelPermalink -}}">{{- $page.Title -}}</a></li>
+        {{- range $uuid := $popularPages.mostVisited -}}
+        {{- $post := site.Store.Get $uuid -}}
+        {{- if $post -}}
+          {{- if eq ($post.RelPermalink) ($.Page.RelPermalink) -}}
+            <li><a href="{{- $post.RelPermalink -}}" class="menu-active">{{- $post.Title -}}</a></li>
+          {{- else -}}
+            <li><a href="{{- $post.RelPermalink -}}">{{- $post.Title -}}</a></li>
           {{- end -}}
+        {{- end -}}
         {{- end -}}
       </ul>
     {{- end -}}

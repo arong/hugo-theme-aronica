@@ -18,12 +18,7 @@
       {{- errorf "PostRef: path %q not found" $path -}}
    {{- end -}}
 {{- else if $uuid -}}
-   {{- if not (site.Store.Get "PageUUIDMapExist") -}}
-      {{- range site.RegularPages -}}
-         {{- site.Store.Set .Params.UUID . -}}
-      {{- end -}}
-      {{- site.Store.Set "PageUUIDMapExist" true -}}
-   {{- end -}}
+   {{- partial "function/build-uuid-map.html" -}}
    {{- $post = site.Store.Get $uuid -}}
    {{- if not $post -}}
       {{- errorf "PostRef: uuid %q not found" $uuid -}}

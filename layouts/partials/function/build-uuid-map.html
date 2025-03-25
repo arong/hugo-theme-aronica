@@ -1,0 +1,8 @@
+{{- if not (site.Store.Get "PageUUIDMapExist") -}}
+    {{- range site.Pages -}}
+        {{- if .Params.uuid -}}
+        {{- site.Store.Set .Params.uuid . -}}
+        {{- end -}}
+    {{- end -}}
+    {{- site.Store.Set "PageUUIDMapExist" true -}}
+{{- end -}}

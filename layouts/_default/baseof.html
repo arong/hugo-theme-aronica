@@ -54,6 +54,68 @@
       });
       </script>
     {{- end -}}
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 获取所有章节标题（假设是 h2 标签）
+        const headings = document.querySelectorAll("h2, h3");
+
+        // 监听滚动事件
+        window.addEventListener("scroll", () => {
+          let currentSection = null;
+
+          // 遍历所有标题，找到当前滚动到的章节
+          headings.forEach((heading) => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+              currentSection = heading;
+            }
+          });
+
+          // 更新显示当前章节
+          if (currentSection) {
+            // 从toc中寻找匹配章节
+            const tocLinks = document.querySelectorAll("#TableOfContents a");
+            tocLinks.forEach((link) => {
+              if (link.textContent.trim() === currentSection.textContent.trim()) {
+                link.classList.add("menu-active");
+              } else {
+                link.classList.remove("menu-active");
+              }
+            });
+
+            console.log("当前章节:", currentSection.textContent);
+            // 你也可以更新页面上的某个元素来显示当前章节
+            document.getElementById("current-h2").textContent =
+            "当前位置: " + currentSection.textContent;
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const detailsElement = document.getElementById("page-toc");
+
+        // 定义断点条件
+        const mediaQueryMd = window.matchMedia("(min-width: 768px)"); // md 断点
+        const mediaQueryLg = window.matchMedia("(min-width: 1024px)"); // lg 断点
+
+        // 检测断点并设置 open 属性
+        function handleMediaChange() {
+          if (mediaQueryMd.matches || mediaQueryLg.matches) {
+            detailsElement.setAttribute("open", "open"); // 设置为 open
+          } else {
+            detailsElement.removeAttribute("open"); // 移除 open 属性
+          }
+        }
+
+        // 初始检测
+        handleMediaChange();
+
+        // 监听断点变化
+        mediaQueryMd.addEventListener("change", handleMediaChange);
+        mediaQueryLg.addEventListener("change", handleMediaChange);
+      });
+    </script>
   </head>
 
   {{- /* responsive drawer, at left side */ -}}
@@ -74,7 +136,7 @@
         {{- if .Page.Store.Get "ColumnMode"  -}}
           {{- partial "sidebar/column-toc.html" . -}}
         {{- else -}}
-          {{- partialCached "sidebar/site-link.html" . -}}
+          {{- partial "sidebar/site-link.html" . -}}
         {{- end -}}
       </nav>
     </aside>
