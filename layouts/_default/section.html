@@ -2,13 +2,10 @@
 {{- define "main" -}}
   {{- $result := strings.TrimSpace .Content -}}
   {{- if eq $result "" -}}
-    <main class="prose">
-        {{- $Root := .Page.FirstSection -}}
-        {{- $PageList := $Root.Pages.ByDate.Reverse -}}
-        {{- $paginator := .Paginate $PageList 15 -}}
-        <h1>最新帖子</h1>
-        {{- partial "post-list.html" (dict "Pages" $paginator.Pages) -}}
-        {{- partial "pagination.html" . -}}
+    <main >
+      <div class="menu md:hidden">
+        {{- partial "sidebar/column-toc.html" . -}}
+      </div>
     </main>
   {{- else -}}
     {{- /* note: the main start from 2, leave space for navbar */ -}}
