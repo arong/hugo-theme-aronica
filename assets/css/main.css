@@ -1,4 +1,4 @@
-/*! tailwindcss v4.0.16 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.0.17 | MIT License | https://tailwindcss.com */
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -1509,37 +1509,6 @@
     }
     &:has(> :checked) {
       outline: 2px solid currentColor;
-    }
-  }
-  .swap {
-    position: relative;
-    display: inline-grid;
-    cursor: pointer;
-    place-content: center;
-    vertical-align: middle;
-    webkit-user-select: none;
-    user-select: none;
-    input {
-      appearance: none;
-      border: none;
-    }
-    > * {
-      grid-column-start: 1;
-      grid-row-start: 1;
-      transition-property: transform, rotate, opacity;
-      transition-duration: 0.2s;
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-    .swap-on, .swap-indeterminate, input:indeterminate ~ .swap-on {
-      opacity: 0%;
-    }
-    input:is(:checked, :indeterminate) {
-      & ~ .swap-off {
-        opacity: 0%;
-      }
-    }
-    input:checked ~ .swap-on, input:indeterminate ~ .swap-indeterminate {
-      opacity: 100%;
     }
   }
   .collapse-title {
@@ -3225,6 +3194,9 @@
   .w-56 {
     width: calc(var(--spacing) * 56);
   }
+  .w-96 {
+    width: calc(var(--spacing) * 96);
+  }
   .w-full {
     width: 100%;
   }
@@ -3289,9 +3261,6 @@
   }
   .list-decimal {
     list-style-type: decimal;
-  }
-  .list-disc {
-    list-style-type: disc;
   }
   .list-none {
     list-style-type: none;
