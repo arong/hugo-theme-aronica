@@ -118,6 +118,9 @@
     </script>
   </head>
 
+  {{- if .IsHome -}}
+  {{- block "body" . -}} {{- end -}}
+  {{- else -}}
   {{- /* responsive drawer, at left side */ -}}
   <body class="min-h-screen drawer md:drawer-open">
     <input id="drawer" type="checkbox" class="drawer-toggle">
@@ -148,4 +151,6 @@
       {{- block "main" . -}}{{- end -}}
     </div>
   </body>
+  {{- end -}}
+
 </html>

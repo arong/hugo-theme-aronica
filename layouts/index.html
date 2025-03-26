@@ -1,0 +1,124 @@
+{{- define "body" -}}
+<body>
+  {{- /* hero section*/ -}}
+  <div class="hero bg-base-200 h-[61.8vh]">
+    <div class="hero-content text-center">
+      <div class="">
+        <h1 class="text-5xl font-bold">All About Modern C++</h1>
+        <p class="py-6">
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {{- /* feature/topic section*/ -}}
+  <div class="m-4 md:m-8 grid grid-cols-1 md:grid-cols-3 md:items-stretch gap-8">
+    <div class="card bg-base-100 shadow">
+      <div class="card-body md:justify-between">
+        <h2 class="card-title justify-center">现代 C++ 新特性</h2>
+        <div class="prose">
+          <p>Modern C++相关的内容, 包含
+            <a class="link" href="/modern-cpp/cpp17/">C++ 17</a>,
+            <a class="link" href="/modern-cpp/cpp20/">C++ 20</a>,
+            <a class="link" href="/modern-cpp/cpp23/">C++ 23</a>, 以及
+            <a class="link" href="/modern-cpp/cpp26/">C++ 26</a>的新特性介绍.</p>
+            <ul class="list-disc">
+              <li><a class="link" href="/modern-cpp/cpp20/cpp20-module-in-action/">CMake构建C++20 Module实例(使用MSVC)</a></li>
+              <li><a class="link" href="/posts/cpp-constexpr-consteval-constinit-intro/">C++ constexpr, consteval和 constinit简要介绍</a></li>
+            </ul>
+        </div>
+        <div class="card-actions justify-center">
+          <a href="/modern-cpp/">
+            <button class="btn btn-ghost btn-primary">开始阅读</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow">
+      <div class="card-body md:justify-between">
+        <h2 class="card-title justify-center">回归基础</h2>
+        <div class="prose">
+          <p>重新认识一些 C++ 的基础知识.</p>
+          <ul class="list-disc">
+            <li><a class="link" href="/back-to-basics/understand-cpp-type-casting/">深入解析 C++ 类型转换</a></li>
+            <li><a class="link" href="/posts/modern-cpp-class-init-cover-cpp11-to-cpp20/">C++ 类成员初始化发展历程(从C++11到C++20)</a></li>
+          </ul>
+        </div>
+        <div class="card-actions justify-center">
+          <a href="/back-to-basics/">
+            <button class="btn btn-ghost btn-primary">开始阅读</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow">
+      <div class="card-body md:justify-between">
+        <h2 class="card-title justify-center">工具</h2>
+        <div class="prose">
+          <p>
+            工欲善其事, 必先利其器. 配置良好的开发环境, 会大大提高开发效率.
+          </p>
+          <ul class="list-disc">
+            <li><a class="link" href="/posts/vscode-dev-containers-complete-guide/">VS Code Dev Containers 教程: 从基础到进阶配置</a></li>
+            <li><a class="link" href="/posts/configure-vscode-as-cpp-ide/">VS Code C++ 开发环境配置</a></li>
+          </ul>
+        </div>
+        <div class="card-actions justify-center">
+          <a href="/tooling/">
+            <button class="btn btn-ghost btn-primary">开始阅读</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-8 md:mx-16 lg:mx-24 my-8 md:my-16 lg:my-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-y-16 lg:gap-y-24">
+    <div class="border-base-300 p-8">
+      <h2 class="text-2xl font-bold">Compiler Explorer</h2>
+      <p class="mt-4 text-xl">博客中的代码支持在Compiler Explorer中打开并运行.</p>
+    </div>
+
+    <div class="mockup-window border border-base-300">
+      {{- $sample := resources.Get "samples/hello.txt" -}}
+      {{- if $sample -}}
+        {{- $sample.Content | .Page.RenderString }}
+      {{- end -}}
+    </div>
+
+    <div class="border-base-300 p-8">
+      <h2 class="text-2xl font-bold">多标签功能支持</h2>
+      <p class="text-xl">增强代码展示, 在多组代码的场景下浏览更方便.</p>
+    </div>
+
+    <div class="md:h-60 md:w-140">
+      {{- $sample := resources.Get "samples/multi-tabs.txt" -}}
+      {{- if $sample -}}
+        {{- $sample.Content | .Page.RenderString }}
+      {{- end -}}
+    </div>
+  </div>
+
+  <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+    <nav>
+      <h6 class="footer-title">专栏</h6>
+      <a class="link link-hover" href="/modern-cpp/">现代 C++</a>
+      <a class="link link-hover" href="/modern-cmake/">现代 CMake</a>
+      <a class="link link-hover" href="/back-to-basics/">回归基础</a>
+      <a class="link link-hover" href="/cpp-core-guidelines/">C++核心指导原则</a>
+      <a class="link link-hover" href="/tooling/">工具</a>
+    </nav>
+    <nav>
+      <h6 class="footer-title">博客</h6>
+      <a class="link link-hover" href="/posts/">最新博客</a>
+      <a class="link link-hover" href="/about/">关于作者</a>
+    </nav>
+    <nav>
+      <h6 class="footer-title">分类</h6>
+      <a class="link link-hover" href="/tags/">Tags</a>
+      <a class="link link-hover" href="/categories/">Category</a>
+    </nav>
+  </footer>
+</body>
+{{- end -}}

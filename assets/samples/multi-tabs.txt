@@ -1,0 +1,42 @@
+{{< CodeTabs >}}
+{{< Code title="simple.ixx" >}}
+
+```cpp
+export module simple;  // 模块声明
+
+// 该函数将被导出
+export int add(int a, int b) { return a + b; }
+
+```
+
+{{< /Code >}}
+
+{{< Code title="simple_main.cpp" >}}
+
+```cpp
+import simple; // 导入模块
+#include <iostream>
+
+int main() {
+  std::cout << "simple add(1, 2)=" << add(1, 2) << "\n";
+  return 0;
+}
+```
+
+{{< /Code >}}
+
+{{< Code title="CMakeLists.txt" >}}
+
+```cmake
+add_library(simple_module)
+target_sources(simple_module
+        PUBLIC
+        FILE_SET CXX_MODULES FILES
+        simple.ixx
+)
+add_executable(simple_demo simple_main.cpp)
+target_link_libraries(simple_demo simple_module)
+```
+
+{{< /Code >}}
+{{< /CodeTabs >}}
