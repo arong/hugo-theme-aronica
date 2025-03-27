@@ -1,12 +1,59 @@
 {{- define "main" -}}
-<h1>{{- .Title -}}</h1>
-<div id="post-meta" class="flex flex-row items-center mb-6">
-  {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
-  {{- $dateFormat := .Site.Params.DateFormat | default "2006-01-02" -}}
-  {{- $dateHuman := .Date | time.Format $dateFormat -}}
-  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-current"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg>
-  <time class="text-sm text-gray-400 " datetime="{{- $dateMachine -}}">{{- $dateHuman -}}</time>
-</div>
-{{- .Content -}}
-{{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+{{- /* note: the main start from 2, leave space for navbar */ -}}
+<main class="md:grid md:grid-cols-3">
+  {{- /* FIXME: need to work on mobile */ -}}
+  {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
+  <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
+    <details id="page-toc" class="menu w-full">
+      <summary class="flex flex-row"><span class="hidden md:block">本文目录</span>
+        <span id="current-h2" class="md:hidden">本文目录</span>
+      </summary>
+      <div>
+        {{- .TableOfContents -}}
+      </div>
+    </details>
+  </nav>
+  {{- end -}}
+  <article class="pt-10 px-4 md:px-8 md:col-span-2 prose prose-sm md:prose-base">
+    <h1>{{- .Title -}}</h1>
+    <div id="post-meta" class="flex flex-row items-center mb-6">
+      {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+      {{- $dateFormat := .Site.Params.DateFormat | default "2006-01-02" -}} {{-
+      $dateHuman := .Date | time.Format $dateFormat -}}
+      {{- partialCached "icons/calendar.html" . -}}
+      <time class="text-sm text-gray-400" datetime="{{- $dateMachine -}}">
+        {{- $dateHuman -}}
+      </time>
+    </div>
+    {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+  </article>
+
+  <footer class="lg:hidden mt-8 mb-8">
+    {{- /* 这里有一点需要注意的问题: 默认是按照Weight 从大到小排的,
+         * 但是我的博客中设置的是按照Weight从小到大 */ -}}
+    {{ with .NextInSection }}
+    <div class="border rounded-box border-gray-400 mx-4">
+      <a href="{{ .RelPermalink }}" class="pl-2 py-4 flex flex-row justify-start items-center">
+        <svg class="h-6 w-6 fill-current md:h-8 md:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
+        <span class="flex flex-col items-begin">
+          <span class="font-light">上一篇</span>
+          <span class="text-xl font-bold">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
+        </span>
+      </a>
+    </div>
+    {{ end }}
+
+    {{ with .PrevInSection }}
+    <div class="border rounded-box border-gray-400 mx-4 mt-4">
+      <a href="{{ .RelPermalink }}" class="pr-2 py-4 flex flex-row justify-end items-center">
+        <span class="flex flex-col items-end">
+          <span class="font-light">下一篇</span>
+          <span class="text-xl font-bold ">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
+        </span>
+        <svg class="h-6 w-6 fill-current md:h-8 md:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+      </a>
+    </div>
+    {{ end }}
+  </footer>
+</main>
 {{- end -}}

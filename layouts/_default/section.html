@@ -1,0 +1,41 @@
+{{- /* define main based on the content */ -}}
+{{- define "main" -}}
+  {{- $result := strings.TrimSpace .Content -}}
+  {{- if eq $result "" -}}
+    <main >
+      <div class="menu md:hidden">
+        {{- partial "sidebar/column-toc.html" . -}}
+      </div>
+    </main>
+  {{- else -}}
+    {{- /* note: the main start from 2, leave space for navbar */ -}}
+    <main class="md:grid md:grid-cols-3">
+      {{- /* FIXME: need to work on mobile */ -}}
+      {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
+      <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
+        <details id="page-toc" class="menu w-full">
+          <summary class="flex flex-row"><span class="hidden md:block">本文目录</span>
+            <span id="current-h2" class="md:hidden">本文目录</span>
+          </summary>
+          <div>
+            {{- .TableOfContents -}}
+          </div>
+        </details>
+      </nav>
+      {{- end -}}
+      <article class="pt-10 px-4 md:px-8 md:col-span-2 prose prose-sm md:prose-base">
+        <h1>{{- .Title -}}</h1>
+        <div id="post-meta" class="flex flex-row items-center mb-6">
+          {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+          {{- $dateFormat := .Site.Params.DateFormat | default "2006-01-02" -}} {{-
+          $dateHuman := .Date | time.Format $dateFormat -}}
+          {{- partialCached "icons/calendar.html" . -}}
+          <time class="text-sm text-gray-400" datetime="{{- $dateMachine -}}">
+            {{- $dateHuman -}}
+          </time>
+        </div>
+        {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+      </article>
+    </main>
+  {{- end -}}
+{{- end -}}

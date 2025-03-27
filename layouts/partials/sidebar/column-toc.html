@@ -1,0 +1,49 @@
+{{- /*
+    * Generate a sidebar for a column of articles.
+    * It will start form top level section and iterate through all sections
+    * and pages.
+    * Current selected page will be marked as active.
+    */ -}}
+{{- $Current := .Page -}}
+{{- $Root := .Page.FirstSection -}}
+
+
+<details open class="menu w-full md:w-[45ch]">
+    {{- if eq $Current.RelPermalink $Root.RelPermalink -}}
+        {{- /* FIXME: need some hack to make it work, current now, the active not work */ -}}
+        <summary><a href="{{ $Root.RelPermalink }}" class="menu-active">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) ($Root.Title) }}</a></summary>
+    {{- else -}}
+        <summary><a href="{{ $Root.RelPermalink }}">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) ($Root.Title) }}</a></summary>
+    {{- end -}}
+    {{- template "visit-section" (dict "selected" $Current "current" $Root) -}}
+</details>
+
+{{- define "visit-section" -}}
+{{ $selected := .selected }}
+{{ $current := .current }}
+<ul >
+    {{- range $current.Pages.ByWeight -}}
+    {{- if .IsPage -}}
+        <li>
+            {{- if eq $selected.RelPermalink .RelPermalink -}}
+                <a href="{{ .RelPermalink }}" class="menu-active">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a>
+            {{- else -}}
+                <a href="{{ .RelPermalink }}">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a>
+            {{- end -}}
+        </li>
+    {{- else -}}
+        <li>
+            <details open>
+                {{- if eq $selected.RelPermalink .RelPermalink -}}
+                    {{- /* FIXME: need some hack to make it work, current now, the active not work */ -}}
+                    <summary><a href="{{ .RelPermalink }}" class="menu-active">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a></summary>
+                {{- else -}}
+                    <summary><a href="{{ .RelPermalink }}">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</a></summary>
+                {{- end -}}
+                {{- template "visit-section" (dict "selected" $selected "current" .) -}}
+            </details>
+        </li>
+        {{- end -}}
+    {{- end -}}
+</ul>
+{{- end -}}

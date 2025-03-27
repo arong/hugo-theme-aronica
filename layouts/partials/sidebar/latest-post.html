@@ -1,23 +1,9 @@
 {{- $latestPost := first 5 .Site.RegularPages.ByDate.Reverse -}}
 {{- if gt (len $latestPost) 0 -}}
-  <table id="latest-posts" class="table w-full">
-    <thead>
-      <tr>
-        <th class="prose-lg">最新帖子</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{- range $latestPost -}}
-      <tr
-        class="hover:bg-base-200 cursor-pointer"
-        data-href="{{- .RelPermalink -}}"
-        onclick="window.location.href=this.dataset.href"
-      >
-        <td>
-          <span class="text-primary">{{- .Title -}}</span>
-        </td>
-      </tr>
-      {{- end -}}
-    </tbody>
-  </table>
+  <ul id="latest-posts" class="menu w-full">
+    <li class="menu-title text-lg">最新帖子</li>
+    {{- range $latestPost -}}
+    <li><a href="{{- .RelPermalink -}}">{{- .Title -}}</a></li>
+    {{- end -}}
+  </ul>
 {{- end -}}

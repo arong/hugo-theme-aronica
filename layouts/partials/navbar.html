@@ -1,0 +1,69 @@
+<nav class="sticky top-0 z-30 navbar bg-base-100 shadow">
+  <div class="navbar-start">
+    <label
+      aria-label="Open menu"
+      for="drawer"
+      class="btn btn-square btn-ghost drawer-button lg:hidden"
+    >
+      {{- partial "icons/toc.html" -}}
+    </label>
+    <a class="btn btn-ghost text-xl lg:hidden" href="/">{{ .Site.Title }}</a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+  </div>
+
+  <div class="navbar-end">
+    {{- /* theme controller */ -}}
+    <button class="btn btn-ghost" onclick="changeTheme()">
+        <!-- sun icon -->
+        {{- partialCached "icons/sun.html" (dict "ID" "sun-icon") -}}
+
+        <!-- moon icon -->
+        {{- partialCached "icons/moon.html"  (dict "ID" "moon-icon") -}}
+    </button>
+
+    {{- /* menu for PC */ -}}
+    <ul class="hidden lg:menu lg:menu-horizontal">
+        {{- range .Site.Menus.main -}}
+            {{- if not .HasChildren  -}}
+                {{- if hasPrefix $.Page.RelPermalink .URL -}}
+                <li><a href="{{- .URL -}}" class="menu-focus">{{- .Name -}}</a></li>
+                {{- else -}}
+                <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- end -}}
+            {{- else -}}
+            <li><details>
+                <summary>{{- .Name -}}</summary>
+                <ul>
+                {{- range .Children -}}
+                    <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- end -}}
+                </ul>
+            </details></li>
+            {{- end -}}
+        {{- end -}}
+    </ul>
+
+    {{- /* menu for mobile */ -}}
+    <details class="dropdown dropdown-end">
+        <summary class="btn btn-ghost lg:hidden">{{- partial "icons/menu.html" -}}</summary>
+        {{- /* TODO: 需要微调间距 */ -}}
+        <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
+            {{- range .Site.Menus.main -}}
+                {{- if not .HasChildren  -}}
+                    <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                {{- else -}}
+                <li><details open>
+                    <summary>{{- .Name -}}</summary>
+                    <ul>
+                    {{- range .Children -}}
+                        <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+                    {{- end -}}
+                    </ul>
+                </details></li>
+                {{- end -}}
+            {{- end -}}
+        </ul>
+      </details>
+  </div>
+</nav>

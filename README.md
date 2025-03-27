@@ -24,33 +24,25 @@ git submodule add https://github.com/arong/hugo-theme-aronica.git
 
 1. 多标签代码
 2. 引入公共文件, 比如专栏目录, 在专栏中的每一个文件中都引入相同的目录
-3. `PostRef`自动引用帖子的title和链接
+3. `PostRef`自动引用帖子的 title 和链接
 
-## TODO
 
-- [ ] 增加Include Code的功能
-- [ ] 代码高亮, 增加代码选取以及在Compiler Explorer中运行代码
-    - https://www.foonathan.net/2021/05/hugo-godbolt/
-- [ ] 集成Google Search
-    ```html
-    <script async src="https://cse.google.com/cse.js?cx=2557c2a3f2f1c4c98">
-    </script>
-    <div class="gcse-search"></div>
-    ```
-- [x] 需要保证不同页面切换前后的观感, 目前就是要求标题的位置需要固定一致, 不要上下起伏.
-- [x] 增加边栏导航
-- [x] 增加分页
-    - [x] 首页
-    - [x] Category
-    - [x] Tags
-- [x] 适配手机端
-- [x] 增加暗黑模式, 目前仅仅支持黑白切换
-    - [ ] 增加一个follow system的选项
-- [x] 为代码块增加复制按钮
-- [ ] 为导航栏增加悬停效果, 激活效果
-- [ ] 设计首页
-- [ ] 设计404页面
 
-## BUG
 
-1. not pass w3c validation
+## 响应式布局
+
+目前采用的是DaisyUI的drawer布局做的
+
+### header 元素
+
+1. 公共部分:
+  1. Search bar
+  2. 黑白切换按钮
+  3. 菜单栏
+1. 对于专栏, 存在一个专栏的目录, 在移动端上面显示出一个按钮, 点击就会弹出drawer
+
+## 测试页面
+
+1. http://192.168.146.129:1313/
+1. http://192.168.146.129:1313/modern-cpp/
+3. http://192.168.1.11:1313/tags/

@@ -1,15 +1,43 @@
-<div id="site-title" class="w-fit bg-base-200">
-  <h1 class="font-bold text-xl text-primary bg-secondary p-4" >
-    <a href="/">{{ site.Title }}</a>
-  </h1>
-</div>
-<div class="w-fit bg-base-300 mr-4">
-  <details class="menu menu-vertical px-1">
-    <summary>菜单</summary>
-    <ul class="bg-base-100 rounded-t-none p-2">
-      {{ range site.Menus.main }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-      {{ end }}
+<header class="hidden navbar w-full bg-base-200 sticky md:fixed top-0 z-3">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" href="/">{{- site.Title -}}</a>
+  </div>
+
+  <div class="hidden md:flex flex-row items-center">
+    <button onclick="changeTheme()" class="btn btn-ghost">
+      {{- partial "icons/sun.html" (dict "Class" "fill-current" "ID" "sun-icon") -}}
+      {{- partial "icons/moon.html" (dict "Class" "fill-current" "ID" "moon-icon") -}}
+    </button>
+    <ul class="menu menu-horizontal px-1">
+      {{- range site.Menus.main -}}
+        <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+      {{- end -}}
     </ul>
-  </details>
-</div>
+  </div>
+
+  <div class="flex-none md:hidden">
+    <button onclick="changeTheme()">
+      {{- /* sun icon */ -}}
+      {{- partial "icons/sun.html" (dict "Class" "fill-primary" "ID" "sun-icon-mobile") -}}
+
+      {{- /* moon icon */ -}}
+      {{- partial "icons/moon.html" (dict "Class" "fill-primary" "ID" "moon-icon-mobile") -}}
+    </button>
+    <ul class="menu menu-horizontal px-1">
+      <li>
+        <details>
+          <summary>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-primary">
+              <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+            </svg>
+          </summary>
+          <ul class="bg-base-100 rounded-t-none p-1">
+            {{- range site.Menus.main -}}
+              <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
+            {{- end -}}
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+</header>

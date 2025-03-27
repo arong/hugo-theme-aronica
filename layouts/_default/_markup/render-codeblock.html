@@ -32,7 +32,7 @@
     </div>
     {{- end -}}
 
-    <div id="{{$codeStrID}}" class="code-tab overflow-x-auto scrollbar-thin">
+    <div id="{{$codeStrID}}" class="code-tab overflow-x-auto scrollbar-thin not-prose">
         {{- $opts := (dict "noClasses" false "codeFences" true ) -}}
         {{- $opts = merge $opts .Options }}
         {{- highlight .Inner $lang $opts -}}

@@ -1,0 +1,11 @@
+{{- /* This page generate a sidebar for a normal page.
+     * It include several partials to generate a sidebar.
+     * the name shows it's purpose.
+  */ -}}
+<div class="flex flex-col divide-y">
+  {{- partial "sidebar/related-post.html" . -}}
+  {{- partialCached "sidebar/latest-post.html" . -}}
+  {{- partial "sidebar/most-visited-sidebar.html" . -}}
+  {{- partialCached "sidebar/category.html" . -}}
+  {{- partialCached "sidebar/tags.html" . -}}
+</div>

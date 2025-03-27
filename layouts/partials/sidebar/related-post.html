@@ -11,14 +11,12 @@
 {{- $top10Posts := first 10 $sortedPosts -}}
 
 {{- if gt (len $top10Posts) 0 -}}
-<table id="related-post" class="table">
-  <thead><tr><th class="prose-lg">相关帖子</th></tr></thead>
-  <tbody>
+  <ul id="related-post" class="menu w-full">
+    <li class="menu-title text-lg">相关帖子</li>
     {{- range $top10Posts -}}
-    <tr class="hover:bg-base-200 cursor-pointer" data-href="{{- .RelPermalink -}}" onclick="window.location.href=this.dataset.href">
-      <td><span class="text-primary">{{- .Title -}}</span></td>
-    </tr>
+    <li>
+      <a href="{{- .RelPermalink -}}">{{- .Title -}}</a>
+    </li>
     {{- end -}}
-  </tbody>
-</table>
+  </ul>
 {{- end -}}
