@@ -1,5 +1,9 @@
 {{- define "body" -}}
 <body>
+  {{- /* google cmp tag body */ -}}
+  {{- if and (hugo.IsProduction) (site.Params.GoogleTagManager.CookiebotTag) -}}
+    {{- partialCached "google/gt-cmp-body.html" . -}}
+  {{- end -}}
   {{- /* hero section*/ -}}
   <div class="hero bg-base-200 h-[61.8vh]">
     <div class="hero-content text-center">
@@ -13,7 +17,7 @@
 
   {{- /* feature/topic section*/ -}}
   <div class="m-4 md:m-8 grid grid-cols-1 md:grid-cols-3 md:items-stretch gap-8">
-    <div class="card w-96 bg-base-100 shadow">
+    <div class="card bg-base-100 shadow">
       <div class="card-body md:justify-between">
         <h2 class="card-title justify-center">现代 C++ 新特性</h2>
         <p>介绍C++的新特性, 目前包含
@@ -29,7 +33,7 @@
       </div>
     </div>
 
-    <div class="card w-96 bg-base-100 shadow">
+    <div class="card bg-base-100 shadow">
       <div class="card-body md:justify-between">
         <h2 class="card-title justify-center">回归基础</h2>
         <div class="">
@@ -45,7 +49,7 @@
       </div>
     </div>
 
-    <div class="card w-96 bg-base-100 shadow">
+    <div class="card bg-base-100 shadow">
       <div class="card-body md:justify-between">
         <h2 class="card-title justify-center">工具</h2>
         <div class="">
@@ -106,6 +110,12 @@
       <h6 class="footer-title">分类</h6>
       <a class="link link-hover" href="/tags/">Tags</a>
       <a class="link link-hover" href="/categories/">Category</a>
+    </nav>
+    <nav>
+      <h6 class="footer-title">其他</h6>
+      <a href="/rss.xml" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-current"><path d="M200-120q-33 0-56.5-23.5T120-200q0-33 23.5-56.5T200-280q33 0 56.5 23.5T280-200q0 33-23.5 56.5T200-120Zm480 0q0-117-44-218.5T516-516q-76-76-177.5-120T120-680v-120q142 0 265 53t216 146q93 93 146 216t53 265H680Zm-240 0q0-67-25-124.5T346-346q-44-44-101.5-69T120-440v-120q92 0 171.5 34.5T431-431q60 60 94.5 139.5T560-120H440Z"/></svg>
+      </a>
     </nav>
   </footer>
 </body>

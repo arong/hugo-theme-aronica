@@ -1,0 +1,19 @@
+{{- if or hugo.IsProduction hugo.IsServer -}}
+<div id="waline" class="max-w-prose not-prose"></div>
+<script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+  init({
+    el: '#waline',
+    search: false,
+    serverURL: '{{ site.Params.Waline.ServerURL }}',
+    lang: "zh-CN",
+    dark: 'html[data-theme="dark"]',
+    requiredMeta: ["nick", "mail"],
+    wordLimit: ["5", "1000"],
+    imageUploader: false,
+    noCopyright: true,
+    emoji: ["//npm.onmicrosoft.cn/@waline/emojis@1.2.0/qq"],
+  });
+</script>
+{{- end -}}

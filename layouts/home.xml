@@ -1,0 +1,56 @@
+{{- /* Template for RSS feeds of home */ -}}
+{{- $authorEmail := "" }}
+{{- with site.Params.author }}
+  {{- if reflect.IsMap . }}
+    {{- with .email }}
+      {{- $authorEmail = . }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- $authorName := "" }}
+{{- with site.Params.author }}
+  {{- if reflect.IsMap . }}
+    {{- with .name }}
+      {{- $authorName = . }}
+    {{- end }}
+  {{- else }}
+    {{- $authorName  = . }}
+  {{- end }}
+{{- end }}
+
+{{- $pages := site.RegularPages.ByDate.Reverse }}
+{{- $limit := .Site.Config.Services.RSS.Limit }}
+{{- if ge $limit 1 }}
+  {{- $pages = $pages | first $limit }}
+{{- end }}
+
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.Title }}</title>
+    <link>{{ site.BaseURL }}</link>
+    <description>最新帖子列表</description>
+    <language>{{ site.Language.LanguageCode }}</language>
+    {{- with $authorEmail -}}
+    <managingEditor>{{.}}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>{{ end }}{{ with $authorEmail }}
+    <webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>{{ end }}{{ with .Site.Copyright }}
+    <copyright>{{ . }}</copyright>{{ end }}
+    {{ if not .Date.IsZero }}
+    <lastBuildDate>{{ (index $pages.ByLastmod.Reverse 0).Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastBuildDate>
+    {{ end }}
+    {{- with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</pubDate>
+      {{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
+      <guid>{{ .Params.Uuid }}</guid>
+      <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>

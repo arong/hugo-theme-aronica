@@ -4,7 +4,7 @@
      * 需要注意代码块整体有缩进的情况
     */ -}}
 
-{{- $rawCode   :=  trim .Inner "\n"  -}}
+{{- $rawCode   :=  trim .InnerDeindent "\n"  -}}
 {{- $lines     :=  split $rawCode "\n"  -}}
 {{- $firstLine := "" -}}
 {{- if $lines -}}
@@ -44,6 +44,7 @@
 {{- end -}}
 
 {{- /* generate client state*/ -}}
+{{- $compilerID  := .Get "compiler" | default "clang_trunk" -}}
 {{- $flags       := .Get "flags" | default "-std=c++20" -}}
 {{- $libs        := slice -}}
 {{- $fmt_version := .Get "fmt_version" | default "trunk" -}}
@@ -53,7 +54,7 @@
 {{- if $benchmark -}}
 {{- $libs        = $libs | append (dict "id" "benchmark" "version" $benchmark) -}}
 {{- end -}}
-{{- $compiler    := dict "id" "clang_trunk" "libs" $libs "options" $flags -}}
+{{- $compiler    := dict "id" $compilerID "libs" $libs "options" $flags -}}
 {{- $executor    := dict "compiler" $compiler -}}
 {{- $session     := dict "id" 1 "language" "c++" "source" $fullCode "compilers" (slice) "executors" (slice $executor) -}}
 {{- $clientState := dict "sessions" (slice $session) -}}
