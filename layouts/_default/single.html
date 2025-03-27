@@ -4,7 +4,7 @@
   {{- /* FIXME: need to work on mobile */ -}}
   {{- if and (.IsPage) (ne .Page.RelPermalink "/about/") -}}
   <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
-    <details id="page-toc" class="menu w-full" close>
+    <details id="page-toc" class="menu w-full">
       <summary class="flex flex-row"><span class="hidden md:block">本文目录</span>
         <span id="current-h2" class="md:hidden">本文目录</span>
       </summary>

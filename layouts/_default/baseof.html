@@ -84,10 +84,12 @@
               }
             });
 
-            console.log("当前章节:", currentSection.textContent);
+            // console.log("当前章节:", currentSection.textContent);
             // 你也可以更新页面上的某个元素来显示当前章节
-            document.getElementById("current-h2").textContent =
-            "当前位置: " + currentSection.textContent;
+            const currentH2Element = document.getElementById("current-h2");
+            if (currentH2Element) {
+              currentH2Element.textContent = "当前位置: " + currentSection.textContent;
+            }
           }
         });
       });
@@ -95,6 +97,9 @@
       document.addEventListener("DOMContentLoaded", function () {
         const detailsElement = document.getElementById("page-toc");
 
+        if (!detailsElement) {
+          return;
+        }
         // 定义断点条件
         const mediaQueryMd = window.matchMedia("(min-width: 768px)"); // md 断点
         const mediaQueryLg = window.matchMedia("(min-width: 1024px)"); // lg 断点
