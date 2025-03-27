@@ -1,5 +1,9 @@
 {{- define "body" -}}
 <body>
+  {{- /* google cmp tag body */ -}}
+  {{- if and (hugo.IsProduction) (site.Params.GoogleTagManager.CookiebotTag) -}}
+    {{- partialCached "google/gt-cmp-body.html" . -}}
+  {{- end -}}
   {{- /* hero section*/ -}}
   <div class="hero bg-base-200 h-[61.8vh]">
     <div class="hero-content text-center">

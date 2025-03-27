@@ -18,16 +18,29 @@
       <meta name="description" content="{{- site.Params.description -}}">
     {{- else if .IsPage -}}
       {{- if .Page.Params.DisableCrawl -}}
-        <meta name="robots" content="noindex">
+      <meta name="robots" content="noindex">
       {{- else -}}
-        <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
-        <meta name="description" content="{{- .Description -}}">
+      <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
+      <meta name="description" content="{{- .Description -}}">
+      {{- end -}}
+    {{- else if .IsNode -}}
+      {{- if gt (len .Keywords) 0 -}}
+      <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
+      {{- end -}}
+      {{- if gt (len .Description) 0 -}}
+      <meta name="description" content="{{- .Description -}}">
       {{- end -}}
     {{- end -}}
 
+
     {{- partialCached "head/css.html" . -}}
-    {{- partialCached "head/js.html" . -}}
+
     {{- if hugo.IsProduction -}}
+      {{- /* google cmp tag */ -}}
+      {{- if site.Params.GoogleTagManager.CookiebotTag -}}
+        {{- partialCached "google/gt-cmp-head.html" . -}}
+      {{- end -}}
+      {{- /* google analytics */ -}}
       {{- if site.Config.Services.GoogleAnalytics.ID -}}
         {{- partial "google-analytics.html" -}}
       {{- end -}}
@@ -35,6 +48,8 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
       {{- end -}}
     {{- end -}}
+
+    {{- partialCached "head/js.html" . -}}
 
     {{- /* note the use of a noop statement to
          * force content rendering before
@@ -128,6 +143,10 @@
   {{- else -}}
   {{- /* responsive drawer, at left side */ -}}
   <body class="min-h-screen drawer md:drawer-open">
+    {{- /* google cmp tag body */ -}}
+    {{- if and (hugo.IsProduction) (site.Params.GoogleTagManager.CookiebotTag) -}}
+      {{- partialCached "google/gt-cmp-body.html" . -}}
+    {{- end -}}
     <input id="drawer" type="checkbox" class="drawer-toggle">
 
     {{- /* navbar, at left side, it's a drawer on mobile */ -}}
