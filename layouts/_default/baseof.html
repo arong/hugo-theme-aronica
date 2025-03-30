@@ -41,8 +41,8 @@
         {{- partialCached "google/gt-cmp-head.html" . -}}
       {{- end -}}
       {{- /* google analytics */ -}}
-      {{- if site.Config.Services.GoogleAnalytics.ID -}}
-        {{- partial "google-analytics.html" -}}
+      {{- if site.Params.GoogleAnalytics.ID -}}
+        {{- partial "google/analytics.html" (dict "ID" site.Params.GoogleAnalytics.ID) -}}
       {{- end -}}
       {{- if site.Params.GoogleAdSense.ID -}}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{- site.Params.GoogleAdSense.ID -}}" crossorigin="anonymous"></script>
