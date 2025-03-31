@@ -1,6 +1,13 @@
 {{- /* handle border for code block */ -}}
 {{- $hasBorder:= .Page.Store.Get "HasBorder" | default true -}}
-<div class="not-prose relative group {{- if $hasBorder }} border border-base-300 {{- end -}}">
+{{- $collapse := (index .Attributes "collapse") | default false -}}
+{{- if $collapse -}}
+<div tabindex="0" class="not-prose collapse collapse-arrow border-base-300 border">
+<input type="checkbox" />
+<div class="collapse-title text-xl">{{- (index .Attributes "title") -}}</div>
+{{- end -}}
+
+<div class="{{- if $collapse }} collapse-content p-0 {{- end }} not-prose relative group {{- if $hasBorder }} border border-base-300 {{- end -}}">
     {{- $class := .Attributes.class | default ""    -}}
     {{- $lang  := .Attributes.lang  | default .Type -}}
 
@@ -38,3 +45,6 @@
         {{- highlight .Inner $lang $opts -}}
     </div>
 </div>
+{{- if $collapse -}}
+</div>
+{{- end -}}
