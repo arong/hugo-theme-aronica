@@ -14,4 +14,10 @@
     </script>
   </div>
 </div>
+{{- else if hugo.IsServer -}}
+<div class="card">
+  <div class="card-body">
+    <img src="/google-ads.png" alt="ads" />
+  </div>
+</div>
 {{- end -}}
