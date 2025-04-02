@@ -1,0 +1,17 @@
+{{- if and (hugo.IsProduction) (site.Params.GoogleAdSense.ID) -}}
+<div class="card">
+  <div class="card-body">
+    <ins
+      class="adsbygoogle"
+      style="display: block; text-align: center"
+      data-ad-layout="in-article"
+      data-ad-format="fluid"
+      data-ad-client="{{- site.Params.GoogleAdSense.ID -}}"
+      data-ad-slot="6257186509"
+    ></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+</div>
+{{- end -}}
