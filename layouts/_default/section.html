@@ -38,6 +38,7 @@
       </article>
       {{- if site.Params.Waline.ServerURL -}}
       {{- partial "comment/waline.html" . -}}
+      {{- .Page.Store.Set "hasComment" true -}}
       {{- end -}}
     </main>
   {{- end -}}
