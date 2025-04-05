@@ -37,8 +37,7 @@
         {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
       </article>
       {{- if site.Params.Waline.ServerURL -}}
-      {{- partial "comment/waline.html" . -}}
-      {{- .Page.Store.Set "hasComment" true -}}
+        {{- partial "comment/waline.html" . -}}
       {{- end -}}
     </main>
   {{- end -}}
