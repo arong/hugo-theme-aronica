@@ -57,7 +57,7 @@
   </footer>
 
   {{- if site.Params.Waline.ServerURL -}}
-    {{- partialCached "comment/waline.html" (dict "ServerURL" site.Params.Waline.ServerURL) -}}
+    {{- partial "comment/waline.html" . -}}
   {{- end -}}
 </main>
 {{- end -}}

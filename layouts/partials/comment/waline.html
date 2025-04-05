@@ -6,7 +6,7 @@
   init({
     el: '#waline',
     search: false,
-    serverURL: '{{ .ServerURL }}',
+    serverURL: '{{ site.Params.Waline.ServerURL }}',
     lang: "zh-CN",
     dark: 'html[data-theme="dark"]',
     requiredMeta: ["nick", "mail"],
