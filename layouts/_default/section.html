@@ -9,7 +9,7 @@
     </main>
   {{- else -}}
     {{- /* note: the main start from 2, leave space for navbar */ -}}
-    <main class="md:grid md:grid-cols-3">
+    <main class="">
       {{- /* TODO: Maybe need a param like: toc = false */ -}}
       {{- if (ne .Page.RelPermalink "/about/") -}}
       <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
@@ -23,7 +23,7 @@
         </details>
       </nav>
       {{- end -}}
-      <article class="pt-10 px-4 md:px-8 md:col-span-2 prose prose-sm md:prose-base">
+      <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
         <h1>{{- .Title -}}</h1>
         <div id="post-meta" class="flex flex-row items-center mb-6">
           {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -36,6 +36,9 @@
         </div>
         {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
       </article>
+      {{- if site.Params.Waline.ServerURL -}}
+      {{- partialCached "comment/waline.html" (dict "ServerURL" site.Params.Waline.ServerURL) -}}
+      {{- end -}}
     </main>
   {{- end -}}
 {{- end -}}

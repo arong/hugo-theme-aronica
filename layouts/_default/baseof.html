@@ -70,6 +70,10 @@
       </script>
     {{- end -}}
 
+    {{- if .Page.Store.Get "hasComment" -}}
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css"/>
+    {{- end -}}
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // 获取所有章节标题（假设是 h2 标签）
