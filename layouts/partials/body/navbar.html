@@ -1,15 +1,17 @@
 <nav class="sticky top-0 z-30 navbar bg-base-100 shadow">
   <div class="navbar-start">
+    {{- if ne .Language.LanguageCode "en" }}
     <label
       aria-label="Open menu"
       for="drawer"
-      class="btn btn-square btn-ghost drawer-button lg:hidden"
+      class="btn btn-square btn-ghost drawer-button xl:hidden"
     >
       {{- partial "icons/toc.html" -}}
     </label>
-    <a class="btn btn-ghost text-xl lg:hidden" href="/">{{ .Site.Title }}</a>
+    {{- end -}}
+    <a class="btn btn-ghost text-xl {{ if ne .Language.LanguageCode "en"}} xl:hidden {{- end -}}" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
   </div>
-  <div class="navbar-center hidden lg:flex">
+  <div class="navbar-center hidden xl:flex">
   </div>
 
   <div class="navbar-end">
@@ -23,7 +25,7 @@
     </button>
 
     {{- /* menu for PC */ -}}
-    <ul class="hidden lg:menu lg:menu-horizontal">
+    <ul class="hidden xl:menu xl:menu-horizontal">
         {{- range .Site.Menus.main -}}
             {{- if not .HasChildren  -}}
                 {{- if hasPrefix $.Page.RelPermalink .URL -}}
@@ -46,7 +48,7 @@
 
     {{- /* menu for mobile */ -}}
     <details class="dropdown dropdown-end">
-        <summary class="btn btn-ghost lg:hidden">{{- partial "icons/menu.html" -}}</summary>
+        <summary class="btn btn-ghost xl:hidden">{{- partial "icons/menu.html" -}}</summary>
         {{- /* TODO: 需要微调间距 */ -}}
         <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
             {{- range .Site.Menus.main -}}

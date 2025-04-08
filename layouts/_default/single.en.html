@@ -1,21 +1,7 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
 <main class="">
-  {{- /* right sidebar */ -}}
-  {{- if and (.IsPage) (.Params.Aronica.toc | default true ) -}}
-  <nav class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto bg-base-200 rounded-box">
-    <details id="page-toc" class="menu w-full">
-      <summary class="flex flex-row"><span class="hidden xl:block">本文目录</span>
-        <span id="current-h2" class="xl:hidden">本文目录</span>
-      </summary>
-      <div>
-        {{- .TableOfContents -}}
-      </div>
-    </details>
-  </nav>
-  {{- end -}}
-
-  <article class="pt-10 px-4 lg:px-8 prose prose-sm lg:prose-base">
+  <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row justify-start items-center gap-8 mb-6">
       <div class="flex flex-row items-center gap-1">
@@ -49,9 +35,9 @@
     {{ with .NextInSection }}
     <div class="border rounded-box border-gray-400 mx-4">
       <a href="{{ .RelPermalink }}" class="pl-2 py-4 flex flex-row justify-start items-center">
-        <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
+        <svg class="h-6 w-6 fill-current md:h-8 md:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
         <span class="flex flex-col items-begin">
-          <span class="font-light">上一篇</span>
+          <span class="font-light">{{ T "previousPage" }}</span>
           <span class="text-xl font-bold">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
         </span>
       </a>
@@ -65,7 +51,7 @@
           <span class="font-light">下一篇</span>
           <span class="text-xl font-bold ">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
         </span>
-        <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+        <svg class="h-6 w-6 fill-current md:h-8 md:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
       </a>
     </div>
     {{ end }}
@@ -75,8 +61,4 @@
     {{- partial "comment/waline.html" . -}}
   {{- end -}}
 </main>
-{{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}
-{{- if eq .Page.RelPermalink "/about/" -}}
-  {{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
-{{- end -}}
 {{- end -}}

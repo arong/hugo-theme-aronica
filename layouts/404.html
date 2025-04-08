@@ -1,3 +1,6 @@
 {{- define "main" }}
-<div class="not-found">404</div>
-{{- end }}{{/* end main */ -}}
+<main class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
+    <h1>{{ T "notFound" }}</h1>
+</main>
+{{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
+{{- end }}

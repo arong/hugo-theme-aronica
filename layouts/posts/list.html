@@ -5,10 +5,11 @@
      */ -}}
 {{- define "main" -}}
 <main class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
-    {{- $PageList := site.RegularPages.ByDate.Reverse -}}
-    {{- $paginator := .Paginate $PageList 15 -}}
-    <h1>最新帖子</h1>
-    {{- partial "post-list.html" (dict "Pages" $paginator.Pages) -}}
-    {{- partial "pagination.html" . -}}
-  </main>
+  {{- $PageList := site.RegularPages.ByDate.Reverse -}}
+  {{- $paginator := .Paginate $PageList 15 -}}
+  <h1>{{ T "latestPosts" }}</h1>
+  {{- partial "post-list.html" (dict "Pages" $paginator.Pages) -}}
+  {{- partial "pagination.html" . -}}
+</main>
+  {{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
 {{- end -}}

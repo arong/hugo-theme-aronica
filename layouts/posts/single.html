@@ -1,12 +1,12 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
 <main class="">
-  {{- /* right sidebar */ -}}
+  {{- /* FIXME: need to work on mobile */ -}}
   {{- if and (.IsPage) (.Params.Aronica.toc | default true ) -}}
-  <nav class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto bg-base-200 rounded-box">
+  <nav class="sticky lg:fixed right-0 top-16 lg:block z-5 w-full lg:w-[45ch] lg:h-[calc(100vh-4rem)] lg:overflow-y-auto bg-base-200 rounded-box">
     <details id="page-toc" class="menu w-full">
-      <summary class="flex flex-row"><span class="hidden xl:block">本文目录</span>
-        <span id="current-h2" class="xl:hidden">本文目录</span>
+      <summary class="flex flex-row"><span class="hidden lg:block">本文目录</span>
+        <span id="current-h2" class="lg:hidden">本文目录</span>
       </summary>
       <div>
         {{- .TableOfContents -}}
@@ -75,8 +75,5 @@
     {{- partial "comment/waline.html" . -}}
   {{- end -}}
 </main>
-{{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}
-{{- if eq .Page.RelPermalink "/about/" -}}
-  {{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
-{{- end -}}
+{{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
 {{- end -}}

@@ -1,0 +1,7 @@
+{{- /* 格式化时间
+     * 需要传入参数: Datetime
+    */ -}}
+{{- $dateMachine := .Datetime | time.Format "2006-01-02T15:04:05-07:00" -}}
+{{- $dateFormat := site.Params.DateFormat | default "2006-01-02" -}}
+{{- $dateHuman := .Datetime | time.Format $dateFormat -}}
+<time class="text-sm text-gray-400" datetime="{{- $dateMachine -}}">{{- $dateHuman -}}</time>

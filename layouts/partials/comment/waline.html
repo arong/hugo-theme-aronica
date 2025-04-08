@@ -1,4 +1,4 @@
-{{- if or hugo.IsProduction hugo.IsServer -}}
+{{- if and (.Params.Aronica.comment | default true) (or hugo.IsProduction hugo.IsServer) -}}
 <div id="waline" class="max-w-prose not-prose"></div>
 <script type="module">
   import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
@@ -6,8 +6,8 @@
   init({
     el: '#waline',
     search: false,
-    serverURL: '{{ site.Params.Waline.ServerURL }}',
-    lang: "zh-CN",
+    serverURL: '{{ .Site.Params.Waline.ServerURL }}',
+    lang: "{{- .Language.LanguageCode -}}",
     dark: 'html[data-theme="dark"]',
     requiredMeta: ["nick", "mail"],
     wordLimit: ["5", "1000"],

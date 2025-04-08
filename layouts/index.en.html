@@ -1,9 +1,9 @@
 {{- define "main" -}}
 <main class="pt-10 px-4 md:px-8">
   <div class="prose">
-  {{- $PageList := where site.RegularPages.ByDate.Reverse "RelPermalink" "ne" "/about/" -}}
+  {{- $PageList := where site.RegularPages.ByDate.Reverse "RelPermalink" "ne" "/en/about/" -}}
   {{- $paginator := .Paginate $PageList 15 -}}
-  <h1>最新帖子</h1>
+  <h1>{{ T "latestPosts" }}</h1>
   {{- partial "post-list.html" (dict "Pages" $paginator.Pages) -}}
   {{- partial "pagination.html" . -}}
   </div>

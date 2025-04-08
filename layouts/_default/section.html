@@ -3,7 +3,7 @@
   {{- $result := strings.TrimSpace .Content -}}
   {{- if eq $result "" -}}
     <main >
-      <div class="menu md:hidden">
+      <div class="menu lg:hidden">
         {{- partial "sidebar/column-toc.html" . -}}
       </div>
     </main>
@@ -12,10 +12,10 @@
     <main class="">
       {{- /* TODO: Maybe need a param like: toc = false */ -}}
       {{- if (ne .Page.RelPermalink "/about/") -}}
-      <nav class="sticky md:fixed right-0 top-16 md:block z-5 w-full md:w-[45ch] md:h-[calc(100vh-4rem)] md:overflow-y-auto bg-base-200 rounded-box">
+      <nav class="sticky lg:fixed right-0 top-16 lg:block z-5 w-full lg:w-[45ch] lg:h-[calc(100vh-4rem)] lg:overflow-y-auto bg-base-200 rounded-box">
         <details id="page-toc" class="menu w-full">
-          <summary class="flex flex-row"><span class="hidden md:block">本文目录</span>
-            <span id="current-h2" class="md:hidden">本文目录</span>
+          <summary class="flex flex-row"><span class="hidden lg:block">本文目录</span>
+            <span id="current-h2" class="lg:hidden">本文目录</span>
           </summary>
           <div>
             {{- .TableOfContents -}}
@@ -23,7 +23,7 @@
         </details>
       </nav>
       {{- end -}}
-      <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
+      <article class="pt-10 px-4 lg:px-8 prose prose-sm lg:prose-base">
         <h1>{{- .Title -}}</h1>
         <div id="post-meta" class="flex flex-row items-center mb-6">
           {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
@@ -41,4 +41,5 @@
       {{- end -}}
     </main>
   {{- end -}}
+{{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}
 {{- end -}}
