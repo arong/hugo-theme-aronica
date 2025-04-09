@@ -5,5 +5,7 @@ User-agent: Googlebot
 Allow: /
 Disallow: /tags/
 Disallow: /categories/
+Disallow: /en/tags/
+Disallow: /en/categories/
 Sitemap: {{ "sitemap.xml" | absURL }}
 {{- end }}
