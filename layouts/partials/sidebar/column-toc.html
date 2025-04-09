@@ -8,7 +8,7 @@
 {{- $Root := .Page.FirstSection -}}
 
 
-<details open class="menu w-full md:w-[45ch]">
+<details open class="menu w-full lg:max-w-80">
     {{- if eq $Current.RelPermalink $Root.RelPermalink -}}
         {{- /* FIXME: need some hack to make it work, current now, the active not work */ -}}
         <summary><a href="{{ $Root.RelPermalink }}" class="menu-active">{{ cond ($Root.Params.ColumnTitle) ($Root.Params.ColumnTitle) ($Root.Title) }}</a></summary>

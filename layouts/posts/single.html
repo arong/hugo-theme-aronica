@@ -21,8 +21,5 @@
 
   {{- partial "comment/waline.html" . -}}
 </main>
-{{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}
-{{- if eq .Page.RelPermalink "/about/" -}}
-  {{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
-{{- end -}}
+{{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
 {{- end -}}

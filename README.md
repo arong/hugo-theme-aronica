@@ -24,10 +24,10 @@
 
 目前采用的是 DaisyUI 的 drawer 布局做的
 
-### header 元素
+## Page Params 参数列表
 
-1. 公共部分:
-1. Search bar
-1. 黑白切换按钮
-1. 菜单栏
-1. 对于专栏, 存在一个专栏的目录, 在移动端上面显示出一个按钮, 点击就会弹出 drawer
+统一放在`Params.Aronica`下:
+
+- `toc`: 是否显示目录, 默认为 `true`
+- `comment`: 是否显示评论, 默认为 `true`
+- `crawl`: 是否允许爬虫抓取, 默认为 `true`

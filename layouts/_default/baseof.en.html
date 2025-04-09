@@ -69,13 +69,7 @@
             // 从toc中寻找匹配章节
             const tocLinks = document.querySelectorAll("#TableOfContents a");
             tocLinks.forEach((link) => {
-              // Get the href attribute of the link (e.g., "#section1")
-              const linkHref = link.getAttribute("href");
-              // Get the id of the current section (e.g., "section1")
-              const sectionId = currentSection.id;
-
-              // Compare the href attribute with the section id
-              if (linkHref === `#${sectionId}`) {
+              if (link.textContent.trim() === currentSection.textContent.trim()) {
                 link.classList.add("menu-active");
               } else {
                 link.classList.remove("menu-active");
@@ -99,11 +93,11 @@
           return;
         }
         // 定义断点条件
-        const mediaQueryXL = window.matchMedia("(min-width: 1280px)"); // xl 断点
+        const mediaQueryLg = window.matchMedia("(min-width: 1024px)"); // lg 断点
 
         // 检测断点并设置 open 属性
         function handleMediaChange() {
-          if (mediaQueryXL.matches) {
+          if (mediaQueryLg.matches) {
             detailsElement.setAttribute("open", "open"); // 设置为 open
           } else {
             detailsElement.removeAttribute("open"); // 移除 open 属性
@@ -114,52 +108,26 @@
         handleMediaChange();
 
         // 监听断点变化
-        mediaQueryXL.addEventListener("change", handleMediaChange);
+        mediaQueryLg.addEventListener("change", handleMediaChange);
       });
     </script>
   </head>
 
-  {{- if .IsHome -}}
-  {{- block "body" . -}} {{- end -}}
-  {{- else -}}
   {{- /* responsive drawer, at left side */ -}}
-  <body class="min-h-screen drawer lg:drawer-open">
+  <body class="min-h-screen w-full flex flex-col items-center">
     {{- /* google cmp tag body */ -}}
     {{- if and (hugo.IsProduction) (site.Params.GoogleTagManager.CookiebotTag) -}}
       {{- partialCached "google/gt-cmp-body.html" . -}}
     {{- end -}}
     <input id="drawer" type="checkbox" class="drawer-toggle">
 
-    {{- /* article body */ -}}
-    <div class="drawer-content">
-      {{- /* fixed: header part of body */ -}}
-      {{- partial "body/navbar.html" . -}}
+    {{- /* fixed: header part of body */ -}}
+    {{- partial "body/navbar.html" . -}}
+
+    <div class="flex flex-col items-center w-full">
       {{- /* article */ -}}
-      {{- block "main" . -}}{{- end -}}
+      {{- block "main" . -}}
+      {{- end -}}
     </div>
-
-    {{- /* navbar, at left side, it's a drawer on mobile */ -}}
-    <aside class="drawer-side h-screen scrollbar-hidden z-50 bg-base-200">
-      <label for="drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-
-      {{- /* logo zone PC, hidden on mobile */ -}}
-      <div class="hidden navbar sticky top-0  px-4 lg:flex items-center bg-base-100 shadow w-full h-16">
-        <a class="btn btn-ghost text-xl" href="{{ .Site.Home.RelPermalink }}">{{- site.Title -}}</a>
-      </div>
-
-      {{- /* left sidebar */ -}}
-      <nav class="p-2 w-full overflow-y-auto lg:h-[calc(100vh-4rem)] bg-base-200 rounded-box">
-        {{- $LeftSidebar := .Page.Store.Get "LeftSidebar" -}}
-        {{- if eq $LeftSidebar "ColumnTOC"  -}}
-          {{- partial "sidebar/column-toc.html" . -}}
-        {{- else if eq $LeftSidebar "SiteLink" -}}
-          {{- partial "sidebar/site-link.html" . -}}
-        {{- else -}}
-          {{ errorf "Now only support column and site link. See %s" .Position }}
-        {{- end -}}
-      </nav>
-    </aside>
   </body>
-  {{- end -}}
-
 </html>

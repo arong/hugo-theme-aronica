@@ -1,7 +1,7 @@
 {{ define "main" }}
-<main class="pt-10 px-4 md:px-8">
-  <article class="prose prose-sm md:prose-base">
-    <h1>标签列表</h1>
+<main class="pt-10 px-4 md:px-8 w-full flex flex-col items-center">
+  <article class="w-full prose prose-sm md:prose-base">
+    <h1>{{ T "tags" }}</h1>
     <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
       {{ range .Data.Terms.Alphabetical }}
       <a
@@ -15,4 +15,5 @@
     </div>
   </article>
 </main>
+{{- .Page.Store.Set "LeftSidebar" "SiteLink" -}}
 {{ end }}

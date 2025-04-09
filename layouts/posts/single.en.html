@@ -1,0 +1,9 @@
+{{- define "main" -}}
+<main class="flex flex-col md:items-center lg:items-start">
+  {{- partial "body/article.html" . -}}
+
+  {{- partial "body/section-prev-next.html" . -}}
+
+  {{- partial "comment/waline.html" . -}}
+</main>
+{{- end -}}
