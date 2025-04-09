@@ -1,15 +1,9 @@
-User-agent: Bingbot
-Disallow: /
-
 User-agent: *
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
-    {{- if not site.Params.EnableTaxonomyCrawl }}
+Disallow: /
+{{ if hugo.IsProduction }}
+User-agent: Googlebot
+Allow: /
 Disallow: /tags/
 Disallow: /categories/
-    {{- else }}
-Disallow:
-    {{- end }}
 Sitemap: {{ "sitemap.xml" | absURL }}
-{{- else }}
-Disallow: /
 {{- end }}
