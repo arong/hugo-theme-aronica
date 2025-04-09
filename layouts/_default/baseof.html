@@ -6,25 +6,7 @@
     <title>{{- if .IsHome -}}{{- site.Title -}}{{- else -}}{{- printf "%s" .Title -}}{{- end -}}</title>
 
     {{- /* SEO zone */ -}}
-    {{- if .IsHome -}}
-      <meta name="keywords" content="{{- delimit site.Params.Keywords ", " -}}">
-      <meta name="description" content="{{- site.Params.description -}}">
-    {{- else if .IsPage -}}
-      {{- if not (.Page.Params.aronica.crawl | default true) -}}
-      <meta name="robots" content="noindex">
-      {{- else -}}
-      <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
-      <meta name="description" content="{{- .Description -}}">
-      {{- end -}}
-    {{- else if .IsNode -}}
-      {{- if gt (len .Keywords) 0 -}}
-      <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
-      {{- end -}}
-      {{- if gt (len .Description) 0 -}}
-      <meta name="description" content="{{- .Description -}}">
-      {{- end -}}
-    {{- end -}}
-
+    {{- partial "head/seo.html" . -}}
 
     {{- partialCached "head/css.html" . -}}
 
@@ -87,7 +69,13 @@
             // 从toc中寻找匹配章节
             const tocLinks = document.querySelectorAll("#TableOfContents a");
             tocLinks.forEach((link) => {
-              if (link.textContent.trim() === currentSection.textContent.trim()) {
+              // Get the href attribute of the link (e.g., "#section1")
+              const linkHref = link.getAttribute("href");
+              // Get the id of the current section (e.g., "section1")
+              const sectionId = currentSection.id;
+
+              // Compare the href attribute with the section id
+              if (linkHref === `#${sectionId}`) {
                 link.classList.add("menu-active");
               } else {
                 link.classList.remove("menu-active");

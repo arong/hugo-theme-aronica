@@ -23,22 +23,10 @@
         </details>
       </nav>
       {{- end -}}
-      <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
-        <h1>{{- .Title -}}</h1>
-        <div id="post-meta" class="flex flex-row items-center mb-6">
-          {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
-          {{- $dateFormat := .Site.Params.DateFormat | default "2006-01-02" -}} {{-
-          $dateHuman := .Date | time.Format $dateFormat -}}
-          {{- partialCached "icons/calendar.html" . -}}
-          <time class="text-sm text-gray-400" datetime="{{- $dateMachine -}}">
-            {{- $dateHuman -}}
-          </time>
-        </div>
-        {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
-      </article>
-      {{- if site.Params.Waline.ServerURL -}}
-        {{- partial "comment/waline.html" . -}}
-      {{- end -}}
+
+      {{- partial "body/article.html" . -}}
+
+      {{- partial "comment/waline.html" . -}}
     </main>
   {{- end -}}
 {{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}

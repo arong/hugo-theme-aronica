@@ -93,12 +93,11 @@
           return;
         }
         // 定义断点条件
-        const mediaQueryMd = window.matchMedia("(min-width: 768px)"); // md 断点
         const mediaQueryLg = window.matchMedia("(min-width: 1024px)"); // lg 断点
 
         // 检测断点并设置 open 属性
         function handleMediaChange() {
-          if (mediaQueryMd.matches || mediaQueryLg.matches) {
+          if (mediaQueryLg.matches) {
             detailsElement.setAttribute("open", "open"); // 设置为 open
           } else {
             detailsElement.removeAttribute("open"); // 移除 open 属性
@@ -109,7 +108,6 @@
         handleMediaChange();
 
         // 监听断点变化
-        mediaQueryMd.addEventListener("change", handleMediaChange);
         mediaQueryLg.addEventListener("change", handleMediaChange);
       });
     </script>
