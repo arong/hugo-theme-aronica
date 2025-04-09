@@ -1,0 +1,6 @@
+<article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
+  <h1>{{- .Title -}}</h1>
+  {{- partial "body/necklace.html" -}}
+  {{- .Content -}}
+  {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+</article>

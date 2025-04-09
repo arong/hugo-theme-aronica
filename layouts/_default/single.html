@@ -15,33 +15,7 @@
   </nav>
   {{- end -}}
 
-  <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
-    <h1>{{- .Title -}}</h1>
-    <div id="post-meta" class="flex flex-row justify-start items-center gap-8 mb-6">
-      <div class="flex flex-row items-center gap-1">
-        {{- partialCached "icons/calendar.html" . -}}
-        {{- partial "time.html" (dict "Datetime" .Date) -}}
-      </div>
-
-      {{- if ne .Date .Lastmod -}}
-      <div class="flex flex-row items-center gap-1">
-        {{- partialCached "icons/edit.html" . -}}
-        {{- partial "time.html" (dict "Datetime" .Lastmod) -}}
-      </div>
-      {{- end -}}
-
-      {{- if .Translations -}}
-      {{- range .Translations -}}
-      <a href="{{ .RelPermalink }}" hreflang="{{ .Language.LanguageCode }}" class="flex flex-row items-center gap-1 link link-hover">
-        {{- partial "icons/translate.html" -}}
-        <span class="text-sm text-gray-400">{{ .LinkTitle }}</span>
-      </a>
-      {{- end -}}
-      {{- end -}}
-    </div>
-
-    {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
-  </article>
+  {{- partial "body/article.html" . -}}
 
   {{- partial "body/section-prev-next.html" . -}}
 
