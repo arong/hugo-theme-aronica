@@ -1,6 +1,6 @@
 {{- define "main" -}}
 {{- /* note: the main start from 2, leave space for navbar */ -}}
-<main class="">
+<main class="flex flex-col md:items-center lg:items-start">
   {{- /* right sidebar */ -}}
   {{- if and (.IsPage) (.Params.Aronica.toc | default true ) -}}
   <nav class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto bg-base-200 rounded-box">
@@ -15,7 +15,7 @@
   </nav>
   {{- end -}}
 
-  <article class="pt-10 px-4 lg:px-8 prose prose-sm lg:prose-base">
+  <article class="pt-10 px-4 md:px-8 prose prose-sm md:prose-base">
     <h1>{{- .Title -}}</h1>
     <div id="post-meta" class="flex flex-row justify-start items-center gap-8 mb-6">
       <div class="flex flex-row items-center gap-1">
@@ -43,37 +43,9 @@
     {{- .Content -}} {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
   </article>
 
-  <footer class="lg:hidden mt-8 mb-8">
-    {{- /* 这里有一点需要注意的问题: 默认是按照Weight 从大到小排的,
-         * 但是我的博客中设置的是按照Weight从小到大 */ -}}
-    {{ with .NextInSection }}
-    <div class="border rounded-box border-gray-400 mx-4">
-      <a href="{{ .RelPermalink }}" class="pl-2 py-4 flex flex-row justify-start items-center">
-        <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
-        <span class="flex flex-col items-begin">
-          <span class="font-light">上一篇</span>
-          <span class="text-xl font-bold">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
-        </span>
-      </a>
-    </div>
-    {{ end }}
+  {{- partial "body/section-prev-next.html" . -}}
 
-    {{ with .PrevInSection }}
-    <div class="border rounded-box border-gray-400 mx-4 mt-4">
-      <a href="{{ .RelPermalink }}" class="pr-2 py-4 flex flex-row justify-end items-center">
-        <span class="flex flex-col items-end">
-          <span class="font-light">下一篇</span>
-          <span class="text-xl font-bold ">{{ cond (.Params.ColumnTitle) (.Params.ColumnTitle) (.Title) }}</span>
-        </span>
-        <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
-      </a>
-    </div>
-    {{ end }}
-  </footer>
-
-  {{- if site.Params.Waline.ServerURL -}}
-    {{- partial "comment/waline.html" . -}}
-  {{- end -}}
+  {{- partial "comment/waline.html" . -}}
 </main>
 {{- .Page.Store.Set "LeftSidebar" "ColumnTOC" -}}
 {{- if eq .Page.RelPermalink "/about/" -}}

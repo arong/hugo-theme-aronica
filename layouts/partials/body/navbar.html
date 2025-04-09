@@ -4,12 +4,12 @@
     <label
       aria-label="Open menu"
       for="drawer"
-      class="btn btn-square btn-ghost drawer-button xl:hidden"
+      class="btn btn-square btn-ghost drawer-button lg:hidden"
     >
       {{- partial "icons/toc.html" -}}
     </label>
     {{- end -}}
-    <a class="btn btn-ghost text-xl {{ if ne .Language.LanguageCode "en"}} xl:hidden {{- end -}}" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+    <a class="btn btn-ghost text-xl {{ if ne .Language.LanguageCode "en"}} lg:hidden {{- end -}}" href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
   </div>
   <div class="navbar-center hidden xl:flex">
   </div>

@@ -1,5 +1,5 @@
-{{- if and (.Params.Aronica.comment | default true) (or hugo.IsProduction hugo.IsServer) -}}
-<div id="waline" class="max-w-prose not-prose"></div>
+{{- if and (site.Params.Waline.ServerURL) (.Params.Aronica.comment | default true) (or hugo.IsProduction hugo.IsServer) -}}
+<div id="waline" class="w-full max-w-prose not-prose"></div>
 <script type="module">
   import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
@@ -7,7 +7,7 @@
     el: '#waline',
     search: false,
     serverURL: '{{ .Site.Params.Waline.ServerURL }}',
-    lang: "{{- .Language.LanguageCode -}}",
+    lang: '{{- if eq .Language.LanguageCode "en" -}}en{{- else -}}zh-CN{{- end -}}',
     dark: 'html[data-theme="dark"]',
     requiredMeta: ["nick", "mail"],
     wordLimit: ["5", "1000"],
