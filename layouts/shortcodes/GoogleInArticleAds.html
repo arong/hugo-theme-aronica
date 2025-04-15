@@ -1,5 +1,5 @@
 {{- if and (hugo.IsProduction) (site.Params.GoogleAdSense.ID) -}}
-<div class="card">
+<aside class="card google-ads">
   <div class="card-body">
     <ins
       class="adsbygoogle"
@@ -13,11 +13,11 @@
       (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
   </div>
-</div>
+</aside>
 {{- else if hugo.IsServer -}}
-<div class="card">
+<aside class="card google-ads">
   <div class="card-body">
     <img src="/google-ads.png" alt="ads" />
   </div>
-</div>
+</aside>
 {{- end -}}
