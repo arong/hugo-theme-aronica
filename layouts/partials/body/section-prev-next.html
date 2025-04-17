@@ -3,27 +3,27 @@
 {{ $pages := .CurrentSection.Pages.ByWeight.Reverse }}
 
 <div class="lg:hidden mt-8 mb-8 w-full max-w-prose">
-{{ with $pages.Prev . }}
-<div class="border rounded-box border-gray-400 mx-4">
-    <a href="{{ .RelPermalink }}" class="pl-2 py-4 flex flex-row justify-start items-center">
-    <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
-    <span class="flex flex-col items-begin pr-2">
-        <span class="font-light">{{ T "previousPage" }}</span>
-        <span class="text-xl font-bold text-left">{{ .Title }}</span>
-    </span>
-    </a>
-</div>
-{{ end }}
+  {{ with $pages.Prev . }}
+  <div class="border rounded-box border-gray-400 mx-4">
+      <a href="{{ .RelPermalink }}" class="pl-2 py-4 flex flex-row justify-start items-center">
+        <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
+        <span class="flex flex-col items-begin pr-2">
+          <span class="font-light">{{ T "previousPage" }}</span>
+          <span class="text-xl font-bold text-left">{{ .Title }}</span>
+        </span>
+      </a>
+  </div>
+  {{ end }}
 
-{{ with $pages.Next . }}
-<div class="border rounded-box border-gray-400 mx-4 mt-4">
+  {{ with $pages.Next . }}
+  <div class="border rounded-box border-gray-400 mx-4 mt-4">
     <a href="{{ .RelPermalink }}" class="pr-2 py-4 flex flex-row justify-end items-center">
-    <span class="flex flex-col items-end pl-2">
+      <span class="flex flex-col items-end pl-2">
         <span class="font-light">{{ T "nextPage" }}</span>
         <span class="text-xl font-bold text-right">{{ .Title }}</span>
-    </span>
-    <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+      </span>
+      <svg class="h-6 w-6 fill-current lg:h-8 lg:w-8 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
     </a>
+  </div>
+  {{ end }}
 </div>
-</div>
-{{ end }}
