@@ -7,6 +7,9 @@
   {{- else -}}
     <meta name="keywords" content="{{- delimit .Keywords ", " -}}">
     <meta name="description" content="{{- .Description -}}">
+    {{ $timeFormat := "2006-01-02T15:04:05-07:00" }}
+    <meta property="article:published_time" {{ .Date.Format $timeFormat | printf "content=%q" | safeHTMLAttr }} >
+    <meta property="article:modified_time" {{ .Lastmod.Format $timeFormat | printf "content=%q" | safeHTMLAttr }} >
   {{- end -}}
 {{- else if .IsNode -}}
   {{- if gt (len .Keywords) 0 -}}
