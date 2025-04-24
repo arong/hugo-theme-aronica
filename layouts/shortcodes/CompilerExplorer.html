@@ -47,6 +47,19 @@
 {{- $compilerID  := .Get "compiler" | default "clang_trunk" -}}
 {{- $flags       := .Get "flags" | default "-std=c++20" -}}
 {{- $libs        := slice -}}
+
+{{- /* new style library params */ -}}
+{{- range $key, $value := .Params -}}
+  {{- if and (ne $key "inner") (ne $key "page") (ne $key "position") (ne $key "name") -}}
+    {{- /* 筛选出以 "lib-" 开头的参数 */ -}}
+    {{- if hasPrefix $key "lib-" -}}
+      {{- $libName := replace $key "lib-" "" -}}
+      {{- $libs = $libs | append (dict "id" $libName "version" $value) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* old style library params, only for fmt and benchmark */ -}}
 {{- $fmt_version := .Get "fmt_version" | default "trunk" -}}
 {{- $fmt         := dict "id" "fmt" "version" $fmt_version -}}
 {{- $libs        = $libs | append $fmt -}}
