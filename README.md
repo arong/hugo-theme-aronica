@@ -31,3 +31,9 @@
 - `toc`: 是否显示目录, 默认为 `true`
 - `comment`: 是否显示评论, 默认为 `true`
 - `crawl`: 是否允许爬虫抓取, 默认为 `true`
+
+## 开发
+
+```bash
+pnpm watch
+```
