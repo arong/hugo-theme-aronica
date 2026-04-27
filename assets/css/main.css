@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.13 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.4 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -11,7 +11,6 @@
     --color-gray-600: oklch(0.446 0.03 256.802);
     --color-black: #000;
     --spacing: 0.25rem;
-    --breakpoint-md: 48rem;
     --breakpoint-lg: 64rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
@@ -1903,6 +1902,9 @@
   .sticky {
     position: sticky;
   }
+  .start {
+    inset-inline-start: var(--spacing);
+  }
   .dropdown-end {
     --anchor-h: span-left;
     :where(.dropdown-content) {
@@ -1925,6 +1927,9 @@
         bottom: calc(0.25rem * 0);
       }
     }
+  }
+  .end {
+    inset-inline-end: var(--spacing);
   }
   .top-0 {
     top: calc(var(--spacing) * 0);
@@ -3274,6 +3279,9 @@
   .w-screen {
     width: 100vw;
   }
+  .max-w-none {
+    max-width: none;
+  }
   .max-w-prose {
     max-width: 65ch;
   }
@@ -4297,6 +4305,11 @@
       max-width: calc(var(--spacing) * 80);
     }
   }
+  .xl\:max-w-screen-lg {
+    @media (width >= 80rem) {
+      max-width: var(--breakpoint-lg);
+    }
+  }
   .xl\:overflow-y-auto {
     @media (width >= 80rem) {
       overflow-y: auto;
@@ -4306,6 +4319,11 @@
     &:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
       rotate: 180deg;
     }
+  }
+}
+@media (width >= 80rem) {
+  .main-with-toc {
+    padding-right: 340px;
   }
 }
 .scrollbar-hidden::-webkit-scrollbar {

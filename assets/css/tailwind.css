@@ -1,6 +1,12 @@
-@import "tailwindcss";
+@import "tailwindcss" source("../../");
 @plugin "@tailwindcss/typography";
 @plugin "daisyui";
+
+@media (width >= 80rem) {
+  .main-with-toc {
+    padding-right: 340px;
+  }
+}
 
 /* 隐藏滚动条 */
 .scrollbar-hidden::-webkit-scrollbar {
