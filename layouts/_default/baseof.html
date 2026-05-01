@@ -155,7 +155,7 @@
         {{- else if eq $LeftSidebar "SiteLink" -}}
           {{- partial "sidebar/site-link.html" . -}}
         {{- else -}}
-          {{ errorf "Now only support column and site link. See %s" .Position }}
+          {{- partial "sidebar/site-link.html" . -}}
         {{- end -}}
       </nav>
     </aside>

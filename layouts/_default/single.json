@@ -1,0 +1,16 @@
+{{- $index := slice -}}
+{{- $pages := where site.RegularPages "Type" "ne" "page" -}}
+{{- range $pages -}}
+  {{- if not .Draft -}}
+    {{- $index = $index | append (dict
+      "title" .Title
+      "permalink" .RelPermalink
+      "summary" (.Summary | plainify)
+      "content" (.Plain | truncate 300)
+      "date" (.Date.Format "2006-01-02")
+      "categories" .Params.categories
+      "tags" .Params.tags
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $index | jsonify -}}
