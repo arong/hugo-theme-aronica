@@ -1,6 +1,10 @@
 {{- if .IsHome -}}
-  <meta name="keywords" content="{{- delimit site.Params.Keywords ", " -}}">
-  <meta name="description" content="{{- site.Params.description -}}">
+  {{- if site.Params.Keywords -}}
+    <meta name="keywords" content="{{- delimit site.Params.Keywords ", " -}}">
+  {{- end -}}
+  {{- if site.Params.description -}}
+    <meta name="description" content="{{- site.Params.description -}}">
+  {{- end -}}
 {{- else if .IsPage -}}
   {{- if not (.Page.Params.aronica.crawl | default true) -}}
     <meta name="robots" content="noindex">
