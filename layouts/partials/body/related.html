@@ -1,0 +1,23 @@
+{{- $related := .Site.RegularPages.Related . | first 5 -}}
+{{- with $related -}}
+<div class="mx-4 md:mx-8 xl:mx-16 my-8">
+  <h3 class="text-xl font-bold mb-4">{{ i18n "relatedArticles" | default "Related Articles" }}</h3>
+  <div class="grid gap-4 md:grid-cols-2">
+    {{- range . -}}
+    <a href="{{ .RelPermalink }}" class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+      <div class="card-body p-4">
+        <h4 class="card-title text-base">{{ .Title }}</h4>
+        {{- if .Summary -}}
+        <p class="text-sm text-base-content/70 line-clamp-2">{{ .Summary | plainify | truncate 100 }}</p>
+        {{- end -}}
+        <div class="card-actions justify-end mt-2">
+          {{- range first 3 .Params.tags -}}
+          <span class="badge badge-sm badge-outline">{{ . }}</span>
+          {{- end -}}
+        </div>
+      </div>
+    </a>
+    {{- end -}}
+  </div>
+</div>
+{{- end -}}

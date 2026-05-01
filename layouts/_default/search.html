@@ -1,0 +1,176 @@
+{{ define "main" }}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">{{ i18n "search" | default "Search" }}</h1>
+    <div class="relative">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="{{ i18n "searchPlaceholder" | default "Search articles..." }}"
+        class="input input-bordered w-full pl-12 text-lg"
+        autocomplete="off"
+      >
+      <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+    <div class="mt-2 text-sm text-base-content/60">
+      <span id="search-stats"></span>
+    </div>
+  </div>
+
+  <div id="search-results" class="space-y-4"></div>
+
+  <div id="search-loading" class="hidden text-center py-8">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+
+  <div id="search-empty" class="hidden text-center py-8">
+    <p class="text-lg text-base-content/60">{{ i18n "noResults" | default "No results found" }}</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+(function() {
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  const searchLoading = document.getElementById('search-loading');
+  const searchEmpty = document.getElementById('search-empty');
+  const searchStats = document.getElementById('search-stats');
+
+  let fuse = null;
+  let searchData = [];
+
+  // Load search index
+  async function loadSearchIndex() {
+    try {
+      searchLoading.classList.remove('hidden');
+      const response = await fetch('{{ "search.json" | relURL }}');
+      searchData = await response.json();
+
+      fuse = new Fuse(searchData, {
+        keys: [
+          { name: 'title', weight: 0.4 },
+          { name: 'content', weight: 0.3 },
+          { name: 'summary', weight: 0.2 },
+          { name: 'tags', weight: 0.1 }
+        ],
+        includeScore: true,
+        includeMatches: true,
+        threshold: 0.4,
+        minMatchCharLength: 2
+      });
+
+      searchLoading.classList.add('hidden');
+
+      // Check for query parameter
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q');
+      if (query) {
+        searchInput.value = query;
+        performSearch(query);
+      }
+    } catch (error) {
+      console.error('Failed to load search index:', error);
+      searchLoading.classList.add('hidden');
+      searchResults.innerHTML = '<p class="text-error">Failed to load search index</p>';
+    }
+  }
+
+  function performSearch(query) {
+    if (!fuse || !query.trim()) {
+      searchResults.innerHTML = '';
+      searchEmpty.classList.add('hidden');
+      searchStats.textContent = '';
+      return;
+    }
+
+    const results = fuse.search(query);
+
+    if (results.length === 0) {
+      searchResults.innerHTML = '';
+      searchEmpty.classList.remove('hidden');
+      searchStats.textContent = '';
+      return;
+    }
+
+    searchEmpty.classList.add('hidden');
+    searchStats.textContent = `Found ${results.length} result${results.length !== 1 ? 's' : ''}`;
+
+    const html = results.map(result => {
+      const item = result.item;
+      const score = Math.round((1 - result.score) * 100);
+
+      // Highlight matches
+      let title = item.title;
+      let content = item.content || item.summary || '';
+
+      if (result.matches) {
+        result.matches.forEach(match => {
+          if (match.key === 'title') {
+            match.indices.forEach(([start, end]) => {
+              const before = title.slice(0, start);
+              const highlighted = title.slice(start, end + 1);
+              const after = title.slice(end + 1);
+              title = before + '<mark class="bg-primary/20 text-primary">' + highlighted + '</mark>' + after;
+            });
+          }
+        });
+      }
+
+      // Truncate content
+      if (content.length > 200) {
+        content = content.slice(0, 200) + '...';
+      }
+
+      const tags = item.tags ? item.tags.map(tag =>
+        `<span class="badge badge-sm badge-outline">${tag}</span>`
+      ).join(' ') : '';
+
+      const date = item.date ? `<span class="text-sm text-base-content/50">${item.date}</span>` : '';
+
+      return `
+        <article class="card bg-base-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-body p-4">
+            <h2 class="card-title text-lg">
+              <a href="${item.permalink}" class="link link-hover">${title}</a>
+            </h2>
+            <p class="text-sm text-base-content/70 mt-1">${content}</p>
+            <div class="card-actions justify-between items-center mt-3">
+              <div class="flex gap-1 flex-wrap">${tags}</div>
+              <div class="flex items-center gap-2">
+                ${date}
+                <span class="text-xs text-base-content/40">${score}% match</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    searchResults.innerHTML = html;
+  }
+
+  // Debounce search
+  let searchTimeout;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      performSearch(e.target.value);
+    }, 300);
+  });
+
+  // Handle keyboard shortcut
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  // Load index on page load
+  loadSearchIndex();
+})();
+</script>
+{{ end }}

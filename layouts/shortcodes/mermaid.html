@@ -1,0 +1,8 @@
+{{- $id := printf "mermaid-%d" .Ordinal -}}
+<div class="mermaid-container my-4 overflow-x-auto">
+  <div id="{{ $id }}" class="mermaid flex justify-center min-h-[100px]">
+    {{- .Inner | safeHTML -}}
+  </div>
+</div>
+
+{{- .Page.Store.Set "hasMermaid" true -}}
