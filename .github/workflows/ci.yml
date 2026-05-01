@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop, 'feature/**', 'bugfix/**' ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: '0.140.0'
+        extended: true
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build CSS
+      run: npm run build
+
+    - name: Create test Hugo site
+      run: |
+        mkdir -p /tmp/test-hugo-site/themes
+        cp -r . /tmp/test-hugo-site/themes/aronica
+        cd /tmp/test-hugo-site
+        cat > hugo.toml << 'EOF'
+        baseURL = 'https://example.org/'
+        languageCode = 'zh-CN'
+        title = 'Test Site'
+        theme = 'aronica'
+        
+        [params.Aronica]
+        toc = true
+        comment = false
+        crawl = true
+        EOF
+        mkdir -p content/posts
+        cat > content/posts/test.md << 'EOF'
+        +++
+        title = 'Test Post'
+        date = 2024-01-01
+        draft = false
+        +++
+
+        This is a test post to verify the theme builds correctly.
+        EOF
+        cat > content/_index.md << 'EOF'
+        +++
+        title = 'Home'
+        +++
+
+        Welcome to the test site.
+        EOF
+
+    - name: Build Hugo site
+      run: |
+        cd /tmp/test-hugo-site
+        hugo --minify
+
+    - name: Verify build output exists
+      run: |
+        if [ ! -d "/tmp/test-hugo-site/public" ]; then
+          echo "Error: Hugo build did not produce public directory"
+          exit 1
+        fi
+        if [ ! -f "/tmp/test-hugo-site/public/index.html" ]; then
+          echo "Error: index.html not found in build output"
+          exit 1
+        fi
+        echo "Build verification passed!"
+        ls -la /tmp/test-hugo-site/public/
