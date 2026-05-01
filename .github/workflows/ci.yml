@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
     - uses: actions/checkout@v4
 
@@ -38,7 +40,7 @@ jobs:
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v3
       with:
-        hugo-version: '0.140.0'
+        hugo-version: '0.160.0'
         extended: true
 
     - name: Install dependencies
