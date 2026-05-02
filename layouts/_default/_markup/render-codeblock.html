@@ -20,7 +20,7 @@
 
     {{- /* utility zone */ -}}
     {{- if ne $lang "txt" -}}
-    <div class="absolute top-1 right-1 flex flex-rot justify-end items-center gap-2">
+    <div class="absolute top-1 right-1 flex flex-row justify-end items-center gap-2">
         <button title="复制到剪贴板"
             class="btn-copy-code opacity-0 group-hover:opacity-100 transition-opacity duration-500 "
             data-clipboard-target="#{{ $codeStrID }}">
@@ -30,7 +30,7 @@
         {{- /*check language and playground setting, to enable compiler explore feature*/ -}}
         {{- $clientstate_b64 := .Page.Store.Get "CompilerExploreClientState" | default "" -}}
         {{- if $clientstate_b64 -}}
-        <a title="在Compiler Explore中打开"
+        <a title="在Compiler Explorer中打开"
             href="https://godbolt.org/clientstate/{{ $clientstate_b64 }}" target="_blank"
             class="hover:brightness-125 group-hover:scale-110 transition-transform duration-300">
             {{- partial "icons/run-icon.html" -}}
