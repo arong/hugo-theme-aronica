@@ -4,119 +4,312 @@
   {{- if and (hugo.IsProduction) (site.Params.GoogleTagManager.CookiebotTag) -}}
     {{- partialCached "google/gt-cmp-body.html" . -}}
   {{- end -}}
-  {{- /* hero section*/ -}}
-  <div class="hero bg-base-200 h-[61.8vh]">
+
+  {{- /* Hero Section */ -}}
+  <section class="hero bg-base-200 min-h-[70vh]">
     <div class="hero-content text-center">
-      <div class="">
-        <h1 class="text-5xl font-bold">All About Modern C++</h1>
-        <p class="py-6">
+      <div class="max-w-2xl">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4">
+          All About Modern C++
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-base-content/70">
+          深耕现代 C++ 技术实践<br>
+          从 C++17 到 C++26，深入理解语言特性，掌握高性能编程之道
         </p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <a href="#latest-posts" class="btn btn-primary btn-lg gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+            最新文章
+          </a>
+          <a href="/modern-cpp/" class="btn btn-outline btn-lg gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+            </svg>
+            开始阅读
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  {{- /* feature/topic section*/ -}}
-  <div class="m-4 md:m-8 grid grid-cols-1 md:grid-cols-3 md:items-stretch gap-8">
-    <div class="card bg-base-100 shadow">
-      <div class="card-body md:justify-between">
-        <h2 class="card-title justify-center">现代 C++ 新特性</h2>
-        <p>介绍C++的新特性, 目前包含
-          <a class="link" href="/modern-cpp/cpp17/">C++ 17</a>,
-          <a class="link" href="/modern-cpp/cpp20/">C++ 20</a>,
-          <a class="link" href="/modern-cpp/cpp23/">C++ 23</a>, 以及
-          <a class="link" href="/modern-cpp/cpp26/">C++ 26</a>. 对新功能尽可能提供可运行的实例, 比如:
-          <a class="link" href="/modern-cpp/cpp20/cpp20-module-in-action/">CMake 构建 C++20 Module实例</a>.
+  <div class="border-t border-base-200"></div>
+
+  {{- /* 专栏导航 */ -}}
+  <section class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+        <div class="card-body">
+          <h2 class="card-title justify-center text-2xl">现代 C++ 新特性</h2>
+          <p class="text-base-content/70">
+            深入讲解 C++ 各版本的核心特性，涵盖
+            <a class="link link-primary" href="/modern-cpp/cpp17/">C++17</a>、
+            <a class="link link-primary" href="/modern-cpp/cpp20/">C++20</a>、
+            <a class="link link-primary" href="/modern-cpp/cpp23/">C++23</a> 及
+            <a class="link link-primary" href="/modern-cpp/cpp26/">C++26</a> 预览。
+            每篇文章均含可运行实例。
+          </p>
+          <div class="card-actions justify-center mt-4">
+            <a class="btn btn-primary" href="/modern-cpp/">探索新特性</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+        <div class="card-body">
+          <h2 class="card-title justify-center text-2xl">回归基础</h2>
+          <p class="text-base-content/70">
+            重新审视 C++ 的核心概念：类初始化、移动语义、类型转换、值类别、重载解析、异常处理等。
+            筑牢根基，写好每一行 C++ 代码。
+          </p>
+          <div class="card-actions justify-center mt-4">
+            <a class="btn btn-primary" href="/back-to-basics/">夯实基础</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card bg-base-100 shadow hover:shadow-lg transition-shadow">
+        <div class="card-body">
+          <h2 class="card-title justify-center text-2xl">工具与实战</h2>
+          <p class="text-base-content/70">
+            工欲善其事，必先利其器。涵盖 CMake 构建、Vcpkg 依赖管理、ASan 内存检测、
+            CLion 覆盖率、Dev Container 开发环境等实用工具链。
+          </p>
+          <div class="card-actions justify-center mt-4">
+            <a class="btn btn-primary" href="/tooling/">查看工具</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="border-t border-base-200 max-w-7xl mx-auto"></div>
+
+{{- /* 精选文章 Featured Posts */ -}}
+{{- $featured := where .Site.RegularPages "Params.featured" true | first 3 -}}
+{{- if $featured -}}
+<section class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold">精选文章</h2>
+    <p class="text-xl text-base-content/70 mt-4">编辑精选的高质量文章</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {{- range $featured -}}
+    <div class="card bg-base-100 w-full shadow-sm hover:shadow-lg transition-shadow border border-base-200">
+      <div class="card-body p-5 md:p-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="badge badge-primary">精选</span>
+          {{- if .Date -}}
+          <span class="text-sm text-base-content/50">{{ .Date.Format "2006-01-02" }}</span>
+          {{- end -}}
+        </div>
+        <h3 class="card-title text-lg group-hover:text-primary transition-colors mb-2">
+          <a href="{{ .RelPermalink }}" class="hover:text-primary no-underline">{{ .Title }}</a>
+        </h3>
+
+        {{- /* Metadata */ -}}
+        <div class="flex flex-wrap items-center gap-3 text-sm text-base-content/60 mb-3">
+          {{- if .ReadingTime -}}
+          <span class="flex items-center gap-1">
+             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+             <span>{{ .ReadingTime }} min</span>
+          </span>
+          {{- end -}}
+          {{- if .WordCount -}}
+          <span class="flex items-center gap-1">
+             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+             <span>{{ .WordCount }} 字</span>
+          </span>
+          {{- end -}}
+        </div>
+
+        {{- /* Summary */ -}}
+        {{- with .Summary -}}
+        <p class="text-base-content/80 text-base line-clamp-3 leading-relaxed mb-4">
+          {{ . | plainify | truncate 260 }}
         </p>
-        <div class="card-actions justify-center">
-          <a class="btn btn-primary" href="/modern-cpp/">开始阅读</a>
-        </div>
-      </div>
-    </div>
+        {{- end -}}
 
-    <div class="card bg-base-100 shadow">
-      <div class="card-body md:justify-between">
-        <h2 class="card-title justify-center">回归基础</h2>
-        <div class="">
-          <p>重新认识 C++ 的基础知识，深入理解语言的核心概念和机制. 比如:
-            <a class="link" href="/back-to-basics/cpp-programmer-must-know-move-semantics/">移动语义</a>,
-            <a class="link" href="/back-to-basics/understand-cpp-type-casting/">类型转换</a>,
-            <a class="link" href="/back-to-basics/modern-cpp-class-init-cover-cpp11-to-cpp20/">类成员初始化</a>等等.
-          </p>
-        </div>
-        <div class="card-actions justify-center">
-          <a class="btn btn-primary" href="/back-to-basics/">开始阅读</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="card bg-base-100 shadow">
-      <div class="card-body md:justify-between">
-        <h2 class="card-title justify-center">工具</h2>
-        <div class="">
-          <p>工欲善其事, 必先利其器. 配置良好的开发环境, 会大大提高开发效率. 比如,
-            <a class="link" href="/tooling/cpp-package-management-vcpkg-from-zero-to-hero/">使用 Vcpkg 管理依赖</a>,
-            <a class="link" href="/tooling/dev-container/">使用 VS Code Dev Containers</a>,
-            <a class="link" href="/tooling/clion-code-coverage-tutorial/">CLion获取代码覆盖率</a>等.
-          </p>
-        </div>
-        <div class="card-actions justify-center">
-          <a class="btn btn-primary" href="/tooling/">开始阅读</a>
+        {{- /* Footer */ -}}
+        <div class="card-actions justify-between items-center mt-auto pt-4 border-t border-base-300">
+          <div class="flex flex-wrap gap-2">
+            {{ with .GetTerms "tags" }}
+              {{ range first 2 . }}
+                <a href="{{ .RelPermalink }}" class="badge badge-outline badge-sm">#{{ .LinkTitle }}</a>
+              {{ end }}
+            {{ end }}
+          </div>
+          <a href="{{ .RelPermalink }}" class="btn btn-link btn-sm p-0 min-h-0 h-auto text-primary no-underline">
+            阅读更多 &rarr;
+          </a>
         </div>
       </div>
     </div>
+    {{- end -}}
   </div>
+</section>
+<div class="border-t border-base-200 max-w-7xl mx-auto"></div>
+{{- end -}}
 
-  <div class="mx-8 md:mx-16 lg:mx-24 my-8 md:my-16 lg:my-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-y-16 lg:gap-y-24">
-    <div class="border-base-300 p-8">
-      <h2 class="text-2xl font-bold">Compiler Explorer</h2>
-      <p class="mt-4 text-xl">博客中的代码支持在Compiler Explorer中打开并运行.</p>
+   {{- /* 最新文章 + 侧边栏 */ -}}
+   <section id="latest-posts" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+       {{- /* 文章列表 */ -}}
+       <div class="lg:col-span-2">
+         <h2 class="text-3xl font-bold mb-8">最新文章</h2>
+         <div class="flex flex-col gap-6">
+           {{- range first 5 (where .Site.RegularPages "Type" "posts") -}}
+           <div class="card bg-base-100 w-full shadow-sm hover:shadow-lg transition-shadow border border-base-200">
+             <div class="card-body p-5 md:p-6">
+               <h2 class="card-title text-xl md:text-2xl mb-1">
+                 <a href="{{ .RelPermalink }}" class="hover:text-primary no-underline">
+                   {{ .Title }}
+                 </a>
+               </h2>
+
+               {{- /* Metadata */ -}}
+               <div class="flex flex-wrap items-center gap-3 text-sm text-base-content/60 mb-4">
+                 {{- if .Date -}}
+                 <span class="flex items-center gap-1">
+                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                   <time>{{ .Date.Format "2006-01-02" }}</time>
+                 </span>
+                 {{- end -}}
+                 <span class="flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>{{ .ReadingTime }} min</span>
+                 </span>
+               </div>
+
+               {{- /* Summary */ -}}
+               {{- with .Summary -}}
+               <p class="text-base-content/80 text-base line-clamp-3 leading-relaxed mb-4">
+                 {{ . | plainify | truncate 260 }}
+               </p>
+               {{- end -}}
+
+               {{- /* Footer */ -}}
+               <div class="card-actions justify-between items-center mt-auto pt-4 border-t border-base-300">
+                 <div class="flex flex-wrap gap-2">
+                   {{ with .GetTerms "tags" }}
+                     {{ range first 3 . }}
+                       <a href="{{ .RelPermalink }}" class="badge badge-outline badge-sm">#{{ .LinkTitle }}</a>
+                     {{ end }}
+                   {{ end }}
+                 </div>
+                 <a href="{{ .RelPermalink }}" class="btn btn-link btn-sm p-0 min-h-0 h-auto text-primary no-underline">
+                   阅读更多 &rarr;
+                 </a>
+               </div>
+             </div>
+           </div>
+           {{- end -}}
+         </div>
+         <div class="text-center mt-8">
+           <a href="/posts/" class="btn btn-outline gap-2">
+             查看全部文章
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+               <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+             </svg>
+           </a>
+         </div>
+       </div>
+
+       {{- /* 侧边栏 */ -}}
+       <aside class="space-y-8">
+        {{- /* 关于博主 */ -}}
+        <div class="card bg-base-100 shadow border border-base-200">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">关于作者</h3>
+            <p class="text-base-content/70">
+              C++ 开发者，专注于现代 C++ 技术实践与高性能编程。
+              分享 C++ 语言特性、并发编程、工具链配置等方面的实战经验。
+            </p>
+            <div class="divider my-2"></div>
+            <div class="flex gap-3">
+              <a href="https://github.com/arong" target="_blank" rel="noopener" class="btn btn-ghost btn-sm btn-square" title="GitHub">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 2.958 1.344.856-.237 1.772-.356 2.682-.36.905.004 1.82.122 2.68.358 1.949-1.666 2.958-1.344 2.958-1.344.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.294c0 .313.192.685.794.569C20.566 21.797 24 17.296 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              </a>
+              <a href="https://x.com/arong_xu" target="_blank" rel="noopener" class="btn btn-ghost btn-sm btn-square" title="X/Twitter">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="/rss.xml" target="_blank" rel="noopener" class="btn btn-ghost btn-sm btn-square" title="RSS">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.5a9.5 9.5 0 0 1-9.5-9.5c0-5.25 4.25-9.5 9.5-9.5s9.5 4.25 9.5 9.5a9.5 9.5 0 0 1-9.5 9.5zm-1-16c-7.18 0-13 5.82-13 13a1.5 1.5 0 0 0 3 0c0-5.52 4.48-10 10-10a1.5 1.5 0 0 0 0-3zm0 6c-3.86 0-7 3.14-7 7a1.5 1.5 0 0 0 3 0c0-2.2 1.8-4 4-4a1.5 1.5 0 0 0 0-3z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {{- /* 热门标签 */ -}}
+        {{- $tags := .Site.Taxonomies.tags -}}
+        {{- if $tags -}}
+        <div class="card bg-base-100 shadow border border-base-200">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">热门标签</h3>
+            <div class="flex flex-wrap gap-2">
+              {{- range first 10 $tags.ByCount -}}
+              <a href="{{ .Page.RelPermalink }}" class="badge badge-lg badge-outline hover:badge-primary transition-colors">
+                {{ .Page.Title }} ({{ .Count }})
+              </a>
+              {{- end -}}
+            </div>
+          </div>
+        </div>
+        {{- end -}}
+
+        {{- /* 更多专栏 */ -}}
+        <div class="card bg-base-100 shadow border border-base-200">
+          <div class="card-body">
+            <h3 class="card-title text-xl mb-4">更多专栏</h3>
+            <div class="flex flex-col gap-2">
+              <a href="/cpp-core-guidelines/" class="btn btn-ghost justify-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                C++ 核心指导原则
+              </a>
+              <a href="/modern-cmake/" class="btn btn-ghost justify-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                现代 CMake
+              </a>
+            </div>
+          </div>
+        </div>
+      </aside>
     </div>
+  </section>
 
-    <div class="mockup-window border border-base-300">
-      {{- $sample := resources.Get "samples/hello.txt" -}}
-      {{- if $sample -}}
-        {{- $sample.Content | .Page.RenderString }}
-      {{- end -}}
+  <footer class="bg-neutral text-neutral-content py-10 px-4 md:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <nav class="flex flex-col items-start gap-2">
+          <h3 class="text-lg font-bold">专栏</h3>
+          <a href="/modern-cpp/" class="link link-hover">现代 C++</a>
+          <a href="/back-to-basics/" class="link link-hover">回归基础</a>
+          <a href="/modern-cmake/" class="link link-hover">现代 CMake</a>
+          <a href="/cpp-core-guidelines/" class="link link-hover">C++核心指导原则</a>
+          <a href="/tooling/" class="link link-hover">工具</a>
+        </nav>
+        <nav class="flex flex-col items-start gap-2">
+          <h3 class="text-lg font-bold">博客</h3>
+          <a href="/posts/" class="link link-hover">最新博客</a>
+          <a href="/about/" class="link link-hover">About</a>
+        </nav>
+        <nav class="flex flex-col items-start gap-2">
+          <h3 class="text-lg font-bold">分类</h3>
+          <a href="/tags/" class="link link-hover">Tags</a>
+          <a href="/categories/" class="link link-hover">Category</a>
+        </nav>
+        <nav class="flex flex-col items-start gap-2">
+          <h3 class="text-lg font-bold">其他</h3>
+          <a href="/rss.xml" target="_blank" class="btn btn-ghost btn-square btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" class="fill-current"><path d="M200-120q-33 0-56.5-23.5T120-200q0-33 23.5-56.5T200-280q33 0 56.5 23.5T280-200q0 33-23.5 56.5T200-120Zm480 0q0-117-44-218.5T516-516q-76-76-177.5-120T120-680v-120q142 0 265 53t216 146q93 93 146 216t53 265H680Zm-240 0q0-67-25-124.5T346-346q-44-44-101.5-69T120-440v-120q92 0 171.5 34.5T431-431q60 60 94.5 139.5T560-120H440Z"/></svg>
+          </a>
+        </nav>
+      </div>
+      <div class="mt-8 pt-8 border-t border-neutral-content/20 text-center text-sm">
+        <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+      </div>
     </div>
-
-    <div class="border-base-300 p-8">
-      <h2 class="text-2xl font-bold">多标签功能支持</h2>
-      <p class="text-xl">增强代码展示, 在多组代码的场景下浏览更方便.</p>
-    </div>
-
-    <div class="md:h-60 md:w-140">
-      {{- $sample := resources.Get "samples/multi-tabs.txt" -}}
-      {{- if $sample -}}
-        {{- $sample.Content | .Page.RenderString }}
-      {{- end -}}
-    </div>
-  </div>
-
-  <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
-    <nav>
-      <h6 class="footer-title">专栏</h6>
-      <a class="link link-hover" href="/modern-cpp/">现代 C++</a>
-      <a class="link link-hover" href="/back-to-basics/">回归基础</a>
-      <a class="link link-hover" href="/modern-cmake/">现代 CMake</a>
-      <a class="link link-hover" href="/cpp-core-guidelines/">C++核心指导原则</a>
-      <a class="link link-hover" href="/tooling/">工具</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">博客</h6>
-      <a class="link link-hover" href="/posts/">最新博客</a>
-      <a class="link link-hover" href="/about/">About</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">分类</h6>
-      <a class="link link-hover" href="/tags/">Tags</a>
-      <a class="link link-hover" href="/categories/">Category</a>
-    </nav>
-    <nav>
-      <h6 class="footer-title">其他</h6>
-      <a href="/rss.xml" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" class="fill-current"><path d="M200-120q-33 0-56.5-23.5T120-200q0-33 23.5-56.5T200-280q33 0 56.5 23.5T280-200q0 33-23.5 56.5T200-120Zm480 0q0-117-44-218.5T516-516q-76-76-177.5-120T120-680v-120q142 0 265 53t216 146q93 93 146 216t53 265H680Zm-240 0q0-67-25-124.5T346-346q-44-44-101.5-69T120-440v-120q92 0 171.5 34.5T431-431q60 60 94.5 139.5T560-120H440Z"/></svg>
-      </a>
-    </nav>
   </footer>
 </body>
 {{- end -}}
