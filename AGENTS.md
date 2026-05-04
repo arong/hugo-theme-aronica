@@ -36,8 +36,34 @@ gh pr view <number>
 gh pr view <number> --comments
 
 # List file-specific review comments
-gh api repos/<owner>/<repo>/pulls/<number>/comments | jq '.[] | {body: .body, path: .path}'
+gh api repos/<owner>/<repo>/pulls/<number>/comments | jq '.[] | {id: .id, body: .body, path: .path}'
+
+# Reply to a specific comment (by comment ID)
+gh api repos/<owner>/<repo>/pulls/comments/<comment_id>/replies -f body="Your reply here"
+
+# Add a general PR comment
+gh pr comment <number> --body "Your comment here"
 ```
+
+### Replying to Review Comments
+
+**IMPORTANT**: After fixing issues mentioned in GitHub review comments, always reply to the original comment to confirm completion.
+
+1. Get the comment ID:
+   ```bash
+   gh api repos/<owner>/<repo>/pulls/<number>/comments | jq '.[] | {id: .id, body: .body, path: .path}'
+   ```
+
+2. Reply to the specific comment using its ID:
+   ```bash
+   gh api repos/<owner>/<repo>/pulls/comments/<comment_id>/replies -f body="Your reply here"
+   ```
+
+**Why reply to the original comment?**
+- Provides clear context - the reply is threaded under the specific comment
+- Avoids confusion when there are multiple comments on the PR
+- Shows the reviewer exactly which issue has been addressed
+- GitHub will notify the original commenter about the reply
 
 **Important**: Always build CSS before running Hugo. The theme imports `assets/css/main.css` which is generated from `assets/css/tailwind.css`.
 
