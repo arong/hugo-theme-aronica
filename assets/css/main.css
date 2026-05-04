@@ -2569,6 +2569,9 @@
       }
     }
   }
+  .z-0 {
+    z-index: 0;
+  }
   .z-3 {
     z-index: 3;
   }
@@ -3654,6 +3657,9 @@
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-\[calc\(100vh-5rem\)\] {
+    height: calc(100vh - 5rem);
+  }
   .h-auto {
     height: auto;
   }
@@ -3668,6 +3674,9 @@
   }
   .min-h-\[100px\] {
     min-height: 100px;
+  }
+  .min-h-full {
+    min-height: 100%;
   }
   .min-h-screen {
     min-height: 100vh;
@@ -3688,6 +3697,9 @@
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
+  }
+  .w-80 {
+    width: calc(var(--spacing) * 80);
   }
   .w-full {
     width: 100%;
