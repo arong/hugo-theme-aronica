@@ -30,7 +30,7 @@
   <channel>
     <title>{{ site.Title }}</title>
     <link>{{ site.BaseURL }}</link>
-    <description>最新帖子列表</description>
+    <description>{{ with site.Params.description }}{{ . }}{{ else }}{{ site.Title }}{{ end }}</description>
     <language>{{ site.Language.LanguageCode }}</language>
     {{- with $authorEmail -}}
     <managingEditor>{{.}}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>{{ end }}{{ with $authorEmail }}
@@ -48,8 +48,8 @@
       <link>{{ .Permalink }}</link>
       <pubDate>{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</pubDate>
       {{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
-      <guid>{{ .Params.Uuid }}</guid>
-      <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>
+      <guid isPermaLink="true">{{ with .Params.Uuid }}{{ . }}{{ else }}{{ .Permalink }}{{ end }}</guid>
+      <description>{{ .Summary | plainify | htmlEscape }}</description>
     </item>
     {{- end }}
   </channel>
