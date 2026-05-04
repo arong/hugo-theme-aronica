@@ -1,50 +1,70 @@
-<div class="flex flex-col divide-y divide-base-300 space-y-8">
+<div class="flex flex-col gap-6">
   {{- range .Pages -}}
-    <div class="">
-      <a class="no-underline" href="{{- .RelPermalink -}}">
-          <h2>{{- .LinkTitle -}}</h2>
-      </a>
+    <div class="card bg-base-100 w-full shadow-sm hover:shadow-lg transition-shadow border border-base-200">
+      <div class="card-body p-5 md:p-6">
+        {{- /* Title */ -}}
+        <h2 class="card-title text-xl md:text-2xl mb-1">
+          <a href="{{ .RelPermalink }}" class="hover:text-primary no-underline">
+            {{ .Title }}
+          </a>
+        </h2>
 
-      <div class="inline-flex justify-between text-gray-600">
-        {{- /* 发布日期 */ -}}
-        {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
-        {{- $dateHuman := .Date | time.Format "2006-01-02" -}}
-        <span><time datetime="{{- $dateMachine -}}">{{- $dateHuman -}}</time></span>
-        <div class="divider divider-horizontal mx-1"></div>
-        {{- /* 阅读时间 */ -}}
-        <span>{{- .ReadingTime }} {{ T "minutes" }}</span>
-        <div class="divider divider-horizontal mx-1"></div>
-        {{- /* 字数 */ -}}
-        <span>{{- .WordCount }} {{ T "words" }}</span>
-      </div>
-
-      {{- /* 标签 */ -}}
-      <div class="mt-2 flex flex-wrap gap-2">
-        {{ with .GetTerms "tags" }}
-          {{ range . }}
-            <a href="{{ .RelPermalink }}" class="badge link link-hover">#{{ .LinkTitle }}</a>
-          {{ end }}
-        {{ end }}
-      </div>
-
-      <p>{{- .Summary -}}</p>
-
-      {{- /* category */ -}}
-      <div class="flex flex-row justify-between items-center mt-4">
-        <div class="flex flex-row">
-        {{ with .GetTerms "categories" }}
-          {{ range . }}
-            <a href="{{ .RelPermalink }}" class="flex items-center link link-hover">
-              {{- partialCached "icons/folder.html" (dict "Class" "fill-current") -}}
-              <span>{{- .LinkTitle -}}</span>
-            </a>
-          {{ end }}
-        {{ end }}
+        {{- /* Metadata Line */ -}}
+        <div class="flex flex-wrap items-center gap-3 text-sm text-base-content/60 mb-4">
+          {{- if .Date -}}
+          <span class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <time>{{ .Date.Format "2006-01-02" }}</time>
+          </span>
+          {{- end -}}
+          {{- if .ReadingTime -}}
+          <span class="flex items-center gap-1">
+             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+             <span>{{ .ReadingTime }} min</span>
+          </span>
+          {{- end -}}
+          {{- if .WordCount -}}
+          <span class="flex items-center gap-1">
+             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+             <span>{{ .WordCount }} 字</span>
+          </span>
+          {{- end -}}
         </div>
-        <a class="link link-hover flex flex-row items-center" href="{{- .RelPermalink -}}">
-          <span>{{ T "readMore" }}</span>
-          {{- partialCached "icons/right-arrow.html" (dict "Class" "fill-current") -}}
-        </a>
+
+        {{- /* Summary / Excerpt */ -}}
+        {{- with .Summary -}}
+        <p class="text-base-content/80 text-base line-clamp-3 leading-relaxed mb-4">
+          {{ . | plainify | truncate 260 }}
+        </p>
+        {{- end -}}
+
+        {{- /* Footer: Tags + Read More + Category */ -}}
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-auto pt-4 border-t border-base-300">
+          {{- /* Tags */ -}}
+          <div class="flex flex-wrap gap-2">
+            {{ with .GetTerms "tags" }}
+              {{ range first 3 . }}
+                <a href="{{ .RelPermalink }}" class="badge badge-outline badge-sm whitespace-nowrap">#{{ .LinkTitle }}</a>
+              {{ end }}
+            {{ end }}
+          </div>
+
+          {{- /* Category & Read More */ -}}
+          <div class="flex items-center gap-3 shrink-0">
+            {{ with .GetTerms "categories" }}
+              {{ range . }}
+                <a href="{{ .RelPermalink }}" class="text-sm link link-hover opacity-70 inline-flex items-center gap-1 whitespace-nowrap">
+                   <svg class="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                   <span class="truncate max-w-[120px]">{{ .LinkTitle }}</span>
+                </a>
+              {{ end }}
+            {{ end }}
+            <a href="{{ .RelPermalink }}" class="btn btn-link btn-sm p-0 min-h-0 h-auto text-primary no-underline whitespace-nowrap">
+              阅读更多 &rarr;
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   {{- end -}}

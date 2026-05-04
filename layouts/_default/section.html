@@ -9,7 +9,7 @@
     </main>
   {{- else -}}
     {{- /* note: the main start from 2, leave space for navbar */ -}}
-    <main class="">
+    <main class="main-with-toc">
       {{- /* TODO: Maybe need a param like: toc = false */ -}}
       {{- if (ne .Page.RelPermalink "/about/") -}}
       <nav class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto bg-base-200 rounded-box">
