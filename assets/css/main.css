@@ -8,7 +8,6 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-gray-400: oklch(70.7% 0.022 261.325);
-    --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-black: #000;
     --spacing: 0.25rem;
     --breakpoint-lg: 64rem;
@@ -34,7 +33,6 @@
     --text-6xl: 3.75rem;
     --text-6xl--line-height: 1;
     --font-weight-light: 300;
-    --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --leading-relaxed: 1.625;
     --default-transition-duration: 150ms;
