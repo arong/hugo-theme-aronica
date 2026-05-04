@@ -3657,6 +3657,9 @@
   .h-auto {
     height: auto;
   }
+  .h-full {
+    height: 100%;
+  }
   .h-screen {
     height: 100vh;
   }
@@ -3669,14 +3672,8 @@
   .min-h-\[100px\] {
     min-height: 100px;
   }
-  .min-h-full {
-    min-height: 100%;
-  }
   .min-h-screen {
     min-height: 100vh;
-  }
-  .\!w-80 {
-    width: calc(var(--spacing) * 80) !important;
   }
   .loading-lg {
     @layer daisyui.l1.l2 {
@@ -3694,6 +3691,9 @@
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
+  }
+  .w-80 {
+    width: calc(var(--spacing) * 80);
   }
   .w-full {
     width: 100%;
@@ -4801,9 +4801,9 @@
       grid-column: span 2 / span 2;
     }
   }
-  .lg\:block {
+  .lg\:flex {
     @media (width >= 64rem) {
-      display: block;
+      display: flex;
     }
   }
   .lg\:hidden {
