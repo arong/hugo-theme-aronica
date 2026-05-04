@@ -24,6 +24,21 @@ npm run watch
 hugo server -D
 ```
 
+## GitHub PR Workflow
+
+Use GitHub CLI (`gh`) to inspect PRs and comments. Do not fetch webpage source for this purpose.
+
+```bash
+# View PR details and summary
+gh pr view <number>
+
+# View PR comments (global and thread-specific)
+gh pr view <number> --comments
+
+# List file-specific review comments
+gh api repos/<owner>/<repo>/pulls/<number>/comments | jq '.[] | {body: .body, path: .path}'
+```
+
 **Important**: Always build CSS before running Hugo. The theme imports `assets/css/main.css` which is generated from `assets/css/tailwind.css`.
 
 ## Architecture
