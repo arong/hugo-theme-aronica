@@ -4322,6 +4322,13 @@
       --size: calc(var(--size-field, 0.25rem) * 8);
     }
   }
+  .btn-xs {
+    @layer daisyui.l1.l2 {
+      --fontsize: 0.6875rem;
+      --btn-p: 0.5rem;
+      --size: calc(var(--size-field, 0.25rem) * 6);
+    }
+  }
   .badge-primary {
     @layer daisyui.l1.l2 {
       --badge-color: var(--color-primary);

@@ -147,6 +147,11 @@
         <a class="btn btn-ghost text-xl" href="{{ .Site.Home.RelPermalink }}">{{- site.Title -}}</a>
       </div>
 
+      {{- /* close button for mobile drawer */ -}}
+      <div class="lg:hidden flex justify-end p-2">
+        <label for="drawer" class="btn btn-ghost btn-sm">关闭菜单</label>
+      </div>
+
       {{- /* left sidebar */ -}}
       <nav class="p-2 w-full overflow-y-auto lg:h-[calc(100vh-4rem)] bg-base-200 rounded-box">
         {{- $LeftSidebar := .Page.Store.Get "LeftSidebar" -}}
