@@ -5131,9 +5131,6 @@
     padding-right: 340px;
   }
 }
-details:not([open]) .details-open-only {
-  display: none !important;
-}
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
