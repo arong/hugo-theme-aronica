@@ -147,8 +147,8 @@
         <a class="btn btn-ghost text-xl" href="{{ .Site.Home.RelPermalink }}">{{- site.Title -}}</a>
       </div>
 
-      {{- /* close button for mobile drawer */ -}}
-      <div class="lg:hidden flex justify-end p-2">
+      {{- /* close button for mobile drawer - fixed at top */ -}}
+      <div class="lg:hidden sticky top-0 z-10 flex justify-end p-2 bg-base-200">
         <label for="drawer" class="btn btn-ghost btn-sm">关闭菜单</label>
       </div>
 
