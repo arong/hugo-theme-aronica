@@ -8,6 +8,11 @@
   }
 }
 
+/* TOC collapse button - only show when details is open */
+details:not([open]) .details-open-only {
+  display: none !important;
+}
+
 /* 隐藏滚动条 */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
