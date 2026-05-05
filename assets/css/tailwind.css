@@ -514,3 +514,7 @@
 /* TextWhitespace */
 .chroma .w {
 }
+
+pre, .chroma, .chroma .line {
+  line-height: 1.3;
+}

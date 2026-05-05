@@ -149,6 +149,7 @@ Located in `layouts/shortcodes/`:
 
 ### Pre-commit Checklist
 
+- Always run `npm run build` before committing or creating a PR to ensure `main.css` is up to date
 - CSS rebuilt? (`npm run build`)
 - No uncommitted main.css changes?
 - Theme toggles work in both modes?
