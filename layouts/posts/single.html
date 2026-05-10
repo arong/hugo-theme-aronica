@@ -3,13 +3,13 @@
 <main class="flex flex-col md:items-center lg:items-start main-with-toc">
   {{- /* right sidebar */ -}}
   {{- if and (.IsPage) (.Params.Aronica.toc | default true ) -}}
-  <nav aria-label="Page table of contents" class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 bg-base-200 rounded-box">
+  <nav class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 bg-base-200 rounded-box">
     <details id="page-toc" class="menu w-full">
       <summary class="flex flex-row justify-between items-center">
         <span class="hidden xl:block">本文目录</span>
         <span id="current-h2" class="xl:hidden">本文目录</span>
         <span class="xl:hidden" id="toc-collapse-btn" style="display: none;">
-          <button type="button" class="btn btn-ghost btn-xs" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('page-toc').removeAttribute('open');">收起</button>
+          <button class="btn btn-ghost btn-xs" onclick="event.preventDefault(); event.stopPropagation(); document.getElementById('page-toc').removeAttribute('open');">收起</button>
         </span>
       </summary>
       <div class="overflow-y-auto" style="max-height: calc(100vh - 8rem);">
