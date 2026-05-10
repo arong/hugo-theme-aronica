@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-30 navbar bg-base-100 shadow">
+<nav aria-label="Main navigation" class="sticky top-0 z-30 navbar bg-base-100 shadow">
   <div class="navbar-start">
     {{- if ne .Language.LanguageCode "en" }}
     <label
@@ -16,7 +16,7 @@
 
   <div class="navbar-end">
     {{- /* theme controller */ -}}
-    <button class="btn btn-ghost" onclick="changeTheme()">
+    <button type="button" class="btn btn-ghost" onclick="changeTheme()" aria-label="Toggle theme">
         <!-- sun icon -->
         {{- partialCached "icons/sun.html" (dict "ID" "sun-icon") -}}
 
@@ -48,7 +48,7 @@
 
     {{- /* menu for mobile */ -}}
     <details class="dropdown dropdown-end">
-        <summary class="btn btn-ghost xl:hidden">{{- partial "icons/menu.html" -}}</summary>
+        <summary class="btn btn-ghost xl:hidden" aria-label="Open menu">{{- partial "icons/menu.html" -}}</summary>
         {{- /* TODO: 需要微调间距 */ -}}
         <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
             {{- range .Site.Menus.main -}}
