@@ -1,0 +1,5 @@
+{{- if not hugo.IsProduction -}}
+  {{- /* Hypothesis - Web Annotation Tool for preview environment only */ -}}
+  {{- /* Only loads in non-production environments for annotation and review */ -}}
+  <script async src="https://hypothes.is/embed.js"></script>
+{{- end -}}

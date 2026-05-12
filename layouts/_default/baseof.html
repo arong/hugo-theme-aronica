@@ -10,6 +10,8 @@
 
     {{- partialCached "head/css.html" . -}}
 
+    {{- partial "head/hypothesis.html" . -}}
+
     {{- if hugo.IsProduction -}}
       {{- /* google cmp tag */ -}}
       {{- if site.Params.GoogleTagManager.CookiebotTag -}}
