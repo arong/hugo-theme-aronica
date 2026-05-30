@@ -1,3 +1,43 @@
+{{- $canonical := .Permalink | absURL -}}
+{{- $siteTitle := site.Title -}}
+{{- $pageTitle := .Title -}}
+{{- $ogTitle := cond .IsHome $siteTitle (printf "%s | %s" $pageTitle $siteTitle) -}}
+{{- $ogDescription := "" -}}
+{{- if .IsHome -}}
+  {{- $ogDescription = site.Params.description -}}
+{{- else if .IsPage -}}
+  {{- $ogDescription = .Description -}}
+{{- else -}}
+  {{- $ogDescription = .Description -}}
+{{- end -}}
+{{- $ogType := cond .IsPage "article" "website" -}}
+{{- $ogImage := "" -}}
+{{- with .Params.image -}}
+  {{- $ogImage = . | absURL -}}
+{{- else -}}
+  {{- with site.Params.images -}}
+    {{- $ogImage = index . 0 | absURL -}}
+  {{- end -}}
+{{- end -}}
+
+<link rel="canonical" href="{{ $canonical }}">
+
+<meta property="og:site_name" content="{{ $siteTitle }}">
+<meta property="og:title" content="{{ $ogTitle }}">
+<meta property="og:url" content="{{ $canonical }}">
+<meta property="og:type" content="{{ $ogType }}">
+<meta property="og:locale" content="{{ .Language.LanguageCode }}">
+{{- if $ogDescription -}}
+<meta property="og:description" content="{{ $ogDescription }}">
+<meta name="twitter:description" content="{{ $ogDescription }}">
+{{- end -}}
+{{- if $ogImage -}}
+<meta property="og:image" content="{{ $ogImage }}">
+<meta name="twitter:image" content="{{ $ogImage }}">
+{{- end -}}
+<meta name="twitter:card" content="{{ cond $ogImage "summary_large_image" "summary" }}">
+<meta name="twitter:title" content="{{ $ogTitle }}">
+
 {{- if .IsHome -}}
   {{- if site.Params.Keywords -}}
     <meta name="keywords" content="{{- delimit site.Params.Keywords ", " -}}">

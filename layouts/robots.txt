@@ -7,5 +7,11 @@ Disallow: /tags/
 Disallow: /categories/
 Disallow: /en/tags/
 Disallow: /en/categories/
+User-agent: Bingbot
+Allow: /
+Disallow: /tags/
+Disallow: /categories/
+Disallow: /en/tags/
+Disallow: /en/categories/
 Sitemap: {{ "sitemap.xml" | absURL }}
 {{- end }}
