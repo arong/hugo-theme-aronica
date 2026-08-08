@@ -1,0 +1,54 @@
+{{/*
+  escape-inline-code.html
+  Escapes raw <, >, & inside inline <code> tags.
+  Block code (<pre><code>) is protected and left untouched.
+  Already-escaped entities (&lt; &gt; &amp;) are preserved.
+  Input: .Content (template.HTML)
+  Output: template.HTML (safe, escaped)
+
+  Strategy: protect <pre> blocks -> split on <code> -> for each inline
+  code span, apply "fix-after" escaping (escape all &, then restore
+  known entities that were double-escaped) -> escape raw < and > ->
+  restore <pre> blocks.
+*/}}
+{{- $content := string . -}}
+
+{{- /* Step 1: Protect block code regions from processing */ -}}
+{{- $content = replace $content "<pre" "BLOCK_PRE_START" -}}
+{{- $content = replace $content "</pre>" "BLOCK_PRE_END" -}}
+
+{{- /* Step 2: Split on <code> to isolate each inline code span */ -}}
+{{- $parts := split $content "<code>" -}}
+{{- $result := index $parts 0 -}}
+{{- range $i, $part := after 1 $parts -}}
+  {{- /* Each $part starts with the code content, followed by </code>
+        and the rest. Split on </code> to separate them. */ -}}
+  {{- $subparts := split $part "</code>" -}}
+  {{- $code := index $subparts 0 -}}
+
+  {{- /* Step 3: Fix-after escaping.
+        Order matters: escape & first, then un-break the entities we
+        just double-escaped (e.g. &lt; -> &amp;lt; -> &lt;),
+        then escape raw < and >. */ -}}
+  {{- $escaped := replace $code "&" "&amp;" -}}
+  {{- $escaped = replace $escaped "&amp;lt;" "&lt;" -}}
+  {{- $escaped = replace $escaped "&amp;gt;" "&gt;" -}}
+  {{- $escaped = replace $escaped "&amp;amp;" "&amp;" -}}
+  {{- $escaped = replace $escaped "&amp;quot;" "&quot;" -}}
+  {{- $escaped = replace $escaped "&amp;#39;" "&#39;" -}}
+  {{- $escaped = replace $escaped "<" "&lt;" -}}
+  {{- $escaped = replace $escaped ">" "&gt;" -}}
+
+  {{- /* Step 4: Reconstruct <code>...</code> and append any trailing
+        content after this code span. */ -}}
+  {{- $result = printf "%s<code>%s</code>" $result $escaped -}}
+  {{- if gt (len $subparts) 1 -}}
+    {{- $result = printf "%s%s" $result (delimit (after 1 $subparts) "</code>") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Step 5: Restore protected block code regions */ -}}
+{{- $result = replace $result "BLOCK_PRE_START" "<pre" -}}
+{{- $result = replace $result "BLOCK_PRE_END" "</pre>" -}}
+
+{{- $result | safeHTML -}}

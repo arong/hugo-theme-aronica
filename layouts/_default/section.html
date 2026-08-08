@@ -9,7 +9,7 @@
     </main>
   {{- else -}}
     {{- /* note: the main start from 2, leave space for navbar */ -}}
-    <main class="main-with-toc">
+    <main aria-label="Article content" class="main-with-toc">
       {{- /* TODO: Maybe need a param like: toc = false */ -}}
       {{- if (ne .Page.RelPermalink "/about/") -}}
       <nav aria-label="Section table of contents" class="sticky xl:fixed right-0 top-16 xl:block z-5 w-full xl:max-w-80 xl:h-[calc(100vh-4rem)] xl:overflow-y-auto bg-base-200 rounded-box">
@@ -18,7 +18,7 @@
             <span id="current-h2" class="xl:hidden">本文目录</span>
           </summary>
           <div>
-            {{- .TableOfContents -}}
+            {{- .TableOfContents | replaceRE `<nav id="TableOfContents"` `<nav id="TableOfContents" aria-label="Table of contents entries"` | safeHTML -}}
           </div>
         </details>
       </nav>
