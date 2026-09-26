@@ -1,0 +1,47 @@
+---
+description: Feature branches use git worktrees; site and theme share the same branch name
+alwaysApply: true
+---
+
+# Git worktree for new branches (site + theme)
+
+Primary clones stay on `main`. Feature work uses worktrees.
+
+| Repo | Primary (always main) | Feature worktree |
+|------|----------------------|------------------|
+| Site | `/Users/aronic/Documents/arong.github.io` | `/Users/aronic/Documents/arong.github.io-<branch>` |
+| Theme | `/Users/aronic/Documents/hugo-theme-aronica` | `/Users/aronic/Documents/hugo-theme-aronica-<branch>` |
+
+## Required workflow
+
+1. `git fetch origin main` in the primary clone
+2. Create worktree from `origin/main`:
+
+```bash
+# theme
+git -C /Users/aronic/Documents/hugo-theme-aronica worktree add -b <branch> /Users/aronic/Documents/hugo-theme-aronica-<branch> origin/main
+
+# site (same branch name)
+git -C /Users/aronic/Documents/arong.github.io worktree add -b <branch> /Users/aronic/Documents/arong.github.io-<branch> origin/main
+```
+
+3. Move the agent root into the worktree being edited
+4. Linked site+theme features use the **same branch name**
+5. Update `themes/hugo-theme-aronica` submodule only inside the **site worktree**
+6. Commit/push from each worktree; open PRs against each repo `main`
+
+## Do not
+
+- `git checkout -b` / `git switch -c` inside either primary clone for feature work
+- Base a feature branch on `preview` or stale local `main` without fetching
+- Leave dirty submodule state in the site primary and then branch from it
+
+## Resume
+
+```bash
+git -C /Users/aronic/Documents/arong.github.io worktree list
+git -C /Users/aronic/Documents/hugo-theme-aronica worktree list
+```
+
+If the branch already has a worktree, move into that directory instead of creating a second one.
+

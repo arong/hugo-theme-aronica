@@ -17,17 +17,17 @@
           从 C++17 到 C++26，深入理解语言特性，掌握高性能编程之道
         </p>
         <div class="flex gap-4 justify-center flex-wrap">
-          <a href="#latest-posts" class="btn btn-primary btn-lg gap-2">
+          <a href="/modern-cpp/cpp26/" class="btn btn-primary btn-lg gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
-            最新文章
+            C++26 新特性
           </a>
-          <a href="/modern-cpp/" class="btn btn-outline btn-lg gap-2">
+          <a href="/tooling/" class="btn btn-outline btn-lg gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
             </svg>
-            开始阅读
+            工具与实战
           </a>
         </div>
       </div>
@@ -159,7 +159,9 @@
        <div class="lg:col-span-2">
          <h2 class="text-3xl font-bold mb-8">最新文章</h2>
          <div class="flex flex-col gap-6">
-           {{- range first 5 (where .Site.RegularPages "Type" "posts") -}}
+           {{- $exclude := slice "about" "search" "test" -}}
+           {{- $latest := where site.RegularPages "Section" "not in" $exclude -}}
+           {{- range first 5 $latest.ByDate.Reverse -}}
            <div class="card bg-base-100 w-full shadow-sm hover:shadow-lg transition-shadow border border-base-200">
              <div class="card-body p-5 md:p-6">
                <h2 class="card-title text-xl md:text-2xl mb-1">
@@ -207,7 +209,7 @@
            {{- end -}}
          </div>
          <div class="text-center mt-8">
-           <a href="/posts/" class="btn btn-outline gap-2">
+           <a href="/modern-cpp/" class="btn btn-outline gap-2">
              查看全部文章
              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
