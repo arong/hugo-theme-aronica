@@ -47,10 +47,10 @@
     </ul>
 
     {{- /* menu for mobile */ -}}
-    <details id="mobile-nav-menu" class="dropdown dropdown-end">
+    <details id="mobile-nav-menu" class="dropdown dropdown-end group">
         <summary class="btn btn-ghost xl:hidden" aria-label="打开或关闭菜单">
-            <span class="mobile-nav-icon-menu inline-flex">{{- partial "icons/menu.html" -}}</span>
-            <span class="mobile-nav-icon-close hidden">{{- partial "icons/close.html" -}}</span>
+            <span class="inline-flex group-open:hidden">{{- partial "icons/menu.html" -}}</span>
+            <span class="hidden group-open:inline-flex">{{- partial "icons/close.html" -}}</span>
         </summary>
         <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
             <li>
