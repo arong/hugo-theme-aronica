@@ -5536,3 +5536,12 @@ pre, .chroma, .chroma .line {
     }
   }
 }
+
+/* Mobile nav: swap hamburger / close when open */
+#mobile-nav-menu[open] > summary .mobile-nav-icon-menu {
+  display: none;
+}
+
+#mobile-nav-menu[open] > summary .mobile-nav-icon-close {
+  display: inline-flex;
+}

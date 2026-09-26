@@ -1,2 +1,2 @@
-{{- $title := .Get "title" | default "" -}}
+{{- $title := .Get "title" | default "答案" -}}
 {{- partial "collapse-block.html" (dict "title" $title "content" (.Inner | .Page.RenderString)) -}}
