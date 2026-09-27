@@ -54,5 +54,39 @@ window.changeTheme = function () {
     updateIcons();
 }
 
+function initMobileNavMenu() {
+    const menu = document.getElementById('mobile-nav-menu');
+    if (!menu) return;
+
+    const closeMenu = () => menu.removeAttribute('open');
+
+    menu.querySelectorAll('[data-mobile-nav-close]').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            closeMenu();
+        });
+    });
+
+    menu.querySelectorAll('.dropdown-content a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menu.open) {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.open) return;
+        if (!menu.contains(event.target)) {
+            closeMenu();
+        }
+    });
+}
+
 // 在DOM加载完成后执行
-document.addEventListener('DOMContentLoaded', setThemeBasedOnSystemPreference);
+document.addEventListener('DOMContentLoaded', () => {
+    setThemeBasedOnSystemPreference();
+    initMobileNavMenu();
+});

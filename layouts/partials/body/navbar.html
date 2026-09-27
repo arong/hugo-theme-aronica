@@ -47,10 +47,17 @@
     </ul>
 
     {{- /* menu for mobile */ -}}
-    <details class="dropdown dropdown-end">
-        <summary class="btn btn-ghost xl:hidden" aria-label="Open menu">{{- partial "icons/menu.html" -}}</summary>
-        {{- /* TODO: 需要微调间距 */ -}}
+    <details id="mobile-nav-menu" class="dropdown dropdown-end group">
+        <summary class="btn btn-ghost xl:hidden" aria-label="打开或关闭菜单">
+            <span class="inline-flex group-open:hidden">{{- partial "icons/menu.html" -}}</span>
+            <span class="hidden group-open:inline-flex">{{- partial "icons/close.html" -}}</span>
+        </summary>
         <ul class="menu dropdown-content bg-base-100 z-3 mt-3 w-screen shadow-sm">
+            <li>
+                <button type="button" class="justify-end font-medium" data-mobile-nav-close aria-label="关闭菜单">
+                    关闭
+                </button>
+            </li>
             {{- range .Site.Menus.main -}}
                 {{- if not .HasChildren  -}}
                     <li><a href="{{- .URL -}}">{{- .Name -}}</a></li>
